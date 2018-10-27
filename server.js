@@ -8,7 +8,29 @@ var app = express();
 
 app.use(express.static(__dirname));
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname+"/public/views", 'index.html'));
+  res.sendFile(path.join(__dirname+"/public/views/", 'index.html'));
 })
-.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+app.get('/login.html', function(req, res){
+  res.sendFile(path.join(__dirname+"/public/views/", 'login.html'));
+})
+
+app.get('/signup.html', function(req, res){
+  res.sendFile(path.join(__dirname+"/public/views/", 'signup.html'));
+})
+
+app.get('/timer.html', function(req, res){
+  res.sendFile(path.join(__dirname+"/public/views/", 'timer.html'));
+})
+
+app.get('/home.html', function(req, res){
+  res.sendFile(path.join(__dirname+"/public/views/", 'home.html'));
+})
+
+app.get('/shop.html', function(req, res){
+  res.sendFile(path.join(__dirname+"/public/views/", 'shop.html'));
+})
+
+
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
