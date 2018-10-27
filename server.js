@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 1500
 var app = express();
 
 app.use(express.static(__dirname));
-app.get('/', function(req, res){
+app.get('/index.html', function(req, res){
   res.sendFile(path.join(__dirname+"/public/views/", 'index.html'));
 })
 
