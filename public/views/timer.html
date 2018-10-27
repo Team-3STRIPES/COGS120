@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>COGS 120</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <h1>Team 3STRIPES</h1>
+    </header>
+    <h2>Timer</h2>
+    <p>Set how long you want to study!</p>
+    <form>
+      <select>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select> hours and
+      <select>
+        <option>0</option>
+        <option>5</option>
+        <option>10</option>
+        <option>15</option>
+        <option>20</option>
+        <option>25</option>
+        <option>30</option>
+        <option>35</option>
+        <option>40</option>
+        <option>45</option>
+        <option>50</option>
+        <option>55</option>
+      </select> minutes
+    </form>
+    <p id="status"></p>
+    <p id="start"><a href="#" onclick="runTimer()">Start Studying!</a></p>
+    <p id="finish" style="display:none"><a href="home.html">Finish Study Session</a></p>
+  </body>
+</html>
+<script>
+  function runTimer() {
+    document.getElementById("status").innerHTML="Studying.."
+    setTimeout(function() {
+      document.getElementById("status").innerHTML="Studying............."
+    }, 1500);
+    setTimeout(function() {
+      document.getElementById("status").innerHTML="Studying........................."
+    }, 3000);
+    setTimeout(function() {
+      document.getElementById("status").innerHTML="DONE! You earned 25 points!"
+      document.getElementById("start").style.display = "none";
+      document.getElementById("finish").style.display = "block";
+    }, 4500);
+  }
+</script>
