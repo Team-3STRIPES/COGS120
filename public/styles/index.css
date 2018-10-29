@@ -1,0 +1,33 @@
+.desc {
+	font-size: 50px;
+}
+
+.login_button {
+	border-radius: 12px;
+	background-color: #CCCCCC; 
+    border: none;
+    color: #333333;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 10vw;
+}
+
+.sign_button {
+	border-radius: 12px;
+	background-color: #6699cc; 
+    border: none;
+    color: #333333;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 10vw;
+}
