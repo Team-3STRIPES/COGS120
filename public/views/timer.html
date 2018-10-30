@@ -10,7 +10,7 @@
     <header>
       <h1>Team 3STRIPES</h1>
     </header>
-    <p><a href="home.html"> <<< Back to home </a></p>
+    <p><a href="#" onclick="alertFail()"> <<< Back to home </a></p>
     <h2>Timer</h2>
     <p>Set how long you want to study!</p>
     <form>
@@ -49,13 +49,13 @@ $(document).ready(function() {
 
 function initialize() {
   // function to display the hours upon change
-  $("#hours").change(function() {
-    $(".timer-text #hrs").text($("#hours").val());
+  $('#hours').change(function() {
+    $('.timer-text #hrs').text($('#hours').val());
   });
 
   // function to display the minutes upon change
-  $("#minutes").change(function() {
-    $(".timer-text #mins").text($("#minutes").val());
+  $('#minutes').change(function() {
+    $('.timer-text #mins').text($('#minutes').val());
   });
 }
 
@@ -64,41 +64,41 @@ var isTicking = false;
 
 // function to run the timer
 function runTimer() {
-  if($("#hours").val() == 0 && $("#minutes").val() == 0) {
-    alert("Please select the length of your study session.");
+  if($('#hours').val() == 0 && $('#minutes').val() == 0) {
+    alert('Please select the length of your study session.');
     return;
   }
   isTicking = true;
-  $("#start").css("display", "none");
-  $("#finish").css("display", "block");
-  $("#hours").prop("disabled", true);
-  $("#minutes").prop("disabled", true);
+  $('#start').css('display', 'none');
+  $('#finish').css('display', 'block');
+  $('#hours').prop('disabled', true);
+  $('#minutes').prop('disabled', true);
   myTimer = setInterval(tickDown, 1000);
 
   // helper function to tick down the timer
   function tickDown() {
-    var seconds = $("#secs").text() - 1;
+    var seconds = $('#secs').text() - 1;
     if(seconds < 0) {
-      var mins = $("#mins").text() - 1;
+      var mins = $('#mins').text() - 1;
       seconds = 59;
       if(mins < 0) {
-        var hours = $("#hrs").text() - 1;
+        var hours = $('#hrs').text() - 1;
         mins = 59;
         if(hours < 0) {
           finishTimer();
           return;
         } else if(hours < 10) {
-          hours = "0" + hours;
+          hours = '0' + hours;
         }
-        $("#hrs").text(hours);
+        $('#hrs').text(hours);
       } else if(mins < 10) {
-        mins = "0" + mins;
+        mins = '0' + mins;
       }
-      $("#mins").text(mins);
+      $('#mins').text(mins);
     } else if(seconds < 10) {
-      seconds = "0" + seconds;
+      seconds = '0' + seconds;
     }
-    $("#secs").text(seconds);
+    $('#secs').text(seconds);
   }
 }
 
@@ -107,32 +107,41 @@ $(window).blur(function() {
   if(!isTicking) return;
   isTicking = false;
   clearInterval(myTimer);
-  $("#start").css("display", "block");
-  $("#finish").css("display", "none");
-  $("#hours").prop("disabled", false);
-  $("#minutes").prop("disabled", false);
-  $("#hours-default").prop("selected", true);
-  $("#minutes-default").prop("selected", true);
-  $("#hrs").text("00");
-  $("#mins").text("00");
-  $("#secs").text("00");
+  $('#start').css('display', 'block');
+  $('#finish').css('display', 'none');
+  $('#hours').prop('disabled', false);
+  $('#minutes').prop('disabled', false);
+  $('#hours-default').prop('selected', true);
+  $('#minutes-default').prop('selected', true);
+  $('#hrs').text('00');
+  $('#mins').text('00');
+  $('#secs').text('00');
   setTimeout(function() {
-    alert("You clicked out of this tab and failed your study session!");
+    alert('You clicked out of this tab and failed your study session!');
   }, 0);
 })
 // function to display ending alert
 function finishTimer() {
   isTicking = false;
   clearInterval(myTimer);
-  $("#hrs").text("00");
-  $("#mins").text("00");
-  $("#secs").text("00");
+  $('#hrs').text('00');
+  $('#mins').text('00');
+  $('#secs').text('00');
   setTimeout(function() {
-    alert("Congrats! You finished your study session, earning 100 points.");
+    alert('Congrats! You finished your study session, earning 100 points.');
   }, 0);
   setTimeout(function() {
-    window.location.href="home.html";
+    window.location.href='home.html';
   }, 50);
+}
+
+function alertFail() {
+  isTicking = false;
+  clearInterval(myTimer);
+  alert('You have cancelled this study session.');
+  setTimeout(function() {
+    window.location.href='home.html';
+  }, 0);
 }
 
 </script>
