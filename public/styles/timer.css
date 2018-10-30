@@ -1,0 +1,9 @@
+.timer-text {
+  display: inline-block;
+  font-size: xx-large;
+  color: #217008;
+  font-weight: bolder;
+  border: 5px solid #40bc1a;
+  padding: 8px;
+  letter-spacing: 4px;
+}
