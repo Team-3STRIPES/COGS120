@@ -135,7 +135,9 @@ function finishTimer() {
   }, 50);
 }
 
+// function when user clicks back home when timer is running
 function alertFail() {
+  if(!isTicking) return;
   isTicking = false;
   clearInterval(myTimer);
   alert('You have cancelled this study session.');
