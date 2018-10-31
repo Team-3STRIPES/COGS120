@@ -35,6 +35,9 @@ app.get('/shop.html', function(req, res){
   res.sendFile(path.join(__dirname+"/public/", 'views/shop.html'));
 })
 
+app.get('/profile.html', function(req, res){
+  res.sendFile(path.join(__dirname+"/public/", 'views/profile.html'));
+})
 
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
