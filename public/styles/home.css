@@ -1,0 +1,36 @@
+.body {
+	font-family: 'Nunito Sans', sans-serif;
+}
+
+span {
+	display: block;
+}
+
+#timer_button {
+	border-radius: 12px;
+	background-color: deepskyblue; 
+    border: none;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 10vw;
+}
+
+#shop_button {
+	border-radius: 12px;
+	background-color: moccasin; 
+    border: none;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 10vw;
+}
+
+.button {
+    text-decoration: none;
+    color:black;
+}
