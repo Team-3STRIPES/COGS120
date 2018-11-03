@@ -1,36 +1,46 @@
-.body {
+body {
+	font-family: 'Nunito Sans', sans-serif;
+	height: 100vh;
+	background-image: url("../media/home_bg.jpg");
+	background-size: cover;
+	overflow: hidden;
+}
+.lora {
+	font-family: 'Lora', serif;
+}
+
+.nunito {
 	font-family: 'Nunito Sans', sans-serif;
 }
 
 span {
-	display: block;
-}
-
-#timer_button {
-	border-radius: 12px;
-	background-color: deepskyblue; 
-    border: none;
-    padding: 20px;
-    text-align: center;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    width: 10vw;
-}
-
-#shop_button {
-	border-radius: 12px;
-	background-color: moccasin; 
-    border: none;
-    padding: 20px;
-    text-align: center;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    width: 10vw;
+	display: inline-block;
 }
 
 .button {
     text-decoration: none;
-    color:black;
+    color: white;
+		border-radius: 12px;
+  	border: none;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    width: 10vw;
+}
+
+.navyblue {
+	background-color: #5A709E;
+}
+
+.gray {
+	background-color: #ACACAC;
+}
+
+p {
+	text-align: center;
+}
+
+.buttondiv {
+	padding-top: 8%;
 }
