@@ -59,6 +59,8 @@ p {
 }
 
 .quoteDiv {
+  padding-left: 10%;
+  padding-right: 10%;
   overflow: none;
   background-color: white;
   flex: 1;
