@@ -3,6 +3,8 @@
   <head>
     <title>COGS 120</title>
     <link href='../styles/home.css' rel='stylesheet' type="text/css">
+    <link href='../styles/nav.css' rel='stylesheet' type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -10,7 +12,26 @@
   </head>
   <body>
     <header>
-      <h1>Team 3STRIPES</h1>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="home.html">Team 3STRIPES</a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <p class="navbar-text">Welcome, </p>
+            <li><a href="profile.html">Charles</a></li>
+            <p class="navbar-text">Balance: 9001 pts </p>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Menu <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="timer.html">Timer</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="index.html">Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
     <div class="profile"><pre>Welcome, <a href="profile.html">Charles</a>           <a href="index.html">Sign out</a>  Balance: 9001 pts</pre>
     </div>
@@ -21,6 +42,9 @@
     <div class="quoteDiv">
       <p><q id="quotation"></q><cite id="source"></cite></p>
     </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
 
