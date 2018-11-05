@@ -124,7 +124,7 @@ function rotateQuotes(indices) {
     $source.fadeOut(ONE_SECOND);
     setTimeout(function() {
       $quote.html(bank[indices[curIndex]].words);
-      $source.html("- " + bank[indices[curIndex]].author);
+      $source.html(" -&nbsp;" + bank[indices[curIndex]].author);
       curIndex + 1 == indices.length ? curIndex = 0 : curIndex++;
     }, ONE_SECOND);
     $quote.fadeIn(ONE_SECOND);
