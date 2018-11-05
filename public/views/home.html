@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <meta charset="utf-8">
   </head>
   <body>
@@ -35,14 +36,59 @@
     </nav>
 
     <div id="background">
-      <div class="buttondiv">
+      <div class="section">
         <p class="nunito"><a href="timer.html"><span class="navyblue button">Start Studying</span></a></p>
         <p class="nunito"><a href="shop.html"><span class="gray button">Go to Shop</span></a></p>
       </div>
-      <p>"You have to be odd to be No. 1"<cite>- Dr. Seuss</cite></p>
+      <div class="section">
+        <p><q id="quotation"></q><cite id="source"></cite></p>
+      </div>
     </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
+
+<script>
+var $quote;
+var $source;
+var bank;
+
+$(document).ready(function() {
+  $quote = $("#quotation");
+  $source = $("#source");
+  bank = [
+    {
+      words: "You have to be odd to be No. 1",
+      author: "Dr. Suess"
+    },
+    {
+      words: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+      author: "Thomas Edison"
+    }
+  ];
+  var qIndex = Math.floor(Math.random() * bank.length);
+  rotateQuotes(qIndex);
+});
+
+function rotateQuotes(start) {
+
+  function setQuote() {
+    $quote.fadeOut(1000);
+    $source.fadeOut(1000);
+    setTimeout(function() {
+      $quote.text(bank[start].words);
+      $source.text("- " + bank[start].author);
+      start + 1 == bank.length ? start = 0 : start++;
+    }, 1000);
+    $quote.fadeIn(1000);
+    $source.fadeIn(1000);
+  }
+
+  $quote.text(bank[start].words);
+  $source.text("- " + bank[start].author);
+  start + 1 == bank.length ? start = 0 : start++;
+  setInterval(setQuote, 8000);
+}
+</script>
