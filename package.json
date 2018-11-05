@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Team-3STRIPES/COGS120#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "firebase": "^5.5.7",
+    "firebase-admin": "^6.1.0",
     "http": "0.0.0",
     "path": "^0.12.7"
   }

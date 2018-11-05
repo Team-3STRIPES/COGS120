@@ -2,7 +2,7 @@ var http = require('http'),
     express = require('express'),
     path = require('path');
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 1500
 
 var app = express();
 
@@ -38,6 +38,5 @@ app.get('/shop.html', function(req, res){
 app.get('/profile.html', function(req, res){
   res.sendFile(path.join(__dirname+"/public/", 'views/profile.html'));
 })
-
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
