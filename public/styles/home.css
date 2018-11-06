@@ -46,6 +46,11 @@ body:before {
   width: 300px;
 }
 
+.button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 3px black;
+}
+
 .navyblue {
 	background-color: #5A709E;
 }

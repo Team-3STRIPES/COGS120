@@ -48,6 +48,7 @@
 var $quote;
 var $source;
 var bank;
+var quoteFunc;
 const ONE_SECOND = 1000;
 const ROTATE_INTERVAL = 8000;
 
@@ -102,6 +103,10 @@ $(document).ready(function() {
     {
       words: "If people knew how hard I worked to achieve my mastery, it wouldn’t seem so wonderful after all.",
       author: "Michelangelo"
+    },
+    {
+      words: "We love you Charles :)",
+      author: "Team&nbsp;3STRIPES"
     }
   ];
   var bankIndices = [];
@@ -131,6 +136,14 @@ function rotateQuotes(indices) {
 
   $quote.html(bank[indices[0]].words);
   $source.html(" -&nbsp;" + bank[indices[0]].author);
-  setInterval(setQuote, ROTATE_INTERVAL);
+  quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+
+  $(window).blur(function() {
+    clearInterval(quoteFunc);
+  });
+
+  $(window).focus(function() {
+    quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+  });
 }
 </script>
