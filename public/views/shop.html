@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <link rel="stylesheet" href="../styles/shop.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
      <nav class="navbar navbar-default">
@@ -36,7 +37,7 @@
             <p class="item-name no-margin">Baby Blue</p>
             <p class="item-desc no-margin">Blue color theme. What a rad hue! Purchase this item for a cool blue theme.</p>
           </div>
-          <p class="item-buy">100 pts</p>
+          <p class="item-buy" onclick="render_modal('Baby Blue', '100 pts', 'What a rad hue!')">100 pts</p>
         </div>
         <div class="item">
           <div class="item-pic" id="guava-pink"></div>
@@ -44,7 +45,7 @@
             <p class="item-name no-margin">Guava Pink</p>
             <p class="item-desc no-margin">Pink color theme. What a sweet hue! Purchase this item for a gentle pink theme.</p>
           </div>
-          <p class="item-buy">150 pts</p>
+          <p class="item-buy" onclick="render_modal('Guava Pink', '150 pts', 'What a sweet hue! ')">150 pts</p>
         </div>
         <div class="item">
           <div class="item-pic" id="mango-chile"></div>
@@ -52,12 +53,52 @@
             <p class="item-name no-margin">Mango Chile</p>
             <p class="item-desc no-margin">Mango Chile theme. What a spicy hue! Purchase this item for a fuego orange theme.</p>
           </div>
-          <p class="item-buy">200 pts</p>
+          <p class="item-buy" onclick="render_modal('Mango Chile', '200 pts', 'What a spicy hue!')">200 pts</p>
+        </div>
+      </div>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="m-header"> </h2>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button> Print </button>
+            <button> Email </button>
+          </div>
         </div>
       </div>
     </section>
   </body>
 </html>
 <script>
+// Get the modal
+var modal = $('#myModal')[0];
+var header = $('#m-header')[0];
+var body = $('.modal-body')[0];
+var footer = $('.modal-footer')[0];
+var span = $(".close")[0];
 
+function render_modal(color, points, adj) {
+  modal.style.display = "block";
+  header.childNodes[0].nodeValue = adj;
+  body.childNodes[0].nodeValue = "You have purchased the theme "+color+"!\nTry out your theme in your settings."
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 </script>
