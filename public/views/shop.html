@@ -3,13 +3,31 @@
   <head>
     <title>COGS 120</title>
     <meta charset="utf-8">
+    <link href='../styles/nav.css' rel='stylesheet' type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
     <header>
       <h1>Team 3STRIPES</h1>
     </header>
     <p><a href="home.html"> <<< Back to home </a></p>
-    <pre>Welcome, <a href="profile.html">Charles</a>           <a href="index.html">Sign out</a>  Balance: 9001 pts</pre>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="home.html">Team 3STRIPES</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">  
+          <p class="navbar-text">Balance: 9001 pts </p>   
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Charles <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="profile.html">Profile</a></li>
+              <li><a href="profile.html">Settings</a></li>
+              <li><a href="index.html">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <h2>Shop</h2>
     <p>Here you can spend your points!</p>
     <div id="items">
@@ -26,6 +44,8 @@
       <p>Done! You will receive an email confirmation shortly</p>
       <p><a href="shop.html">Okay</a></p>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
 <script>
