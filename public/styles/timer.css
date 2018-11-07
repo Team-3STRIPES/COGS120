@@ -1,21 +1,133 @@
-.timer-text {
+p a span {
   display: inline-block;
-  font-size: xx-large;
-  color: #217008;
-  font-weight: bolder;
-  border: 5px solid #40bc1a;
-  padding: 8px;
-  letter-spacing: 4px;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  color: white;
+}
+
+.my-page-header {
+  padding-top: 4%;
+  padding-bottom: 1%;
+}
+
+.big-header {
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  font-size: 4em;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.sub-header {
+  font-weight: 400;
+  font-size: 1.75em;
+  text-align: center;
+}
+
+.timer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navyblue {
+	background-color: #5A709E;
+}
+
+.navyblue:hover {
+  background-color: #667DAF;
+}
+
+.blue {
+  background-color: #B6BEF7;
+}
+
+.gray {
+	background-color: #ACACAC;
+}
+
+.gray:hover {
+  background-color: #B3B3B3;
+}
+
+.lightgray {
+  background-color: #D9D9D9;
+}
+
+.lightgray:hover {
+  background-color: #E5E5E5;
+}
+
+.timer {
+  background-color: #667ADF;
+  margin-top: 1%;
+  margin-bottom: 3%;
+  padding: 24px 24px 24px 0px;
+  border-radius: 5px;
+}
+
+.timer-text {
+  color: white;
+  font-size: 2em;
+}
+
+.timer-text span {
+  font-size: 3em;
+  font-weight: 600;
+  letter-spacing: 8px;
+}
+
+#hrs {
+  margin-left: 32px;
+}
+
+#mins {
+  margin-left: 32px;
+}
+
+#secs {
+  margin-left: 32px;
 }
 
 .button {
-  display: inline-block;
-  padding: 24px;
-  border-radius: 5px;
-  background-color: moccasin;
+  font-family: 'Nunito Sans', sans-serif;
+  text-decoration: none;
+  font-size: 1.5em !important;
+  font-weight: 600;
+  color: white;
+	border-radius: 12px;
+  box-shadow: 0px 2px 6px #444;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  width: 300px;
 }
 
-#start a {
-  text-decoration: none;
-  color: #333;
+.button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 3px #444;
+}
+
+.arrows {
+  display: flex;
+  flex-direction: row;
+}
+
+.h_arrow {
+  margin-left: 60px;
+}
+
+.m_arrow {
+  margin-left: 106px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

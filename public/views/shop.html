@@ -5,13 +5,11 @@
     <meta charset="utf-8">
     <link href='../styles/nav.css' rel='stylesheet' type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/shop.css" type="text/css">
   </head>
   <body>
-    <header>
-      <h1>Team 3STRIPES</h1>
-    </header>
-    <p><a href="home.html"> <<< Back to home </a></p>
-    <nav class="navbar navbar-default">
+     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="home.html">Team 3STRIPES</a>
@@ -28,40 +26,29 @@
         </ul>
       </div>
     </nav>
-    <h2>Shop</h2>
-    <p>Here you can spend your points!</p>
-    <div id="items">
-      <pre>Item 1           <b>50 pts</b> | <a id="1" href="#" onclick="showPurchase(this)">Purchase</a></pre>
-      <pre>Item 2          <b>100 pts</b> | <a id="2" href="#" onclick="showPurchase(this)">Purchase</a></pre>
-      <pre>Item 3          <b>350 pts</b> | <a id="3" href="#" onclick="showPurchase(this)">Purchase</a></pre>
-      <pre>Item 4          <b>275 pts</b> | <a id="4" href="#" onclick="showPurchase(this)">Purchase</a></pre>
-    </div>
-    <div style="display: none" id="purchased">
-      <p id="purchased-p"></p>
-      <pre><a href="#" onclick="showItems()">Cancel</a>    <a href="#" onclick="confirm()">Confirm</a></pre>
-    </div>
-    <div style="display: none" id="confirm">
-      <p>Done! You will receive an email confirmation shortly</p>
-      <p><a href="shop.html">Okay</a></p>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <section id="shop">
+      <h2>Shop</h2>
+      <div id="items">
+        <div class="item">
+          <div class="item-pic" id="blue"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Blue</p>
+            <p class="item-desc no-margin">Blue color theme. What a rad hue! Purchase this item for a cool blue theme.</p>
+          </div>
+          <p class="item-buy">100 pts</p>
+        </div>
+        <div class="item">
+          <div class="item-pic" id="pink"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Pink</p>
+            <p class="item-desc no-margin">Pink color theme. What a sweet hue! Purchase this item for a gentle pink theme.</p>
+          </div>
+          <p class="item-buy">150 pts</p>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
 <script>
-  function showPurchase(e) {
-    document.getElementById("items").style.display = "none";
-    document.getElementById("purchased").style.display = "block";
-    document.getElementById("purchased-p").innerHTML = "Are you sure you want to purchase item " + e.id + "?";
-  }
 
-  function showItems() {
-    document.getElementById("items").style.display = "block";
-    document.getElementById("purchased").style.display = "none";
-  }
-
-  function confirm() {
-    document.getElementById("confirm").style.display = "block";
-    document.getElementById("purchased").style.display = "none";
-  }
 </script>

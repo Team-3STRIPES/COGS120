@@ -1,10 +1,27 @@
 body {
 	font-family: 'Nunito Sans', sans-serif;
-	height: 100vh;
-	background-image: url("../media/home_bg.jpg");
-	background-size: cover;
-	overflow: hidden;
+	min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
+
+body:before {
+  content: "";
+	background-image: url("../media/home_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
 .lora {
 	font-family: 'Lora', serif;
 }
@@ -13,35 +30,72 @@ body {
 	font-family: 'Nunito Sans', sans-serif;
 }
 
-span {
-	display: inline-block;
+.button {
+  text-decoration: none;
+  font-size: 2em !important;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: white;
+	border-radius: 12px;
+  box-shadow: 0px 2px 6px black;
+  padding-top: 16px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  width: 300px;
 }
 
-.button {
-    text-decoration: none;
-    color: white;
-		border-radius: 12px;
-  	border: none;
-    padding: 20px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    width: 10vw;
+.button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 3px black;
 }
 
 .navyblue {
 	background-color: #5A709E;
 }
 
+.navyblue:hover {
+  background-color: #667DAF;
+}
+
 .gray {
 	background-color: #ACACAC;
+}
+
+.gray:hover {
+  background-color: #B3B3B3;;
 }
 
 p {
 	text-align: center;
 }
 
-.buttondiv {
-	padding-top: 8%;
+.buttonDiv {
+	padding-top: 6%;
+  padding-bottom: 6%;
 }
 
+.buttonDiv p a span {
+  display: inline-block;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+}
+
+.quoteDiv {
+  padding-left: 10%;
+  padding-right: 10%;
+  overflow: none;
+  background-color: white;
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.quoteDiv p {
+  font-size: 1.5em;
+  font-family: 'Lora', serif;
+}
