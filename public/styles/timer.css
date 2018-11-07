@@ -77,15 +77,15 @@ p a span {
   letter-spacing: 8px;
 }
 
-#hrs1 {
+#hrs {
   margin-left: 32px;
 }
 
-#mins1 {
+#mins {
   margin-left: 32px;
 }
 
-#secs1 {
+#secs {
   margin-left: 32px;
 }
 
@@ -111,19 +111,23 @@ p a span {
 }
 
 .arrows {
-  margin-left: 32px;
   display: flex;
   flex-direction: row;
 }
 
-.h_arrows {
-
+.h_arrow {
+  margin-left: 60px;
 }
 
-.m_arrows {
-  margin-left: 54px;
+.m_arrow {
+  margin-left: 106px;
 }
 
-.s_arrows {
-  margin-left: 64px;
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
