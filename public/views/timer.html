@@ -137,7 +137,7 @@ function initTimer() {
     switch($(this).closest("span").prop("id")) {
       case "h_up":
         var curH = Number($("#hrs").text());
-        if(curH + 1 < 6) curH += 1;
+        if(curH + 1 < 2) curH += 1;
         if(curH > 0) {
           canHDn = true;
           $('#h_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
