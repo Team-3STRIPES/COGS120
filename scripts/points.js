@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $("#points").text(localStorage.getItem('points'));
+  $("#name").text(localStorage.getItem('name'));
 })
 
 function forceLogin() {

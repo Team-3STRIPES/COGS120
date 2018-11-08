@@ -35,6 +35,9 @@ nav {
     color: #555;
     background-color: #D5D5D5;
 }
+.navbar-default .navbar-nav > .dropdown {
+  margin-right: 24px;
+}
 /* Caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {
     border-top-color: #777;
