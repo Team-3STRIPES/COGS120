@@ -8,8 +8,8 @@ function forceLogin() {
 }
 
 function loginUser() {
-  var user = $('user').val();
-  var pass = $('pass').val();
+  var user = $('#user').val();
+  var pass = $('#pass').val();
   if(!localStorage.getItem('user')) {
     alert("You must make an account first.");
   } else if(localStorage.getItem('user') !== user || localStorage.getItem('pass') !== pass) {
