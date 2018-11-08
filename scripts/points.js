@@ -21,6 +21,9 @@ function subtractPoints(amount) {
 }
 
 function buyItem(theme, cost) {
+  if(localStorage.getItem(theme) === 'true') return 0;
+  if(localStorage.getItem('points') < cost) return 1;
   localStorage.setItem(theme, 'true');
   subtractPoints(cost);
+  return 2;
 }
