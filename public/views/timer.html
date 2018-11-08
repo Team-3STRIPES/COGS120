@@ -16,8 +16,8 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="home.html">Team 3STRIPES</a>
         </div>
-        <ul class="nav navbar-nav navbar-right">  
-          <p class="navbar-text">Balance: 9001 pts </p>   
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">Balance: 9001 pts </p>
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Charles <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="profile.html">Profile</a></li>
@@ -29,8 +29,8 @@
       </div>
     </nav>
     <div class="my-page-header">
-      <h2 class="big-header">Timer</h2>
-      <p class="sub-header">Set how long you want to study!</p>
+      <h2 class="big-header unselectable">Timer</h2>
+      <p class="sub-header unselectable">Set how long you want to study!</p>
     </div>
     <div class="timer-section">
       <div class="timer">
@@ -136,7 +136,7 @@ function initTimer() {
           canHDn = true;
           $('#h_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
         }
-        if(curH === 5) {
+        if(curH === 1) {
           canHUp = false;
           $('g', this).attr('stroke', '#667ADF').attr('stroke-width', '10');
           $('body').css('cursor', 'default');
@@ -230,6 +230,13 @@ function runTimer() {
       clearInterval(timer);
     }
   }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  $("#hrs").text("00");
+  $("#mins").text("00");
+  $("#secs").text("00");
 }
 
 </script>
