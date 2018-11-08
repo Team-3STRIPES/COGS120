@@ -32,24 +32,24 @@
     <section id="shop">
       <h2>Shop</h2>
       <div id="items">
-        <div class="item">
-          <div class="item-pic" id="baby-blue"></div>
+        <div class="item" id="babyBlue">
+          <div class="item-pic" id="baby-blue-pic"></div>
           <div class="item-text">
             <p class="item-name no-margin">Baby Blue</p>
             <p class="item-desc no-margin">Blue color theme. What a rad hue! Purchase this item for a cool blue theme.</p>
           </div>
           <p class="item-buy" onclick="render_modal('Baby Blue', '100 pts', 'What a rad hue!')">100 pts</p>
         </div>
-        <div class="item">
-          <div class="item-pic" id="guava-pink"></div>
+        <div class="item" id="guavaPink">
+          <div class="item-pic" id="guava-pink-pic"></div>
           <div class="item-text">
             <p class="item-name no-margin">Guava Pink</p>
             <p class="item-desc no-margin">Pink color theme. What a sweet hue! Purchase this item for a gentle pink theme.</p>
           </div>
           <p class="item-buy" onclick="render_modal('Guava Pink', '150 pts', 'What a sweet hue! ')">150 pts</p>
         </div>
-        <div class="item">
-          <div class="item-pic" id="mango-chile"></div>
+        <div class="item" id="mangoChile">
+          <div class="item-pic" id="mango-chile-pic"></div>
           <div class="item-text">
             <p class="item-name no-margin">Mango Chile</p>
             <p class="item-desc no-margin">Mango Chile theme. What a spicy hue! Purchase this item for a fuego orange theme.</p>
@@ -102,4 +102,19 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+var themes = {
+  babyBlue: '100',
+  guavaPink: '150',
+  mangoChile: '200'
+}
+
+$('.item-buy').click(function(e) {
+  var bought = $(this).parent().attr('id');
+  if(localStorage.getItem(bought) === 'true') return;
+  if(localStorage.getItem('points') < themes[bought]) return;
+  buyItem(bought, themes[bought]);
+})
+
+
 </script>
