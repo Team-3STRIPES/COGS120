@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <p id="start"><a href="#" onclick="runTimer()"><span class="button navyblue unselectable">Begin Study Session</span></a></p>
+      <p><a href="#" onclick="runTimer()"><span class="button navyblue unselectable" id="start">Begin Study Session</span></a></p>
     </div>
   </body>
 </html>
@@ -96,6 +96,7 @@ var canHUp;
 var canMUp;
 var canHDn;
 var canMdn;
+var isTicking = false;
 
 $(document).ready(function() {
   initTimer();
@@ -109,6 +110,7 @@ function initTimer() {
   $('#h_up g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
   canMDn = false;
   $('#m_up g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+  disableStart();
 
   $('svg').mouseover(function() {
     if($(this).parent().attr("id") === "h_up" && !canHUp) return;
@@ -135,12 +137,11 @@ function initTimer() {
         if(curH + 1 < 2) curH += 1;
         if(curH > 0) {
           canHDn = true;
-          $('#h_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+          showHDn();
         }
         if(curH === 1) {
           canHUp = false;
-          $('g', this).attr('stroke', '#667ADF').attr('stroke-width', '10');
-          $('body').css('cursor', 'default');
+          hideHUp();
         }
         $("#hrs").text("0" + curH);
         break;
@@ -149,12 +150,11 @@ function initTimer() {
         if(curM + 1 < 60) curM += 1;
         if(curM > 0) {
           canMDn = true;
-          $('#m_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+          showMDn();
         }
         if(curM === 59) {
           canMUp = false;
-          $('g', this).attr('stroke', '#667ADF').attr('stroke-width', '10');
-          $('body').css('cursor', 'default');
+          hideMUp();
         }
         if(curM < 10) curM = "0" + curM;
         $("#mins").text(curM);
@@ -164,12 +164,11 @@ function initTimer() {
         if(curH - 1 > -1) curH -= 1;
         if(curH < 6) {
           canHUp = true;
-          $('#h_up g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+          showHUp();
         }
         if(curH === 0) {
           canHDn = false;
-          $('g', this).attr('stroke', '#667ADF').attr('stroke-width', '10');
-          $('body').css('cursor', 'default');
+          hideHDn();
         }
         $("#hrs").text("0" + curH);
         break;
@@ -178,12 +177,11 @@ function initTimer() {
         if(curM - 1 > -1) curM -= 1;
         if(curM < 60) {
           canMUp = true;
-          $('#m_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+          showMUp();
         }
         if(curM === 0) {
           canMDn = false;
-          $('g', this).attr('stroke', '#667ADF').attr('stroke-width', '10');
-          $('body').css('cursor', 'default');
+          hideMDn();
         }
         if(curM < 10) curM = "0" + curM;
         $("#mins").text(curM);
@@ -191,7 +189,63 @@ function initTimer() {
       default:
         break;
     }
+
+    if(!canMDn && !canHDn) {
+      disableStart();
+    }
+    else {
+      enableStart();
+    }
+
   });
+}
+
+function disableStart() {
+  $("#start").addClass("disabled-button");
+  $("#start").removeClass("button");
+  $("#start").removeClass("navyblue");
+}
+
+function enableStart() {
+  $("#start").removeClass("disabled-button");
+  $("#start").addClass("button");
+  $("#start").addClass("navyblue");
+}
+
+function hideHUp() {
+  $('#h_up g').attr('stroke', '#667ADF').attr('stroke-width', '10');
+  $('body').css('cursor', 'default');
+}
+
+function showHUp() {
+  $('#h_up g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+}
+
+function hideMUp() {
+  $('#m_up g').attr('stroke', '#667ADF').attr('stroke-width', '10');
+  $('body').css('cursor', 'default');
+}
+
+function showMUp() {
+  $('#m_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+}
+
+function hideHDn() {
+  $('#h_dn g').attr('stroke', '#667ADF').attr('stroke-width', '10');
+  $('body').css('cursor', 'default');
+}
+
+function showHDn() {
+  $('#h_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
+}
+
+function hideMDn() {
+  $('#m_dn g').attr('stroke', '#667ADF').attr('stroke-width', '10');
+  $('body').css('cursor', 'default');
+}
+
+function showMDn() {
+  $('#m_dn g').attr('stroke', '#B6BEF7').attr('stroke-width', '10');
 }
 
 function runTimer() {
@@ -220,7 +274,11 @@ function runTimer() {
   var initDuration = duration;
 
   if(duration == 0) return;
+
   $("svg").css("display", "none");
+  $("#start").css("display", "none");
+
+  isTicking = true;
   canHUp = false;
   canHDn = false;
   canMUp = false;
@@ -233,6 +291,10 @@ function runTimer() {
       awardPoints(initDuration);
     }
   }, 1000);
+
+  $(window).blur(function() {
+    if(isTicking) failSession();
+  });
 }
 
 function stopTimer() {
@@ -240,6 +302,17 @@ function stopTimer() {
   $("#hrs").text("00");
   $("#mins").text("00");
   $("#secs").text("00");
+  isTicking = false;
+  $("svg").css("display", "inline-block");
+  $("#start").css("display", "block");
+  showHUp();
+  showMUp();
+  hideHDn();
+  hideMDn();
+  canMUp = true;
+  canHUp = true;
+  canMDn = false;
+  canHDn = false;
 }
 
 function awardPoints(time) {
@@ -260,6 +333,15 @@ function awardPoints(time) {
   var timeElapsed = hDisplay + " hours, " + mDisplay + " minutes, and " + sDisplay + " seconds"
 
   alert("Congratulations! You finished your study session for " + timeElapsed + " and earned " + award + " points.");
+  setTimeout(function() {
+    window.location.href = "home.html";
+  }, 0);
 }
+
+function failSession() {
+  alert("You navigated away, and this study session has been cancelled.");
+  stopTimer();
+}
+
 
 </script>
