@@ -49,6 +49,9 @@ const ONE_SECOND = 1000;
 const ROTATE_INTERVAL = 8000;
 
 $(document).ready(function() {
+
+  if(!localStorage.getItem('user')) forceLogin();
+  
   $quote = $("#quotation");
   $source = $("#source");
   bank = [

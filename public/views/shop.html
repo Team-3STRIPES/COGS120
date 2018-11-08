@@ -78,6 +78,9 @@
   </body>
 </html>
 <script>
+$(document).ready(function() {
+  if(!localStorage.getItem('user')) forceLogin();
+});
 // Get the modal
 var modal = $('#myModal')[0];
 var header = $('#m-header')[0];
