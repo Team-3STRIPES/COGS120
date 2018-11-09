@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../scripts/points.js"></script>
   </head>
   <body>
@@ -30,30 +32,18 @@
       </div>
     </nav>
     <h2>Profile</h2>
-    <p>Name: Charles</p>
-    <p>Email: charles@chen.com</p>
-    <p>Total time studied: 3 hours 40 minutes</p>
+    <p>Name: <span id="fullname"></span></p>
+    <p>Email: <span id="email"></span></p>
     <h3>Purchase History:</h3>
-    <ul>
-      <li>Item 7 (purchased on October 26)</li>
-      <li>Item 5 (purchased on October 25)</li>
-      <li>Item 6 (purchased on October 20)</li>
+    <ul id="history">
     </ul>
-    <h3>Study History:</h3>
-    <ul>
-      <li>55 minutes on October 29 (started 11:51:09 AM PST) - earned <b>35</b> points</li>
-      <li>15 minutes on October 25 (started 06:24:32 PM PST) - earned <b>10</b> points</li>
-      <li>30 minutes on October 24 (started 03:06:44 PM PST) - earned <b>20</b> points</li>
-      <li>1 hour 15 minutes on October 24 (started 10:11:01 AM PST) - earned <b>50</b> points</li>
-      <li>45 minutes on October 21 (started 02:04:39 PM PST) - earned <b>30</b> points</li>
-    </ul>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
 
 <script>
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
+
+  showProfileInfo();
 });
 </script>

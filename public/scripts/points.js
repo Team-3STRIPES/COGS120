@@ -72,10 +72,27 @@ function canBuyItem(theme, cost) {
 
 function buyItem(theme, cost) {
   localStorage.setItem(theme, 'true');
+  var curDate = new Date();
+  localStorage.setItem(theme + 'Date', String(curDate.getMonth() + 1) + "/" + String(curDate.getDate()) + "/" + String(curDate.getFullYear()));
   subtractPoints(cost);
 }
 
 function changeTheme(newTheme) {
   localStorage.setItem('theme', newTheme);
   window.location.reload(true);
+}
+
+function showProfileInfo() {
+  $("#fullname").text(localStorage.getItem('name'));
+  $("#email").text(localStorage.getItem('email'));
+
+  if(localStorage.getItem('babyBlue') === "true") {
+    $("#history").append('<li>Baby Blue theme purchased on ' + localStorage.getItem('babyBlueDate') + '</li>');
+  }
+  if(localStorage.getItem('guavaPink') === "true") {
+    $("#history").append('<li>Guava Pink theme purchased on ' + localStorage.getItem('guavaPinkDate') + '</li>');
+  }
+  if(localStorage.getItem('mangoChile') === "true") {
+    $("#history").append('<li>Mango Chile theme purchased on ' + localStorage.getItem('mangoChileDate') + '</li>');
+  }
 }
