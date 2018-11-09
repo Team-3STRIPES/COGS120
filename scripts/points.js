@@ -1,10 +1,6 @@
 $(document).ready(function() {
   $("#points").text(localStorage.getItem('points'));
   $("#name").text(localStorage.getItem('name'));
-
-  var $nav = $('nav');
-  var curTheme = localStorage.getItem('theme').replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
-  $nav.addClass(curTheme);
 })
 
 function forceLogin() {
@@ -29,7 +25,6 @@ function initUser() {
   localStorage.setItem('user', $("#user").val());
   localStorage.setItem('email', $("#email").val());
   localStorage.setItem('pass', $("#pass").val());
-  localStorage.setItem('theme', 'default');
   initLocalStorage();
 }
 
@@ -56,9 +51,4 @@ function buyItem(theme, cost) {
   localStorage.setItem(theme, 'true');
   subtractPoints(cost);
   return 2;
-}
-
-function changeTheme(newTheme) {
-  localStorage.setItem('theme', newTheme);
-  window.location.reload(true);
 }

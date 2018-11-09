@@ -2,57 +2,71 @@ nav {
   font-family: 'Nunito Sans', sans-serif;
 }
 
-/* navbar */
-.navbar-default {
-    background-color: #F8F8F8;
-    border-color: #E7E7E7;
+.default-bg {
+  background-color: #5A709E;
 }
+
+.baby-blue-bg {
+  background-color: #3AAAC9;
+}
+
+.guava-pink-bg {
+  background-color: #BC6497;
+}
+
+.mango-chile-bg {
+  background-color: #C68F29;
+}
+
 /* Title */
 .navbar-default .navbar-brand {
-    color: #777;
+    color: #EEE;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #5E5E5E;
+    color: white;
 }
 /* Link */
 .navbar-default .navbar-nav > li > a {
-    color: #777;
+    color: #EEE;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #333;
+    color: white;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #555;
-    background-color: #E7E7E7;
+  color: #333;
+  background-color: #CCC;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-    color: #555;
-    background-color: #D5D5D5;
+  color: #333;
+  background-color: #CCC;
+}
+.navbar-default .navbar-text {
+  color: #EEE;
 }
 .navbar-default .navbar-nav > .dropdown {
   margin-right: 24px;
 }
 /* Caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {
-    border-top-color: #777;
-    border-bottom-color: #777;
+    border-top-color: #EEE;
+    border-bottom-color: #EEE;
 }
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
-    border-top-color: #333;
-    border-bottom-color: #333;
+    border-top-color: white;
+    border-bottom-color: white;
 }
 .navbar-default .navbar-nav > .open > a .caret,
 .navbar-default .navbar-nav > .open > a:hover .caret,
 .navbar-default .navbar-nav > .open > a:focus .caret {
-    border-top-color: #555;
-    border-bottom-color: #555;
+    border-top-color: #333;
+    border-bottom-color: #333;
 }
 /* Mobile version */
 .navbar-default .navbar-toggle {
