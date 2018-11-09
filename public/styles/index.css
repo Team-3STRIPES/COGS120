@@ -44,6 +44,10 @@ body:before {
 	display: flex;
 	flex-direction: row;
 }
+.buttons a {
+	text-decoration: none;
+}
+
 .login_button {
 	border-radius: 15px;
 	background-color: #5A709E;
