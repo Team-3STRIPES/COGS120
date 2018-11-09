@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <link href='../styles/nav.css' rel='stylesheet' type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../scripts/points.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -12,9 +14,9 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="home.html">Team 3STRIPES</a>
         </div>
-        <ul class="nav navbar-nav navbar-right">  
-          <p class="navbar-text">Balance: 9001 pts </p>   
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Charles <span class="caret"></span></a>
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">Balance: <span id="points"></span> pts </p>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="profile.html">Profile</a></li>
               <li><a href="profile.html">Settings</a></li>
@@ -46,3 +48,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
+
+<script>
+$(document).ready(function() {
+  if(!localStorage.getItem('user')) forceLogin();
+});
+</script>
