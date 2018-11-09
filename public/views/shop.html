@@ -60,25 +60,61 @@
         </div>
       </div>
 
-      <!-- The Modal -->
-      <div id="myModal" class="modal">
-        <!-- Modal content -->
+      <!-- confirm purchase -->
+      <div id="purchase" class="modal">
         <div class="modal-content">
           <div class="modal-header">
             <span class="close">&times;</span>
-            <h2 id="m-header"> </h2>
+            <h2 id="purchase-header"> </h2>
           </div>
-          <div class="modal-body">
-          </div>
+          <p class="modal-body" id="purchase-body">
+          </p>
           <div class="modal-footer">
-            <button> Ok </button>
+            <button onclick="confirmedBuy()"> Yes </button>
+            <button onclick="closeModal()"> Cancel </button>
           </div>
         </div>
       </div>
+
+      <!-- update theme -->
+      <div id="switch" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="switch-header"> </h2>
+          </div>
+          <p class="modal-body" id="switch-body">
+          </p>
+          <div class="modal-footer">
+            <button onclick="updateTheme()"> Yes </button>
+            <button onclick="closeModal()"> No </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- already bought -->
+      <div id="fail" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="fail-header"> </h2>
+          </div>
+          <p class="modal-body" id="fail-body">
+          </p>
+          <div class="modal-footer">
+            <button onclick="closeModal()"> OK </button>
+          </div>
+        </div>
+      </div>
+
     </section>
   </body>
 </html>
 <script>
+
+var justBought;
+var boughtTheme = false;
+
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 });
@@ -89,17 +125,25 @@ var themes = {
 }
 
 $('.item-buy').click(function(e) {
-  var bought = $(this).parent().attr('id');
-  var tryBuy = buyItem(bought, themes[bought]);
+  justBought = $(this).parent().attr('id');
+  var tryBuy = canBuyItem(justBought, themes[justBought]);
   if(tryBuy === 0) {
-    alert("You already bought this item!");
+    render_modal("fail", "fail-header", "fail-body", "Error", "You already purchased this item!");
   } else if(tryBuy === 2) {
-    alert("You just bought the " + bought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + themes[bought] + " points.");
-    if(confirm("Switch to new theme?")) {
-      changeTheme(bought);
-    }
+    render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + themes[justBought] + " points?");
   } else {
     alert("You have insufficient funds!");
   }
-})
+});
+
+function confirmedBuy() {
+  closeModal();
+  buyItem(justBought, themes[justBought]);
+  boughtTheme = true;
+  render_modal("switch", "switch-header", "switch-body", "Completed!", "Do you want to switch to your new theme?")
+}
+
+function updateTheme() {
+  changeTheme(justBought);
+}
 </script>
