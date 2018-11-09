@@ -67,15 +67,15 @@ h2 {
 }
 
 #baby-blue-pic {
-  background-color: deepskyblue;
+  background-color: #3AAAC9;
 }
 
 #guava-pink-pic {
-  background-color: pink;
+  background-color: #BC6497;
 }
 
 #mango-chile-pic {
-  background-color: orange;
+  background-color: #C68F29;
 }
 
 @media screen and (max-width: 767px) {
