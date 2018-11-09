@@ -6,11 +6,13 @@
     <link href="../styles/timer.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='../styles/nav.css' rel='stylesheet' type="text/css">
+    <link href='../styles/modal.css' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../scripts/points.js"></script>
+    <script src="../scripts/modal.js"></script>
   </head>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -86,6 +88,37 @@
         </div>
       </div>
       <p><a href="#" onclick="runTimer()"><span class="button navyblue unselectable" id="start">Begin Study Session</span></a></p>
+
+      <!-- timer completion -->
+      <div id="complete" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="complete-header"> </h2>
+          </div>
+          <p class="modal-body" id="complete-body">
+          </p>
+          <div class="modal-footer">
+            <button onclick="finish()"> Yay! </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- timer fail -->
+      <div id="interrupted" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="interrupted-header"> </h2>
+          </div>
+          <p class="modal-body" id="interrupted-body">
+          </p>
+          <div class="modal-footer">
+            <button onclick="closeModal()"> OK </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>
@@ -334,14 +367,15 @@ function awardPoints(time) {
 
   var timeElapsed = hDisplay + " hours, " + mDisplay + " minutes, and " + sDisplay + " seconds"
 
-  alert("Congratulations! You finished your study session for " + timeElapsed + " and earned " + award + " points.");
-  setTimeout(function() {
-    window.location.href = "home.html";
-  }, 0);
+  render_modal("complete", "complete-header", "complete-body", "Congratulations!", "You finished your study session for " + timeElapsed + " and earned " + award + " points.")
+}
+
+function finish() {
+  window.location.href = "home.html";
 }
 
 function failSession() {
-  alert("You navigated away, and this study session has been cancelled.");
+  render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")
   stopTimer();
 }
 
