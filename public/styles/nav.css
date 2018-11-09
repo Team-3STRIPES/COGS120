@@ -1,3 +1,7 @@
+nav {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
 /* navbar */
 .navbar-default {
     background-color: #F8F8F8;
@@ -30,6 +34,9 @@
 .navbar-default .navbar-nav > .open > a:focus {
     color: #555;
     background-color: #D5D5D5;
+}
+.navbar-default .navbar-nav > .dropdown {
+  margin-right: 24px;
 }
 /* Caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {
