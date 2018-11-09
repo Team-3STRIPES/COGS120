@@ -1,22 +1,21 @@
-var modal = $('#myModal')[0];
-var header = $('#m-header')[0];
-var body = $('.modal-body')[0];
-var footer = $('.modal-footer')[0];
-var span = $(".close")[0];
+var X = $(".close")[0];
 
-function render_modal(modal, header, body, footer, color, points, adj) {
-  modal.style.display = "block";
-  header.childNodes[0].nodeValue = adj;
-  body.childNodes[0].nodeValue = "You have purchased the theme "+color+"!\nTry out your theme in your settings."
+function render_modal(modal_id, header_id, body_id, h_desc, b_desc) {
+	var $modal = $('#'+modal_id)[0];
+	var $header = $('#'+header_id)[0];
+	var $body = $('#'+body_id)[0];
+	$modal.style.display = "block";
+	$header.childNodes[0].nodeValue = h_desc;
+	$body.childNodes[0].nodeValue = b_desc;
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+X.onclick = function() {
     modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
+	var modal = $(".modal");
     if (event.target == modal) {
         modal.style.display = "none";
     }

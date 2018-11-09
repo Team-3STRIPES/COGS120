@@ -2,21 +2,63 @@
 <html lang="en-US">
   <head>
     <title>COGS 120</title>
+    <link href='../styles/signup.css' rel='stylesheet' type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../scripts/points.js"></script>
     <meta charset="utf-8">
   </head>
   <body>
     <header>
       <h1>Team 3STRIPES</h1>
     </header>
-    <h2>Sign up</h2>
-    <p>Sign up for an account here!</p>
-    <form>
-      <p>Name: <input type="text"></p>
-      <p>Username: <input type="text"></p>
-      <p>Email: <input type="email"></p>
-      <p>Password: <input type="password"></p>
-      <p>Confirm Password: <input type="password"></p>
-    </form>
-    <p><a href="home.html">Sign up!</a></p>
+    <div class="signup">
+      <!--<img src="../media/signup_bg.jpg" align="right">-->
+      <h2>Sign up</h2>
+      <p>Let's be more productive.</p>
+      <div class="container">
+        <form onsubmit="validateSignup()">
+          <p>Name <input id="name" type="text" placeholder="  Your Name"></p>
+          <p>Username <input id="user" type="text" placeholder="  Your Username"></p>
+          <p>Email <input id="email" type="email" placeholder="  Email"></p>
+          <p>Password <input id="pass" type="password" placeholder="  Password"></p>
+          <p>Confirm Password <input id="pass2" type="password" placeholder="  Confirm password"></p>
+          <input class="signup-button" type="submit" value="Sign Up"></input>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
+
+<script>
+
+$('form').submit(function(e) {
+  e.preventDefault();
+});
+
+function validateSignup() {
+  if($("#name").val() === "") {
+    alert("Please enter a name.");
+    return;
+  } else if($("#user").val() === "") {
+    alert("Please enter a username.");
+    return;
+  } else if($("#email").val() === "") {
+    alert("Please enter an email.");
+    return;
+  } else if($("#pass").val() === "") {
+    alert("Please enter a password.");
+    return;
+  } else if($("#pass2").val() === "") {
+    alert("Please confirm your password.");
+    return;
+  } else if($("#pass").val() !== $("#pass2").val()) {
+    alert("Your passwords do not match.");
+    return;
+  } else {
+    initUser();
+    window.location.href = "home.html";
+  }
+}
+</script>

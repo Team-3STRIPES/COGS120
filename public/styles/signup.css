@@ -1,0 +1,83 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+h2 {
+  text-align: left;
+  font-size: 48px;
+  color: white;
+  /*border: 1px solid black;*/
+  margin-bottom: 0;
+}
+
+.signup {
+  border-radius: 12px;
+  background-color: #5A709E;
+  padding: 0px 16px 8px 16px;
+  display: block;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  box-shadow: 0px 2px 6px black;
+  text-align: center;
+}
+
+.signup > p {
+  color: white;
+  text-align: left;
+  font-size: 20px;
+  /*border: 1px solid black;*/
+  margin-top: 0;
+}
+
+.container {
+  width: 40%;
+  margin-bottom: 16px;
+}
+
+/*.signup img {
+  border: 1px solid black;
+  width: 49%;
+  height: 500px;
+  padding: none;
+  object-fit: scale-down;
+}*/
+
+
+form p {
+  color: white;
+  padding: none;
+  border: none;
+  text-align: left;
+}
+
+input {
+  border-radius: 4px;
+  width: 100%;
+}
+
+input[type=submit] {
+  color: white;
+}
+
+.signup-button {
+  margin-right: auto;
+  border: 1px solid white;
+  background-color: #B6BEF7;
+  border-radius: 15px;
+  padding: 8px 16px;
+  text-align: center;
+  width: 20%;
+}
+
+.signup-button:hover {
+  cursor: pointer;
+  color: black;
+  background-color: #DCDFF7;
+}
+
+.signup-button>a {
+  color: #5A709E;
+  text-decoration: none;
+}
