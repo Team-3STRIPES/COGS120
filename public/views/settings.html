@@ -55,7 +55,7 @@
         </p>
         <div class="modal-footer">
           <button onclick="closeModal()">Cancel</button>
-          <button onclick="updateSettings()">Yes</button>
+          <button class="accented-button" onclick="updateSettings()">OK</button>
         </div>
       </div>
     </div>
@@ -69,15 +69,11 @@ $(document).ready(function() {
   getCurrentSettings();
 });
 
-$('body').click(function(e) {
-  console.log($('select').val());
-});
-
 $('form').submit(function(e) {
   e.preventDefault();
 });
 
 function showConfirmation() {
-  render_modal('saved', 'saved-header', 'saved-body', 'Success', 'Do you confirm these settings?');
+  render_modal('saved', 'saved-header', 'saved-body', 'Confirm', 'Do you confirm these settings?');
 }
 </script>
