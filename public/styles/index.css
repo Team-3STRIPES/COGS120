@@ -48,35 +48,41 @@ body:before {
 	text-decoration: none;
 }
 
-.login_button {
-	border-radius: 15px;
-	background-color: #5A709E;
-  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  /*display: inline-block;*/
-  font-size: 16px;
-	margin-top: 16px;
-	margin-bottom: 16px;
-	margin-left: 0px;
-	margin-right: 8px;
-  cursor: pointer;
-  width: 10vw;
+.navyblue {
+  background-color: #5A709E;
 }
 
-.sign_button {
-	border-radius: 15px;
-	background-color: #B6BEF7;
-  border: none;
-  color: black;
-  padding: 20px;
-  text-align: center;
+.navyblue:hover {
+  background-color: #667DAF;
+}
+
+.button {
   text-decoration: none;
-  /*display: inline-block;*/
-  font-size: 16px;
-  margin: 16px 8px;
+  font-size: 1.25em !important;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  color: white;
+	border-radius: 12px;
+  box-shadow: 0px 2px 6px black;
+  padding-top: 12px;
+  padding-bottom: 14px;
+  text-align: center;
   cursor: pointer;
-  width: 10vw;
+  width: 150px;
+  margin-top: 16px;
+  margin-right: 32px;
+}
+
+.button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 3px black;
+}
+
+.lightblue {
+  background-color: #B6BEF7;
+  color: black;
+}
+
+.lightblue:hover {
+  background-color: #C4CBFF;
 }

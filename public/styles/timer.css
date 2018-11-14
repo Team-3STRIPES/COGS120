@@ -10,7 +10,7 @@ p a:hover {
 }
 
 .my-page-header {
-  padding-top: 4%;
+  padding-top: 1%;
   padding-bottom: 1%;
 }
 
@@ -62,12 +62,30 @@ p a:hover {
   background-color: #E5E5E5;
 }
 
+.navybluetheme {
+  background-color: #5A709E;
+}
+
+.babybluetheme {
+  background-color: #3AAAC9;
+}
+
+.guavapinktheme {
+  background-color: #BC6497;
+}
+
+.mangochiletheme {
+  background-color: #C68F29;
+}
+
 .timer {
-  background-color: #667ADF;
   margin-top: 1%;
   margin-bottom: 3%;
-  padding: 24px 24px 24px 0px;
   border-radius: 5px;
+  padding: 24px 24px 24px 0px;
+
+  display: flex;
+  flex-direction: row;
 }
 
 .timer-text {
@@ -79,6 +97,14 @@ p a:hover {
   font-size: 3em;
   font-weight: 600;
   letter-spacing: 8px;
+}
+
+.timer-settings {
+  margin-left: 30px;
+}
+
+.timer-settings button {
+  margin-bottom: 4px;
 }
 
 #hrs {
@@ -141,6 +167,14 @@ p a:hover {
 
 .m_arrow {
   margin-left: 106px;
+}
+
+.hidden_arrow {
+  visibility: hidden;
+}
+
+.shown_arrow {
+  visibility: visible;
 }
 
 .unselectable {

@@ -11,7 +11,7 @@ var app = express();
 var pool = new pg.Pool()
 
 console.log(process.env.DATABASE_URL)
-//db connection 
+//db connection
 const dbConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
@@ -62,6 +62,9 @@ app.get('/profile', function(req, res){
   res.sendFile(path.join(__dirname, '/public/views/profile.html'));
 })
 
+app.get('/settings', function(req, res){
+  res.sendFile(path.join(__dirname, '/public/views/settings.html'));
+})
 
 //POST REQUESTS
 app.post('/history', function(req, res) {
@@ -138,7 +141,7 @@ app.post('/newuser', function(req, res) {
       .then(() => {
         console.log("done")
         dbclient.end()
-    }) 
+    })
   })
 })
 

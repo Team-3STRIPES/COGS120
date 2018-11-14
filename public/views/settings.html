@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='nav.css' rel='stylesheet' type="text/css">
-    <link href='profile.css' rel='stylesheet' type="text/css">
+    <link href='settings.css' rel='stylesheet' type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -31,12 +31,17 @@
         </ul>
       </div>
     </nav>
-    <h2>Profile</h2>
-    <p>Name: <span id="fullname"></span></p>
-    <p>Email: <span id="email"></span></p>
-    <h3>Purchase History:</h3>
-    <ul id="history">
-    </ul>
+    <h2>Profile Settings</h2>
+    <form>
+      <p>Change name: <input type="text" id="fullname" name="fullname" /></p>
+      <p>Change email: <input type="email" id="email" name="email" /></p>
+      <p>Change theme:
+        <select name="themes" id="themes">
+          <option value="default">Default</option>
+        </select>
+      </p>
+      <input type="submit" value="Save Changes" />
+    </form>
   </body>
 </html>
 
@@ -44,6 +49,6 @@
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 
-  showProfileInfo();
+  getCurrentSettings();
 });
 </script>

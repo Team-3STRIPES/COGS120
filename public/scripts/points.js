@@ -96,3 +96,19 @@ function showProfileInfo() {
     $("#history").append('<li>Mango Chile theme purchased on ' + localStorage.getItem('mangoChileDate') + '</li>');
   }
 }
+
+function getCurrentSettings() {
+  $("#fullname").val(localStorage.getItem('name'));
+  $("#email").val(localStorage.getItem('email'));
+  var $themes = $("#themes");
+
+  if(localStorage.getItem('babyBlue') === "true") {
+    $themes.append('<option value="babyBlue">Baby Blue</option>');
+  }
+  if(localStorage.getItem('guavaPink') === "true") {
+    $themes.append('<option value="guavaPink">Guava Pink</option>');
+  }
+  if(localStorage.getItem('mangoChile') === "true") {
+    $themes.append('<option value="mangoChile">Mango Chile</option>');
+  }
+}

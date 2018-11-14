@@ -30,7 +30,7 @@ body:before {
 .login {
   border-radius: 20px;
   background-color: white;
-  padding: 0px 16px 8px 16px;
+  padding: 16px;
   display: block;
   width: 35%;
   margin-left: auto;
@@ -67,10 +67,8 @@ input {
   background-color: #F3F0F0;
   height: 20px;
   width: 100%;
-}
-
-input[type=submit] {
-  color: #B6BEF7;
+  padding-left: 8px;
+  box-sizing: border-box;
 }
 
 .login-button {
@@ -83,10 +81,10 @@ input[type=submit] {
   font-size: 18px;
   height: 40px;
   width: 30%;
+  color: white;
 }
 
 .login-button:hover {
   cursor: pointer;
-  color: black;
-  background-color: #DCDFF7;
+  background-color: #667DAF;
 }
