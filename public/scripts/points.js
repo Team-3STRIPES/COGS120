@@ -8,7 +8,7 @@ $(document).ready(function() {
 })
 
 function forceLogin() {
-  window.location.href = "login.html";
+  window.location.href = "login";
   return;
 }
 
@@ -25,7 +25,7 @@ function loginUser() {
     localStorage.setItem('pass', "over9000");
     localStorage.setItem('theme', 'default');
 
-    window.location.href = "home.html";
+    window.location.href = "home";
     return;
   }
 
@@ -34,7 +34,7 @@ function loginUser() {
   } else if(localStorage.getItem('user') !== user || localStorage.getItem('pass') !== pass) {
     alert("Your login information is incorrect.");
   } else {
-    window.location.href = "home.html";
+    window.location.href = "home";
   }
 }
 

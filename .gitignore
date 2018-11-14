@@ -1,1 +1,5 @@
 node_modules
+sqlite3.exe
+.env
+database.sql
+.config

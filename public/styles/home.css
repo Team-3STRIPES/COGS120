@@ -8,7 +8,7 @@ body {
 
 body:before {
   content: "";
-	background-image: url("../media/home_bg.jpg");
+	background-image: url("home_bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
