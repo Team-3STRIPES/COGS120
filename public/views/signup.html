@@ -57,26 +57,6 @@ function validateSignup() {
     return;
   } else {
     initUser();
-
-    $.ajax({
-      url : "/newuser",
-      type: "POST",
-      data : {input_name:$("#name").val(),
-              input_user:$("#user").val(),
-              input_email:$("#email").val(),
-              input_password:$("#pass").val(),
-             },
-      success: function(data, textStatus, jqXHR)
-      {
-          //data - response from server
-      },
-      error: function (jqXHR, textStatus, errorThrown)
-      {
-   
-      }
-    });
-
-    window.location.href = "home";
   }
 }
 </script>
