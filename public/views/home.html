@@ -23,7 +23,7 @@
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="profile">Profile</a></li>
-              <li><a href="profile">Settings</a></li>
+              <li><a href="settings">Settings</a></li>
               <li><a href="index">Sign Out</a></li>
             </ul>
           </li>
@@ -31,7 +31,7 @@
       </div>
     </nav>
     <div class="buttonDiv">
-      <p><a href="timer"><span class="navyblue button">Start Studying</span></a></p>
+      <p><a href="timer"><span class="button" id="startButton">Start Studying</span></a></p>
       <p><a href="shop"><span class="gray button">Go to Shop</span></a></p>
     </div>
     <div class="quoteDiv">
@@ -51,6 +51,7 @@ const ROTATE_INTERVAL = 8000;
 $(document).ready(function() {
 
   if(!localStorage.getItem('user')) forceLogin();
+  updateElementTheme('#startButton');
 
   $quote = $("#quotation");
   $source = $("#source");

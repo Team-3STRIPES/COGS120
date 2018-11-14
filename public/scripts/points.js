@@ -4,6 +4,7 @@ $(document).ready(function() {
 
   var $nav = $('nav');
   var curTheme = localStorage.getItem('theme').replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
+
   $nav.addClass(curTheme);
 })
 
@@ -129,6 +130,11 @@ function changeTheme(newTheme) {
   window.location.reload(true);
 }
 
+function updateElementTheme(selector) {
+  var curTheme = localStorage.getItem('theme').toLowerCase() + "theme";
+  $(selector).addClass(curTheme);
+}
+
 function showProfileInfo() {
   $("#fullname").text(localStorage.getItem('name'));
   $("#email").text(localStorage.getItem('email'));
@@ -142,4 +148,54 @@ function showProfileInfo() {
   if(localStorage.getItem('mangoChile') === "true") {
     $("#history").append('<li>Mango Chile theme purchased on ' + localStorage.getItem('mangoChileDate') + '</li>');
   }
+}
+
+function getCurrentSettings() {
+  $("#fullname").val(localStorage.getItem('name'));
+  $("#email").val(localStorage.getItem('email'));
+  var $themes = $("#themes");
+  var curTheme = localStorage.getItem('theme');
+  $('select > option').each(function(e) {
+    if($(this).attr('value') === curTheme) {
+      $(this).prop('selected', true);
+    }
+  });
+
+  if(curTheme === 'default') {
+    $themes.append('<option value="default" selected>Default</option>');
+  }
+  else {
+    $themes.append('<option value="default"> Default</option');
+  }
+  if(localStorage.getItem('babyBlue') === "true") {
+    if(curTheme === 'babyBlue') {
+      $themes.append('<option value="babyBlue" selected>Baby Blue</option>');
+    }
+    else {
+      $themes.append('<option value="babyBlue">Baby Blue</option>');
+    }
+  }
+  if(localStorage.getItem('guavaPink') === "true") {
+    if(curTheme === 'guavaPink') {
+      $themes.append('<option value="guavaPink" selected>Guava Pink</option>');
+    }
+    else {
+      $themes.append('<option value="guavaPink">Guava Pink</option>');
+    }
+  }
+  if(localStorage.getItem('mangoChile') === "true") {
+    if(curTheme === 'mangoChile') {
+      $themes.append('<option value="mangoChile" selected>Mango Chile</option>');
+    }
+    else {
+      $themes.append('<option value="mangoChile">Mango Chile</option>');
+    }
+  }
+}
+
+function updateSettings() {
+  localStorage.setItem('name', $('#fullname').val());
+  localStorage.setItem('email', $('#email').val());
+  localStorage.setItem('theme', $('#themes').val());
+  window.location.reload(true);
 }

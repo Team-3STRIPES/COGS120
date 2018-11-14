@@ -63,6 +63,9 @@ app.get('/profile', function(req, res){
   res.sendFile(path.join(__dirname, '/public/views/profile.html'));
 })
 
+app.get('/settings', function(req, res){
+  res.sendFile(path.join(__dirname, '/public/views/settings.html'));
+})
 
 //POST REQUESTS
 app.post('/history', function(req, res) {
