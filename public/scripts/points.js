@@ -16,6 +16,29 @@ function loginUser() {
   var user = $('#user').val();
   var pass = $('#pass').val();
 
+  $.ajax({
+    url : "/olduser",
+    type: "POST",
+    data : {
+            input_user: user,
+            input_password: pass,
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      if(data.check === 0) {
+        alert("You must make an account first.");
+      } else if(data.check === 1) {
+        alert("Your login information is incorrect.");
+      } else {
+        window.location.href = "home";
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
+
   if(user === "charles" || pass === "over9000") {
     initLocalStorage();
 
@@ -29,21 +52,45 @@ function loginUser() {
     return;
   }
 
-  if(!localStorage.getItem('user')) {
+  /*if(!localStorage.getItem('user')) {
     alert("You must make an account first.");
   } else if(localStorage.getItem('user') !== user || localStorage.getItem('pass') !== pass) {
     alert("Your login information is incorrect.");
   } else {
     window.location.href = "home";
-  }
+  }*/
 }
 
 function initUser() {
-  localStorage.setItem('name', $("#name").val());
+  $.ajax({
+      url : "/newuser",
+      type: "POST",
+      data : {input_name:$("#name").val(),
+              input_user:$("#user").val(),
+              input_email:$("#email").val(),
+              input_password:$("#pass").val(),
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        if(data.check === 0) {
+          alert("Username is already being used");
+        } else if(data.check === 1) {
+          alert("Email is already being used");
+        } else {
+          window.location.href = "home";
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+   
+      }
+    });
+
+  /*localStorage.setItem('name', $("#name").val());
   localStorage.setItem('user', $("#user").val());
   localStorage.setItem('email', $("#email").val());
   localStorage.setItem('pass', $("#pass").val());
-  localStorage.setItem('theme', 'default');
+  localStorage.setItem('theme', 'default');*/
   initLocalStorage();
 }
 

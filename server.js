@@ -2,21 +2,22 @@ var http = require('http'),
     express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
-    pg = require('pg');
+    pg = require('pg'),
+    promise = require('es6-promise').Promise;
 
 const PORT = process.env.PORT || 1500
 
 var app = express();
 
 var pool = new pg.Pool()
-
-console.log(process.env.DATABASE_URL)
 //db connection 
-const dbConfig = {
+/*const dbConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
-}
+}*/
 
+
+//local connection (do not push)
 var pool = new pg.Pool(dbConfig)
 
 // Body Parser Middleware
@@ -70,7 +71,7 @@ app.post('/history', function(req, res) {
       return console.error('Error acquiring client', err.stack)
     }
     var user = req.body.user;
-    if (user == undefined) {
+    if (user == '') {
       return console.log('user name not passed in');
     }
     var qstring = 'SELECT username, purchase_hist, study_hist FROM users WHERE username=\''+user+'\';';
@@ -90,22 +91,33 @@ app.post('/olduser', function(req, res) {
     }
     var input_user = req.body.input_user;
     var input_password = req.body.input_password;
-    if (input_user == undefined || input_password == undefined) {
+    if (input_user == '' || input_password == '') {
       return console.log('input name not passed in');
     }
     var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
-    console.log(qstring)
     dbclient.query(qstring)
       .then(result => {
-          if (result.rowCount = 0) {
-            res.send({'check':false})
+          if (result.rowCount == 0) {
+            dbclient.query('SELECT name FROM users WHERE username=\''+input_user+'\';').then(result => {
+              if (result.rowCount == 0) {
+                console.log("Unsuccessful login")
+                res.send({'check':0})
+              } else {
+                console.log("Wrong password")
+                res.send({'check':1})
+              }
+            })
+            .catch(e => console.error(e.stack))
+            //console.log("Unsuccessful login")
+            //res.send({'check':false})
           } else {
-            res.send({'check':true})
+            console.log("Successful login")
+            res.send({'check':2})
           }
       })
       .catch(e => console.error(e.stack))
       .then(() => {
-        client.end()
+        dbclient.end()
     })
   })
 })
@@ -120,25 +132,72 @@ app.post('/newuser', function(req, res) {
     var input_user = req.body.input_user;
     var input_email = req.body.input_email;
     var input_password = req.body.input_password;
-    if (input_name == undefined || input_user == undefined || input_email == undefined || input_password == undefined) {
+    if (input_name == '' || input_user == '' || input_email == '' || input_password == '') {
       return console.log('input name not passed in');
     }
 
-    var qstring = 'INSERT INTO users (name, username, email, password) VALUES \
-      (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\');';
+    var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\';'
+    var queries = []
+    queries.push(dbclient.query(qstring).then(result => result.rowCount))
+    qstring = 'SELECT name FROM users WHERE email=\''+input_email+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rowCount))
+    promise.all(queries).then(data => {
+      var sum = 0
+      for (var i = 0; i < data.length; i++) {
+        sum+=data[i];
+      }
+      if (sum == 0) {
+        dbclient.query('INSERT INTO users (name, username, email, password) VALUES \
+          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\');').then(result => {
+            console.log("Successful signup")
+            res.send({'check':2})
+          })
+          .catch(e => {
+            console.log('error :(')
+            console.error(e.stack)
+          })
+      } else if (data[0] == 1) {
+        console.log("Username taken")
+        res.send({'check':0})
+      } else {
+        console.log("Email taken")
+        res.send({'check':1})
+      }
+    })
+
+
+   /* var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\';'
     dbclient.query(qstring)
       .then(result => {
-        console.log(result.rows)
-        res.send({'check':true})
+        if (result.rowCount == 0) {
+          dbclient.query('SELECT name FROM users WHERE email=\''+input_email+'\';').then(result=> {
+            if (result.rowCount==0) {
+              console.log('here!')
+              dbclient.query('INSERT INTO users (name, username, email, password) VALUES \
+              (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\');').then(result => {
+                console.log("Successful signup")
+                res.send({'check':2})
+              })
+              .catch(e => {
+                console.log('error :(')
+                console.error(e.stack)
+              })
+            } else {
+              console.log("Email taken")
+              res.send({'check':1})
+            }
+          })
+        } else {
+          console.log("Username taken")
+          res.send({'check':0})
+        }
       })
       .catch(e => {
-        //console.error(e.stack)
-        res.send({'check':false})
+        console.error(e.stack)
       })
       .then(() => {
-        console.log("done")
         dbclient.end()
-    }) 
+    }) */
   })
 })
 
