@@ -10,11 +10,11 @@ const PORT = process.env.PORT || 1500
 var app = express();
 
 var pool = new pg.Pool()
-//db connection 
-/*const dbConfig = {
+//db connection
+const dbConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
-}*/
+}
 
 
 //local connection (do not push)
