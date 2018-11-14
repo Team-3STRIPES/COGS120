@@ -36,7 +36,7 @@
       <p class="sub-header unselectable">Set how long you want to study!</p>
     </div>
     <div class="timer-section">
-      <div class="timer navybluetheme">
+      <div class="timer">
         <div class="timer-numbers">
           <div class="arrows">
             <div class="h_arrow hidden_arrow">
@@ -98,7 +98,7 @@
           <p><span id="estimated-points">0</span> points</p>
         </div>
       </div>
-      <p><a href="#" onclick="runTimer()"><span class="button navyblue unselectable" id="start">Begin Study Session</span></a></p>
+      <p><a href="#" onclick="runTimer()"><span class="button unselectable" id="start">Begin Study Session</span></a></p>
 
       <!-- timer completion -->
       <div id="complete" class="modal">
@@ -146,6 +146,7 @@ $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 
   initTimer();
+  updateElementTheme('.timer');
 });
 
 function initTimer() {
@@ -240,13 +241,15 @@ function initTimer() {
 
     var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
 
-    var yFactor;
+    var yFactor = -1;
     if(time > 0 && time < 240) yFactor = 0;
     else if(time >= 240 && time < 1800) yFactor = 1;
     else if(time >= 1800 && time < 3600) yFactor = 2;
     else if(time >= 3600 && time < 7200) yFactor = 3;
 
-    var award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
+    var award;
+    if(yFactor === -1) award = 0;
+    else award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
     $("#estimated-points").text(award);
 
     if(!canMDn && !canHDn) {
@@ -413,13 +416,12 @@ function sub15Minutes() {
 function disableStart() {
   $("#start").addClass("disabled-button");
   $("#start").removeClass("button");
-  $("#start").removeClass("navyblue");
 }
 
 function enableStart() {
   $("#start").removeClass("disabled-button");
   $("#start").addClass("button");
-  $("#start").addClass("navyblue");
+  updateElementTheme("#start");
 }
 
 function hideHUp() {

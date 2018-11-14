@@ -62,20 +62,36 @@ p a:hover {
   background-color: #E5E5E5;
 }
 
-.navybluetheme {
+.defaulttheme {
   background-color: #5A709E;
+}
+
+.defaulttheme:hover {
+  background-color: #667DAF;
 }
 
 .babybluetheme {
   background-color: #3AAAC9;
 }
 
+span.babybluetheme:hover {
+  background-color: #41BADB;
+}
+
 .guavapinktheme {
   background-color: #BC6497;
 }
 
+span.guavapinktheme:hover {
+  background-color: #D67AAF;
+}
+
 .mangochiletheme {
   background-color: #C68F29;
+}
+
+span.mangochiletheme:hover {
+  background-color: #DBA032;
 }
 
 .timer {
@@ -153,7 +169,13 @@ p a:hover {
   font-size: 16px;
   cursor: not-allowed;
   width: 300px;
-  background-color: #BBCAEA;
+  background-color: #CCC;
+}
+
+.disabled-button:hover {
+  cursor: not-allowed;
+  background-color: #CCC !important;
+  color: #EAEAEA;
 }
 
 .arrows {
