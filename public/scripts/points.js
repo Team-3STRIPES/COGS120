@@ -1,11 +1,31 @@
 $(document).ready(function() {
-  $("#points").text(localStorage.getItem('points'));
-  $("#name").text(localStorage.getItem('name'));
+  //$("#points").text(localStorage.getItem('points'));
+  //$("#name").text(localStorage.getItem('name'));
 
-  var $nav = $('nav');
-  var curTheme = localStorage.getItem('theme').replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
+  //var $nav = $('nav');
+  //var curTheme = localStorage.getItem('theme').replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
 
-  $nav.addClass(curTheme);
+  //$nav.addClass(curTheme);
+  $.ajax({
+    url : "/ready",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      $("#points").text(data.points);
+      $("#name").text(data.name);
+      var $nav = $('nav');
+      var curTheme = data.theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
+      $nav.addClass(curTheme);
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
 })
 
 function forceLogin() {
@@ -33,6 +53,8 @@ function loginUser() {
       } else if(data.check === 3) {
         alert("Email is not confirmed");
       } else {
+        localStorage.setItem('user', $("#user").val());
+        localStorage.setItem('pass', $("#pass").val());
         window.location.href = "home";
       }
     },
@@ -50,6 +72,7 @@ function loginUser() {
     localStorage.setItem('email', "charles@chen.com");
     localStorage.setItem('pass', "over9000");
     localStorage.setItem('theme', 'default');
+    localStorage.setItem('points', 200);
 
     window.location.href = "home";
     return;
@@ -91,16 +114,16 @@ function initUser() {
       }
     });
 
-  /*localStorage.setItem('name', $("#name").val());
+  localStorage.setItem('name', $("#name").val());
   localStorage.setItem('user', $("#user").val());
   localStorage.setItem('email', $("#email").val());
   localStorage.setItem('pass', $("#pass").val());
-  localStorage.setItem('theme', 'default');*/
-  initLocalStorage();
+  /*localStorage.setItem('theme', 'default');*/
+  //initLocalStorage();
 }
 
 function initLocalStorage() {
- localStorage.setItem('points', 0);
+ localStorage.setItem('points', 200);
  localStorage.setItem('babyBlue', false);
  localStorage.setItem('guavaPink', false);
  localStorage.setItem('mangoChile', false);
@@ -113,8 +136,8 @@ function addPoints(amount) {
       url : "/addpts",
       type: "POST",
       data : {input_pts:amount,
-              input_user:$("#user").val(),
-              input_password:$("#pass").val(),
+              input_user:localStorage.getItem('user'),
+              input_password:localStorage.getItem('pass'),
              },
       success: function(data, textStatus, jqXHR)
       {
@@ -134,8 +157,8 @@ function subtractPoints(amount) {
       url : "/addpts",
       type: "POST",
       data : {input_pts:'-'+amount,
-              input_user:$("#user").val(),
-              input_password:$("#pass").val(),
+              input_user:localStorage.getItem('user'),
+              input_password:localStorage.getItem('pass'),
              },
       success: function(data, textStatus, jqXHR)
       {
@@ -153,8 +176,8 @@ function canBuyItem(theme, cost) {
       url : "/ptscheck",
       type: "POST",
       data : {input_pts:'0',
-              input_user:$("#user").val(),
-              input_password:$("#pass").val(),
+              input_user:localStorage.getItem('user'),
+              input_password:localStorage.getItem('pass'),
               input_theme:theme,
              },
       success: function(data, textStatus, jqXHR)
@@ -178,27 +201,94 @@ function canBuyItem(theme, cost) {
 }
 
 function buyItem(theme, cost) {
-  localStorage.setItem(theme, 'true');
+  /*localStorage.setItem(theme, 'true');
   var curDate = new Date();
   localStorage.setItem(theme + 'Date', String(curDate.getMonth() + 1) + "/" + String(curDate.getDate()) + "/" + String(curDate.getFullYear()));
-  subtractPoints(cost);
+  subtractPoints(cost);*/
+  $.ajax({
+      url : "/buyTheme",
+      type: "POST",
+      data : { input_pts:'-'+cost,
+              input_user:localStorage.getItem('user'),
+              input_password:localStorage.getItem('pass'),
+              input_theme:theme,
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        //subtractPoints(cost);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+    
+      }
+    });
 }
 
 function changeTheme(newTheme) {
-  localStorage.setItem('theme', newTheme);
-  window.location.reload(true);
+  $.ajax({
+      url : "/currTheme",
+      type: "POST",
+      data : {
+              input_user: localStorage.getItem('user'),
+              input_password: localStorage.getItem('pass'),
+              input_theme:newTheme,
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        //localStorage.setItem('theme', newTheme);
+        window.location.reload(true);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+    
+      }
+  });
 }
 
 function updateElementTheme(selector) {
-  var curTheme = localStorage.getItem('theme').toLowerCase() + "theme";
-  $(selector).addClass(curTheme);
+  $.ajax({
+    url : "/ready",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      var curTheme = data.theme.toLowerCase()+"theme";
+      $(selector).addClass(curTheme);
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
+  //var curTheme = localStorage.getItem('theme').toLowerCase() + "theme";
+  //$(selector).addClass(curTheme);
 }
 
 function showProfileInfo() {
-  $("#fullname").text(localStorage.getItem('name'));
-  $("#email").text(localStorage.getItem('email'));
+   $.ajax({
+    url : "/ready",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      $("#fullname").text(data.name);
+      $("#email").text(data.email);
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
 
-  if(localStorage.getItem('babyBlue') === "true") {
+    }
+  });
+  //$("#fullname").text(localStorage.getItem('name'));
+  //$("#email").text(localStorage.getItem('email'));
+
+  /*if(localStorage.getItem('babyBlue') === "true") {
     $("#history").append('<li>Baby Blue theme purchased on ' + localStorage.getItem('babyBlueDate') + '</li>');
   }
   if(localStorage.getItem('guavaPink') === "true") {
@@ -206,10 +296,12 @@ function showProfileInfo() {
   }
   if(localStorage.getItem('mangoChile') === "true") {
     $("#history").append('<li>Mango Chile theme purchased on ' + localStorage.getItem('mangoChileDate') + '</li>');
-  }
+  }*/
 }
 
 function getCurrentSettings() {
+
+
   $("#fullname").val(localStorage.getItem('name'));
   $("#email").val(localStorage.getItem('email'));
   var $themes = $("#themes");
@@ -253,6 +345,25 @@ function getCurrentSettings() {
 }
 
 function updateSettings() {
+   $.ajax({
+    url : "/update",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+            input_name: $('#fullname').val()),
+            input_email: $('#email').val()),
+            input_theme: $('#themes').val()),
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      window.location.reload(true);
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
   localStorage.setItem('name', $('#fullname').val());
   localStorage.setItem('email', $('#email').val());
   localStorage.setItem('theme', $('#themes').val());
