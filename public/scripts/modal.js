@@ -10,7 +10,7 @@ function render_modal(modal_id, header_id, body_id, h_desc, b_desc) {
   $('.modal-content').addClass(curTheme + 'border');
 	$modal.css("display", "block");
 	$header.text(h_desc);
-	$body.text(b_desc);
+	$body.html(b_desc);
   setTimeout(function() {
     isOpen = true;
   }, 0);
