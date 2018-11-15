@@ -31,12 +31,14 @@
         </ul>
       </div>
     </nav>
-    <h2>Profile</h2>
-    <p>Name: <span id="fullname"></span></p>
-    <p>Email: <span id="email"></span></p>
-    <h3>Purchase History:</h3>
-    <ul id="history">
-    </ul>
+    <div class="my-container">
+      <h2>Profile</h2>
+      <p>Name: <span id="fullname"></span></p>
+      <p>Email: <span id="email"></span></p>
+      <h3>Study History:</h3>
+      <ul id="history">
+      </ul>
+    </div>
   </body>
 </html>
 
@@ -45,5 +47,14 @@ $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 
   showProfileInfo();
+  populateHistory();
 });
+
+function populateHistory() {
+  var totalHistory = getHistory();
+  var $history = $('#history');
+  for(var i = totalHistory.length; i >= 0; i--) {
+    $history.append(`<li>${history[i]}</li>`)
+  }
+}
 </script>

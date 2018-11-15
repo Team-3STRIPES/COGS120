@@ -110,7 +110,7 @@ function initUser() {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
     });
 
@@ -172,10 +172,12 @@ function subtractPoints(amount) {
 }
 
 function canBuyItem(theme, cost) {
-  $.ajax({
+  var number = -1;
+  var req = $.ajax({
       url : "/ptscheck",
       type: "POST",
-      data : {input_pts:'0',
+      async: false,
+      data : {
               input_user:localStorage.getItem('user'),
               input_password:localStorage.getItem('pass'),
               input_theme:theme,
@@ -185,19 +187,21 @@ function canBuyItem(theme, cost) {
         //if(localStorage.getItem(theme) === 'true') return 0;
         //if(Number(localStorage.getItem('points')) < cost) return 1;
         //return 2;
-        if (data.theme === 'true') {
-          return 0;
-        } else if (data.check < cost) {
-          return 1;
+        if (data.theme == 'true') {
+          number = 0;
+        } else if (data.points < cost) {
+          number = 1;
         } else {
-          return 2;
+          number = 2;
         }
+        return;
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
     
       }
     });
+    return number;
 }
 
 function buyItem(theme, cost) {
@@ -208,7 +212,7 @@ function buyItem(theme, cost) {
   $.ajax({
       url : "/buyTheme",
       type: "POST",
-      data : { input_pts:'-'+cost,
+      data : { input_pts:cost,
               input_user:localStorage.getItem('user'),
               input_password:localStorage.getItem('pass'),
               input_theme:theme,
@@ -300,8 +304,6 @@ function showProfileInfo() {
 }
 
 function getCurrentSettings() {
-
-
   $("#fullname").val(localStorage.getItem('name'));
   $("#email").val(localStorage.getItem('email'));
   var $themes = $("#themes");
@@ -351,21 +353,76 @@ function updateSettings() {
     data : {
             input_user: localStorage.getItem('user'),
             input_password: localStorage.getItem('pass'),
-            input_name: $('#fullname').val()),
-            input_email: $('#email').val()),
-            input_theme: $('#themes').val()),
+            input_name: $('#fullname').val(),
+            input_email: $('#email').val(),
+            input_theme: $('#themes').val(),
            },
     success: function(data, textStatus, jqXHR)
     {
-      window.location.reload(true);
+      if (data.check == 'false') {
+        alert('Email is not a valid email');
+      } else {
+        localStorage.setItem('name', $('#fullname').val());
+        localStorage.setItem('email', $('#email').val());
+        localStorage.setItem('theme', $('#themes').val());
+        window.location.reload(true);
+      }
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
 
     }
   });
-  localStorage.setItem('name', $('#fullname').val());
+  /*localStorage.setItem('name', $('#fullname').val());
   localStorage.setItem('email', $('#email').val());
   localStorage.setItem('theme', $('#themes').val());
-  window.location.reload(true);
+  window.location.reload(true);*/
+}
+
+function addHistory(historyData) {
+  //just append to history 
+   $.ajax({
+    url : "/addHist",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+            input_hist: historyData,
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
+}
+
+function getHistory() {
+  //return list of history
+  var history;
+   $.ajax({
+    url : "/getHist",
+    type: "POST",
+    async: false,
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      history = data.hist;
+      return;
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
+  if (history.length == 0) {
+    history = '';
+  }
+  return history;
 }

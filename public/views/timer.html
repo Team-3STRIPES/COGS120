@@ -14,6 +14,7 @@
     <script src="points.js"></script>
     <script src="modal.js"></script>
   </head>
+  <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -514,7 +515,7 @@ function runTimer() {
   }, 1000);
 
   $(window).blur(function() {
-    if(isTicking) failSession();
+    if(isTicking) failSession(initDuration);
   });
 }
 
@@ -537,6 +538,7 @@ function stopTimer() {
 }
 
 function awardPoints(time) {
+
   var yFactor;
   if(time > 0 && time < 240) yFactor = 0;
   else if(time >= 240 && time < 1800) yFactor = 1;
@@ -553,6 +555,18 @@ function awardPoints(time) {
 
   var timeElapsed = hDisplay + " hours, " + mDisplay + " minutes, and " + sDisplay + " seconds"
 
+  var curDate = new Date();
+  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth + 1) : curDate.getMonth + 1;
+  var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
+  var formattedDate = `${formattedMonth}/${formattedDate}/${curDate.getFullYear()}`;
+  var startDate = new Date(Date.now() - Number(time + "000"));
+  var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
+  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes;
+  var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+
+  console.log(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`)
+  addHistory(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`);
+
   render_modal("complete", "complete-header", "complete-body", "Congratulations!", "You finished your study session for " + timeElapsed + " and earned " + award + " points.")
 }
 
@@ -560,7 +574,19 @@ function finish() {
   window.location.href = "home";
 }
 
-function failSession() {
+function failSession(time) {
+
+  var curDate = new Date();
+  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth + 1) : curDate.getMonth + 1;
+  var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
+  var formattedDate = `${formattedMonth}/${formattedDate}/${curDate.getFullYear()}`;
+  var startDate = new Date(Date.now() - Number(time + "000"));
+  var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
+  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes;
+  var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+
+  addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)
+  
   render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")
   stopTimer();
 }
