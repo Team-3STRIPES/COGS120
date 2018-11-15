@@ -87,7 +87,7 @@ function initUser() {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
     });
 
@@ -202,4 +202,12 @@ function updateSettings() {
   localStorage.setItem('email', $('#email').val());
   localStorage.setItem('theme', $('#themes').val());
   window.location.reload(true);
+}
+
+function addHistory(historyData) {
+
+}
+
+function getHistory() {
+  
 }
