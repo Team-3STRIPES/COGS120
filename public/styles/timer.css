@@ -116,11 +116,31 @@ span.mangochiletheme:hover {
 }
 
 .timer-settings {
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
   margin-left: 30px;
+  align-items: center;
+  margin-bottom: 4px;
 }
 
 .timer-settings button {
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: white;
   margin-bottom: 4px;
+}
+
+.timer-settings p {
+  color: white;
+  text-align: center;
+}
+
+#quicksub30 {
+  margin-bottom: 12px;
+
+
 }
 
 #hrs {
