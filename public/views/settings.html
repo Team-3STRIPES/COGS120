@@ -32,16 +32,18 @@
         </ul>
       </div>
     </nav>
-    <h2>Profile Settings</h2>
-    <form onsubmit="showConfirmation()">
-      <p>Change name: <input type="text" id="fullname" name="fullname" /></p>
-      <p>Change email: <input type="email" id="email" name="email" /></p>
-      <p>Change theme:
-        <select name="themes" id="themes">
-        </select>
-      </p>
-      <input type="submit" value="Save Changes" />
-    </form>
+    <div class="my-container">
+      <h2>Profile Settings</h2>
+      <form onsubmit="showConfirmation()">
+        <p>Change name <input type="text" id="fullname" name="fullname" /></p>
+        <p>Change email: <input type="email" id="email" name="email" /></p>
+        <p>Change theme:
+          <select name="themes" id="themes">
+          </select>
+        </p>
+        <input class="settings-button" type="submit" value="Save Changes" />
+      </form>
+    </div
 
     <!-- settings saved -->
     <div id="saved" class="modal">
