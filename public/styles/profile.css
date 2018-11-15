@@ -50,24 +50,5 @@ body:before {
   padding: 0px 24px;
 
   flex: 1;
-}
 
-.my-container p {
-  color: #333;
-  font-size: 1.25em;
-  font-weight: 500;
-}
-
-.my-container p span {
-  color: black;
-  font-weight: 600;
-}
-
-#history {
-  margin-bottom: 8%;
-}
-
-#history li {
-  margin: 8px 48px;
-  font-size: 1.15em;
 }
