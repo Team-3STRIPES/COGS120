@@ -48,13 +48,7 @@
     });
 
     function populateHistory() {
-      var totalHistory = getHistory();
-      console.log('here')
-      console.log(totalHistory)
-      var $history = $('#history');
-      for(var i = totalHistory.length; i >= 0; i--) {
-        $history.append(`<li>${history[i]}</li>`)
-      }
+      getHistory();
     }
     </script>
   </body>

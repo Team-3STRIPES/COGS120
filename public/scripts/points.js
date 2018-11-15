@@ -457,23 +457,21 @@ function getHistory() {
    $.ajax({
     url : "/getHist",
     type: "POST",
-    async: false,
     data : {
             input_user: localStorage.getItem('user'),
             input_password: localStorage.getItem('pass'),
            },
     success: function(data, textStatus, jqXHR)
     {
-      history = data.hist;
-      return;
+      hist = data.hist;
+      var $history = $('#history');
+      for(var i = hist.length; i >= 0; i--) {
+        $history.append(`<li>${history[i]}</li>`)
+      }
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
 
     }
   });
-  if (history == undefined) {
-    history = [];
-  }
-  return history;
 }
