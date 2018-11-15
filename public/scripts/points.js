@@ -107,19 +107,74 @@ function initLocalStorage() {
 }
 
 function addPoints(amount) {
-  localStorage.setItem('points', Number(localStorage.getItem('points')) + Number(amount));
-  $('#points').text(localStorage.getItem('points'));
+  //localStorage.setItem('points', Number(localStorage.getItem('points')) + Number(amount));
+  //$('#points').text(localStorage.getItem('points'));
+  $.ajax({
+      url : "/addpts",
+      type: "POST",
+      data : {input_pts:amount,
+              input_user:$("#user").val(),
+              input_password:$("#pass").val(),
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        $('#points').text(data.check);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+    
+      }
+    });
 }
 
 function subtractPoints(amount) {
-  localStorage.setItem('points', Number(localStorage.getItem('points')) - Number(amount));
-  $('#points').text(localStorage.getItem('points'));
+  //localStorage.setItem('points', Number(localStorage.getItem('points')) - Number(amount));
+  //$('#points').text(localStorage.getItem('points'));
+  $.ajax({
+      url : "/addpts",
+      type: "POST",
+      data : {input_pts:'-'+amount,
+              input_user:$("#user").val(),
+              input_password:$("#pass").val(),
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        $('#points').text(data.check);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+    
+      }
+    });
 }
 
 function canBuyItem(theme, cost) {
-  if(localStorage.getItem(theme) === 'true') return 0;
-  if(Number(localStorage.getItem('points')) < cost) return 1;
-  return 2;
+  $.ajax({
+      url : "/ptscheck",
+      type: "POST",
+      data : {input_pts:'0',
+              input_user:$("#user").val(),
+              input_password:$("#pass").val(),
+              input_theme:theme,
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        //if(localStorage.getItem(theme) === 'true') return 0;
+        //if(Number(localStorage.getItem('points')) < cost) return 1;
+        //return 2;
+        if (data.theme === 'true') {
+          return 0;
+        } else if (data.check < cost) {
+          return 1;
+        } else {
+          return 2;
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+    
+      }
+    });
 }
 
 function buyItem(theme, cost) {

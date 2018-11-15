@@ -13,9 +13,16 @@ var app = express();
 
 var pool = new pg.Pool()
 //db connection
-const dbConfig = {
+/*const dbConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
+}*/
+const dbConfig = {
+  host: 'localhost',
+  port: 5432,
+  user: 'threestripes',
+  database: 'threestripesdb',
+  password: 'Get2plat',
 }
 
 //local connection (do not push)
@@ -32,6 +39,13 @@ app.use(express.static(__dirname+'/public/media'));
 
 
 //Mail options
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'focus.threestripes@gmail.com',
+    pass: 'Ad1daspants'
+  }
+});
 
 //var server_email = process.env.EMAIL
 var server_email = 'focus.threestripes@gmail.com';
@@ -206,7 +220,7 @@ app.post('/newuser', function(req, res) {
                 </head> \
                 <body> \
                   <h2>Thank you for signing up with Focus!</h2> \
-                  <p>Click button to confirm your account</p><button onclick="loginUser"> Confirm </button> \
+                  <p>Your account has been created.</p> \
                 </body> \
                 <script> \
                   function loginUser() { \
@@ -227,8 +241,8 @@ app.post('/newuser', function(req, res) {
             console.log('Email sent: ' + info.response);
           }
         });
-        dbclient.query('INSERT INTO users (name, username, email, password, confirm_email) VALUES \
-          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'false\');').then(result => {
+        dbclient.query('INSERT INTO users (name, username, email, password, confirm_email, points) VALUES \
+          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'true\', 200);').then(result => {
             console.log("Successful signup")
             res.send({'check':3})
           })
@@ -253,6 +267,50 @@ app.post('/confirm', function(req, res) {
     })
   })
 })
+
+app.post('/addpts', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_pts = req.body.pts;
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var queries = []
+    qstring = 'SELECT points FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    promise.all(queries).then(data => {
+      var newPts = (parseInt(data[0].points) + parseInt(input_pts));
+      dbclient.query('UPDATE users SET points = \''+newPts.toString()+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+          res.send({'check':newPts})
+        })
+        .catch(e => {
+          console.log('error :(')
+          console.error(e.stack)
+      }).then(() => {
+         dbclient.end()
+      })
+    })
+  })
+})
+
+app.post('/ptscheck', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_pts = req.body.pts;
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var input_theme = req.body.theme;
+    var queries = []
+    qstring = 'SELECT points FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    qstring = 'SELECT owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    promise.all(queries).then(data => {
+      var newPts = (parseInt(data[0].points) + parseInt(input_pts));
+      var theme = ;
+      res.send({'check':newPts})
+    })
+    dbclient.end();
+  })
+})
+
 /*else {
         dbclient.query('UPDATE users SET confirm_email = \'true\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
             console.log("Successful signup")
