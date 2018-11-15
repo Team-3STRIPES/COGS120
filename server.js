@@ -32,8 +32,6 @@ app.use(express.static(__dirname+'/public/media'));
 
 
 //Mail options
-
-
 var server_email = process.env.EMAIL
 
 var transporter = nodemailer.createTransport({
@@ -459,6 +457,51 @@ app.post('/getHist', function(req, res) {
       })
       .catch(e => {
         console.log('error 8')
+        console.error(e.stack)
+      })
+      .then(() => dbclient.end())
+  })
+})
+
+app.post('/forgotEmail', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_email = req.body.input_email;
+    var qstring = 'SELECT username, password FROM users WHERE email=\''+input_email+'\';'
+    dbclient.query(qstring).then(result => {
+        var results = result.rows[0]
+        if (result.rowCount == 0) {
+          res.send({
+          'check': false,
+        })
+        }
+        var username = results.username;
+        var password = results.password;
+        var mailOptions = {
+          from: server_email,
+          to: input_email,
+          subject: 'Focus: Login Information',
+          html: '<!DOCTYPE html> \
+                <html lang="en-US"> \
+                <body> \
+                  <h2>Here is your login information for Focus</h2> \
+                  <p>Username: '+username+'</p> \
+                  <p>Password: '+password+'</p> \
+                </body> \
+                </html>'
+        }
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        res.send({
+          'check': true,
+        })
+      })
+      .catch(e => {
+        console.log('error 9')
         console.error(e.stack)
       })
       .then(() => dbclient.end())

@@ -432,7 +432,7 @@ function updateSettings() {
 
 function addHistory(historyData) {
   //just append to history 
-   $.ajax({
+  $.ajax({
     url : "/addHist",
     type: "POST",
     data : {
@@ -454,7 +454,7 @@ function addHistory(historyData) {
 function getHistory() {
   //return list of history
   var history;
-   $.ajax({
+  $.ajax({
     url : "/getHist",
     type: "POST",
     data : {
@@ -467,6 +467,31 @@ function getHistory() {
       var $history = $('#history');
       for(var i = hist.length; i >= 0; i--) {
         $history.append(`<li>${history[i]}</li>`)
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
+}
+
+
+function sendLoginInfo() {
+  var input_email = $('#forgotEmail').val();
+  $.ajax({
+    url : "/forgotEmail",
+    type: "POST",
+    data : {
+            input_email: input_email,
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      if (data.check) {
+        window.location.reload(true);
+        alert("An email has been sent with your login information");
+      } else {
+        alert("Invalid email, email is not registered");
       }
     },
     error: function (jqXHR, textStatus, errorThrown)
