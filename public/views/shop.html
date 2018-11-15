@@ -127,14 +127,7 @@ var themes = {
 
 $('.item-buy').click(function(e) {
   justBought = $(this).parent().attr('id');
-  var tryBuy = canBuyItem(justBought, themes[justBought]);
-  if(tryBuy === 0) {
-    render_modal("fail", "fail-header", "fail-body", "Error", "You already purchased this item!");
-  } else if(tryBuy === 2) {
-    render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + themes[justBought] + " points?");
-  } else {
-    alert("You have insufficient funds!");
-  }
+  canBuyItem(justBought, themes[justBought]);
 });
 
 function confirmedBuy() {
