@@ -176,7 +176,6 @@ function canBuyItem(theme, cost) {
   var req = $.ajax({
       url : "/ptscheck",
       type: "POST",
-      async: false,
       data : {
               input_user:localStorage.getItem('user'),
               input_password:localStorage.getItem('pass'),
@@ -188,11 +187,11 @@ function canBuyItem(theme, cost) {
         //if(Number(localStorage.getItem('points')) < cost) return 1;
         //return 2;
         if (data.theme == 'true') {
-          number = 0;
+          render_modal("fail", "fail-header", "fail-body", "Error", "You already purchased this item!");
         } else if (data.points < cost) {
-          number = 1;
+          alert("You have insufficient funds!");
         } else {
-          number = 2;
+          render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + themes[justBought] + " points?");
         }
         return;
       },
@@ -201,7 +200,6 @@ function canBuyItem(theme, cost) {
     
       }
     });
-    return number;
 }
 
 function buyItem(theme, cost) {
