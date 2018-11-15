@@ -12,17 +12,10 @@ const PORT = process.env.PORT || 1500
 var app = express();
 
 var pool = new pg.Pool()
-//db connection 
-/*const dbConfig = {
+//db connection
+const dbConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
-}*/
-const dbConfig = {
-  host: 'localhost',
-  port: 5432,
-  user: 'threestripes',
-  database: 'threestripesdb',
-  password: 'Get2plat',
 }
 
 //local connection (do not push)
@@ -39,13 +32,6 @@ app.use(express.static(__dirname+'/public/media'));
 
 
 //Mail options
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'focus.threestripes@gmail.com',
-    pass: 'Ad1daspants'
-  }
-});
 
 //var server_email = process.env.EMAIL
 var server_email = 'focus.threestripes@gmail.com';
@@ -91,6 +77,9 @@ app.get('/profile', function(req, res){
   res.sendFile(path.join(__dirname, '/public/views/profile.html'));
 })
 
+app.get('/settings', function(req, res){
+  res.sendFile(path.join(__dirname, '/public/views/settings.html'));
+})
 
 //POST REQUESTS
 app.post('/history', function(req, res) {

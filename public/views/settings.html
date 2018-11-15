@@ -5,13 +5,15 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='nav.css' rel='stylesheet' type="text/css">
-    <link href='profile.css' rel='stylesheet' type="text/css">
+    <link href='modal.css' rel='stylesheet' type="text/css">
+    <link href='settings.css' rel='stylesheet' type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="points.js"></script>
+    <script src="modal.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -31,12 +33,32 @@
         </ul>
       </div>
     </nav>
-    <h2>Profile</h2>
-    <p>Name: <span id="fullname"></span></p>
-    <p>Email: <span id="email"></span></p>
-    <h3>Purchase History:</h3>
-    <ul id="history">
-    </ul>
+    <h2>Profile Settings</h2>
+    <form onsubmit="showConfirmation()">
+      <p>Change name: <input type="text" id="fullname" name="fullname" /></p>
+      <p>Change email: <input type="email" id="email" name="email" /></p>
+      <p>Change theme:
+        <select name="themes" id="themes">
+        </select>
+      </p>
+      <input type="submit" value="Save Changes" />
+    </form>
+
+    <!-- settings saved -->
+    <div id="saved" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2 id="saved-header"> </h2>
+        </div>
+        <p class="modal-body" id="saved-body">
+        </p>
+        <div class="modal-footer">
+          <button onclick="closeModal()">Cancel</button>
+          <button class="accented-button" onclick="updateSettings()">OK</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
 
@@ -44,6 +66,14 @@
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 
-  showProfileInfo();
+  getCurrentSettings();
 });
+
+$('form').submit(function(e) {
+  e.preventDefault();
+});
+
+function showConfirmation() {
+  render_modal('saved', 'saved-header', 'saved-body', 'Confirm', 'Do you confirm these settings?');
+}
 </script>

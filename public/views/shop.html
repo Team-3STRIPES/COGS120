@@ -25,7 +25,7 @@
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="profile">Profile</a></li>
-              <li><a href="profile">Settings</a></li>
+              <li><a href="settings">Settings</a></li>
               <li><a href="index">Sign Out</a></li>
             </ul>
           </li>
@@ -41,7 +41,7 @@
             <p class="item-name no-margin">Baby Blue</p>
             <p class="item-desc no-margin">Blue color theme. What a rad hue! Purchase this item for a cool blue theme.</p>
           </div>
-          <p class="item-buy">3 pts</p>
+          <p class="item-buy">100 pts</p>
         </div>
         <div class="item" id="guavaPink">
           <div class="item-pic" id="guava-pink-pic"></div>
@@ -71,8 +71,8 @@
           <p class="modal-body" id="purchase-body">
           </p>
           <div class="modal-footer">
-            <button onclick="confirmedBuy()"> Yes </button>
             <button onclick="closeModal()"> Cancel </button>
+            <button class="accented-button" onclick="confirmedBuy()"> Yes </button>
           </div>
         </div>
       </div>
@@ -87,8 +87,8 @@
           <p class="modal-body" id="switch-body">
           </p>
           <div class="modal-footer">
-            <button onclick="updateTheme()"> Yes </button>
             <button onclick="closeModal()"> No </button>
+            <button class="accented-button" onclick="updateTheme()"> Yes </button>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
           <p class="modal-body" id="fail-body">
           </p>
           <div class="modal-footer">
-            <button onclick="closeModal()"> OK </button>
+            <button class="accented-button" onclick="closeModal()"> OK </button>
           </div>
         </div>
       </div>
@@ -120,7 +120,7 @@ $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 });
 var themes = {
-  babyBlue: '3',
+  babyBlue: '100',
   guavaPink: '150',
   mangoChile: '200'
 }
