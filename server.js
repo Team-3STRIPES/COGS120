@@ -13,16 +13,9 @@ var app = express();
 
 var pool = new pg.Pool()
 //db connection
-/*const dbConfig = {
+const dbConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
-}*/
-const dbConfig = {
-  host: 'localhost',
-  port: 5432,
-  user: 'threestripes',
-  database: 'threestripesdb',
-  password: 'Get2plat',
 }
 
 //local connection (do not push)
@@ -39,24 +32,17 @@ app.use(express.static(__dirname+'/public/media'));
 
 
 //Mail options
+
+
+var server_email = process.env.EMAIL
+
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'focus.threestripes@gmail.com',
-    pass: 'Ad1daspants'
-  }
-});
-
-//var server_email = process.env.EMAIL
-var server_email = 'focus.threestripes@gmail.com';
-
-/*var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS
   }
-});*/
+});
 
 //GET REQUESTS
 app.get('/', function(req, res){
@@ -383,18 +369,20 @@ app.post('/ready', function(req, res) {
   pool.connect((err, dbclient, done) => {
     var input_user = req.body.input_user;
     var input_password = req.body.input_password;
-    var qstring = 'SELECT name, points, curr_theme, email FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    var qstring = 'SELECT name, points, curr_theme, email, owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     dbclient.query(qstring).then(result => {
         var results = result.rows[0]
         var name = results.name;
         var points = results.points;
         var curr_theme = results.curr_theme;
         var email = results.email;
+        var themes = results.owned_themes;
         res.send({
           'name':name,
           'points':points,
           'theme':curr_theme,
           'email': email,
+          'themes': themes,
         })
       })
       .catch(e => {
@@ -437,6 +425,7 @@ app.post('/addHist', function(req, res) {
     var qstring = 'SELECT study_hist FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     queries.push(dbclient.query(qstring).then(result => result.rows[0]))
     promise.all(queries).then(data => {
+      console.log(input_hist)
       var hist = data[0].study_hist;
       hist.push(input_hist);
       var hist_string = "{"
@@ -475,6 +464,7 @@ app.post('/getHist', function(req, res) {
       .then(() => dbclient.end())
   })
 })
+
 
 
 //addhistory

@@ -304,7 +304,60 @@ function showProfileInfo() {
 }
 
 function getCurrentSettings() {
-  $("#fullname").val(localStorage.getItem('name'));
+  $.ajax({
+    url : "/ready",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+           },
+    success: function(data, textStatus, jqXHR)
+    {
+      $("#fullname").text(data.name);
+      $("#email").text(data.email);
+      var $themes = $("#themes");
+      var curTheme = data.theme;
+      $('select > option').each(function(e) {
+      if($(this).attr('value') === curTheme) {
+          $(this).prop('selected', true);
+        }
+      });
+     
+      if(curTheme === 'default') {
+        $themes.append('<option value="default" selected>Default</option>');
+      }
+      if(curTheme === 'babyBlue') {
+        $themes.append('<option value="babyBlue" selected>Baby Blue</option>');
+      }
+      if(curTheme === 'guavaPink') {
+        $themes.append('<option value="guavaPink" selected>Guava Pink</option>');
+      }
+      if(curTheme === 'mangoChile') {
+        $themes.append('<option value="mangoChile" selected>Mango Chile</option>');
+      }
+      for (var i = 0; i < data.themes.length; i++) {
+        if(data.themes[i] === 'default' && curTheme !== 'default') {
+          $themes.append('<option value="default">Default</option>');
+        }
+        if (data.themes[i] === 'babyBlue' && curTheme !== 'babyBlue') {
+          $themes.append('<option value='+data.themes+'>Baby Blue</option>');
+        }
+        if(data.themes[i] === 'guavaPink' && curTheme !== 'guavaPink') {
+          $themes.append('<option value="guavaPink">Guava Pink</option>');
+        }
+        if(data.themes[i] === 'mangoChile' && curTheme !== 'mangoChile') {
+          $themes.append('<option value="mangoChile">Mango Chile</option>');
+        }
+      }
+
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+  });
+}
+  /*$("#fullname").val(localStorage.getItem('name'));
   $("#email").val(localStorage.getItem('email'));
   var $themes = $("#themes");
   var curTheme = localStorage.getItem('theme');
@@ -344,7 +397,7 @@ function getCurrentSettings() {
       $themes.append('<option value="mangoChile">Mango Chile</option>');
     }
   }
-}
+}*/
 
 function updateSettings() {
    $.ajax({
@@ -421,8 +474,8 @@ function getHistory() {
 
     }
   });
-  if (history.length == 0) {
-    history = '';
+  if (history == undefined) {
+    history = [];
   }
   return history;
 }
