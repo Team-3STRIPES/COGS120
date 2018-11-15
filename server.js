@@ -3,7 +3,9 @@ var http = require('http'),
     path = require('path'),
     bodyParser = require('body-parser'),
     pg = require('pg'),
-    promise = require('es6-promise').Promise;
+    promise = require('es6-promise').Promise,
+    validator = require('email-validator'),
+    nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 1500
 
@@ -15,7 +17,13 @@ var pool = new pg.Pool()
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 }*/
-
+const dbConfig = {
+  host: 'localhost',
+  port: 5432,
+  user: 'threestripes',
+  database: 'threestripesdb',
+  password: 'Get2plat',
+}
 
 //local connection (do not push)
 var pool = new pg.Pool(dbConfig)
@@ -29,6 +37,26 @@ app.use(express.static(__dirname+'/public/styles'));
 app.use(express.static(__dirname+'/public/scripts'));
 app.use(express.static(__dirname+'/public/media'));
 
+
+//Mail options
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'focus.threestripes@gmail.com',
+    pass: 'Ad1daspants'
+  }
+});
+
+//var server_email = process.env.EMAIL
+var server_email = 'focus.threestripes@gmail.com';
+
+/*var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASS
+  }
+});*/
 
 //GET REQUESTS
 app.get('/', function(req, res){
@@ -94,7 +122,33 @@ app.post('/olduser', function(req, res) {
     if (input_user == '' || input_password == '') {
       return console.log('input name not passed in');
     }
-    var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    console.log(input_user)
+    console.log(input_password)
+    var queries = []
+    var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\' and confirm_email=\'true\';'
+    queries.push(dbclient.query(qstring).then(result => result.rowCount))
+    qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rowCount))
+    qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rowCount))
+    qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\' and confirm_email=\'false\';'
+    queries.push(dbclient.query(qstring).then(result => result.rowCount))
+    promise.all(queries).then(data => {
+      console.log(data)
+      if (data[1] == 0) {
+        console.log("Username not found")
+        res.send({'check':1})
+      } else if (data[1] == 1 && data[2] == 0) {
+        console.log("Password incorrect")
+        res.send({'check':2})
+      } else if (data[3] == 1) {
+        console.log("Email not confirmed")
+        res.send({'check':3})
+      } else {
+        console.log("Successful Login")
+        res.send({'check':0})
+      }
+    /*var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     dbclient.query(qstring)
       .then(result => {
           if (result.rowCount == 0) {
@@ -118,6 +172,7 @@ app.post('/olduser', function(req, res) {
       .catch(e => console.error(e.stack))
       .then(() => {
         dbclient.end()
+    })*/
     })
   })
 })
@@ -135,36 +190,90 @@ app.post('/newuser', function(req, res) {
     if (input_name == '' || input_user == '' || input_email == '' || input_password == '') {
       return console.log('input name not passed in');
     }
-
-    var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\';'
     var queries = []
+    var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\';'
     queries.push(dbclient.query(qstring).then(result => result.rowCount))
     qstring = 'SELECT name FROM users WHERE email=\''+input_email+'\';'
     queries.push(dbclient.query(qstring).then(result => result.rowCount))
     promise.all(queries).then(data => {
-      var sum = 0
-      for (var i = 0; i < data.length; i++) {
-        sum+=data[i];
+      if (data[0] == 1) {
+        console.log("Username taken")
+        res.send({'check':0})
+      } else if (data[1] == 1) {
+        console.log("Email taken")
+        res.send({'check':1})
+      } else if (!validator.validate(input_email)) {
+        console.log("Invalid Email")
+        res.send({'check':2})
+      } else {
+        var mailOptions = {
+          from: server_email,
+          to: input_email,
+          subject: 'Focus: Email Confirmation',
+          html: '<!DOCTYPE html> \
+                <html lang="en-US"> \
+                <head> \
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
+                </head> \
+                <body> \
+                  <h2>Thank you for signing up with Focus!</h2> \
+                  <p>Click button to confirm your account</p><button onclick="loginUser"> Confirm </button> \
+                </body> \
+                <script> \
+                  function loginUser() { \
+                    console.log("here i am ") \
+                    $.ajax({url : "threestripes.herokuapp.com/confirm", \
+                    type: "POST", \
+                    data : {input_user:'+input_user+', input_password:'+input_password+', input_email:'+input_email+'}, \
+                    success: function(data, textStatus, jqXHR){} \
+                    error: function (jqXHR, textStatus, errorThrown){}}); \
+                  } \
+                </script> \
+                </html>'
+        }
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        dbclient.query('INSERT INTO users (name, username, email, password, confirm_email) VALUES \
+          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'false\');').then(result => {
+            console.log("Successful signup")
+            res.send({'check':3})
+          })
+          .catch(e => {
+            console.log('error :(')
+            console.error(e.stack)
+        })
       }
-      if (sum == 0) {
-        dbclient.query('INSERT INTO users (name, username, email, password) VALUES \
-          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\');').then(result => {
+    })
+  })
+})
+
+app.post('/confirm', function(req, res) {
+  console.log('confirm pinged')
+  pool.connect((err, dbclient, done) => {
+    dbclient.query('UPDATE users SET confirm_email = \'true\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+      console.log("Successful signup")
+      })
+      .catch(e => {
+        console.log('error :(')
+        console.error(e.stack)
+    })
+  })
+})
+/*else {
+        dbclient.query('UPDATE users SET confirm_email = \'true\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
             console.log("Successful signup")
             res.send({'check':2})
           })
           .catch(e => {
             console.log('error :(')
             console.error(e.stack)
-          })
-      } else if (data[0] == 1) {
-        console.log("Username taken")
-        res.send({'check':0})
-      } else {
-        console.log("Email taken")
-        res.send({'check':1})
-      }
-    })
-
+        })
+      }*/
 
    /* var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\';'
     dbclient.query(qstring)
@@ -198,8 +307,6 @@ app.post('/newuser', function(req, res) {
       .then(() => {
         dbclient.end()
     }) */
-  })
-})
 
 
 //server

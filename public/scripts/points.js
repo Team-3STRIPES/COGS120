@@ -25,10 +25,12 @@ function loginUser() {
            },
     success: function(data, textStatus, jqXHR)
     {
-      if(data.check === 0) {
-        alert("You must make an account first.");
-      } else if(data.check === 1) {
-        alert("Your login information is incorrect.");
+      if(data.check === 1) {
+        alert("Username not found.");
+      } else if(data.check === 2) {
+        alert("Password incorrect.");
+      } else if(data.check === 3) {
+        alert("Email is not confirmed");
       } else {
         window.location.href = "home";
       }
@@ -76,13 +78,15 @@ function initUser() {
           alert("Username is already being used");
         } else if(data.check === 1) {
           alert("Email is already being used");
+        } else if (data.check === 2){
+          alert("Email is invalid");
         } else {
           window.location.href = "home";
         }
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-   
+    
       }
     });
 
