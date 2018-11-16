@@ -17,9 +17,12 @@ $(document).ready(function() {
     {
       $("#points").text(data.points);
       $("#name").text(data.out_name);
+      var theme = data.theme
+      console.log(theme)
       var $nav = $('nav');
-      var curTheme = data.theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
+      var curTheme = theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
       $nav.addClass(curTheme);
+      console.log('finished ready')
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
@@ -257,7 +260,9 @@ function updateElementTheme(selector) {
            },
     success: function(data, textStatus, jqXHR)
     {
-      var curTheme = data.theme.toLowerCase()+"theme";
+      var theme = data.theme
+      console.log(theme)
+      var curTheme = theme.toLowerCase()+"theme";
       console.log(curTheme)
       $(selector).addClass(curTheme);
     },
@@ -325,13 +330,13 @@ function getCurrentSettings() {
       if(curTheme === 'default') {
         $themes.append('<option value="default" selected>Default</option>');
       }
-      if(curTheme === 'babyBlue') {
+      else if(curTheme === 'babyBlue') {
         $themes.append('<option value="babyBlue" selected>Baby Blue</option>');
       }
-      if(curTheme === 'guavaPink') {
+      else if(curTheme === 'guavaPink') {
         $themes.append('<option value="guavaPink" selected>Guava Pink</option>');
       }
-      if(curTheme === 'mangoChile') {
+      else if(curTheme === 'mangoChile') {
         $themes.append('<option value="mangoChile" selected>Mango Chile</option>');
       }
       for (var i = 0; i < data.themes.length; i++) {
@@ -339,7 +344,7 @@ function getCurrentSettings() {
           $themes.append('<option value="default">Default</option>');
         }
         if (data.themes[i] === 'babyBlue' && curTheme !== 'babyBlue') {
-          $themes.append('<option value='+data.themes+'>Baby Blue</option>');
+          $themes.append('<option value="babyBlue">Baby Blue</option>');
         }
         if(data.themes[i] === 'guavaPink' && curTheme !== 'guavaPink') {
           $themes.append('<option value="guavaPink">Guava Pink</option>');
@@ -399,6 +404,7 @@ function getCurrentSettings() {
 }*/
 
 function updateSettings() {
+   console.log($('#themes').val())
    $.ajax({
     url : "/update",
     type: "POST",
@@ -466,8 +472,8 @@ function getHistory() {
       hist = data.hist;
       console.log(hist)
       var $history = $('#history');
-      for(var i = hist.length; i >= 0; i--) {
-        $history.append(`<li>${history[i]}</li>`)
+      for(var i = hist.length-1; i >= 0; i--) {
+        $history.append(`<li>${hist[i]}</li>`)
       }
     },
     error: function (jqXHR, textStatus, errorThrown)

@@ -586,6 +586,7 @@ function failSession(time) {
   var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
 
+  console.log('adding failed history')
   addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)
 
   render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")

@@ -80,7 +80,7 @@ app.get('/settings', function(req, res){
 })
 
 //POST REQUESTS
-app.post('/history', function(req, res) {
+/*app.post('/history', function(req, res) {
   pool.connect((err, dbclient, done) => {
     if (err) {
       return console.error('Error acquiring client', err.stack)
@@ -94,10 +94,10 @@ app.post('/history', function(req, res) {
       .then(result => res.send({'history':result.rows}))
       .catch(e => console.error(e.stack))
       .then(() => {
-        dbclient.end()
+        done()
     })
   })
-})
+})*/
 
 app.post('/olduser', function(req, res) {
   pool.connect((err, dbclient, done) => {
@@ -109,8 +109,6 @@ app.post('/olduser', function(req, res) {
     if (input_user == '' || input_password == '') {
       return console.log('input name not passed in');
     }
-    console.log(input_user)
-    console.log(input_password)
     var queries = []
     var qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\' and confirm_email=\'true\';'
     queries.push(dbclient.query(qstring).then(result => result.rowCount))
@@ -121,7 +119,7 @@ app.post('/olduser', function(req, res) {
     qstring = 'SELECT name FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\' and confirm_email=\'false\';'
     queries.push(dbclient.query(qstring).then(result => result.rowCount))
     promise.all(queries).then(data => {
-      console.log(data)
+      
       if (data[1] == 0) {
         console.log("Username not found")
         res.send({'check':1})
@@ -158,9 +156,9 @@ app.post('/olduser', function(req, res) {
       })
       .catch(e => console.error(e.stack))
       .then(() => {
-        dbclient.end()
+        done()
     })*/
-    }).then(() => dbclient.end())
+    }).then(() => done())
   })
 })
 
@@ -228,13 +226,14 @@ app.post('/newuser', function(req, res) {
         dbclient.query('INSERT INTO users (name, username, email, password, confirm_email, points, curr_theme, study_hist, owned_themes) VALUES \
           (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'true\', 200, \'default\', \'{}\', \'{default}\');').then(result => {
             console.log("Successful signup")
+
             res.send({'check':3})
           })
           .catch(e => {
             console.log('error 1')
             console.error(e.stack)
           })
-          .then(() => dbclient.end())
+          .then(() => done())
       }
     })
   })
@@ -263,13 +262,14 @@ app.post('/addpts', function(req, res) {
     promise.all(queries).then(data => {
       var newPts = (parseInt(data[0].points) + parseInt(input_pts));
       dbclient.query('UPDATE users SET points = \''+newPts.toString()+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+          
           res.send({'check':newPts})
         })
         .catch(e => {
           console.log('error 2')
           console.error(e.stack)
       }).then(() => {
-         dbclient.end()
+         done()
       })
     })
   })
@@ -289,6 +289,7 @@ app.post('/ptscheck', function(req, res) {
     qstring = 'SELECT owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     queries.push(dbclient.query(qstring).then(result => result.rows[0]))
     promise.all(queries).then(data => {
+      
       var newPts = parseInt(data[0].points);
       var themes = data[1].owned_themes;
       var theme_string = 'false';
@@ -302,7 +303,7 @@ app.post('/ptscheck', function(req, res) {
     .catch(e => {
       console.error(e.stack)
     })
-    .then(() => dbclient.end())
+    .then(() => done())
   })
 })
 
@@ -333,6 +334,7 @@ app.post('/buyTheme', function(req, res) {
       theme_string = theme_string + themes[themes.length-1] + "}"
       dbclient.query('UPDATE users SET points=\''+newPts+'\', owned_themes=\''+theme_string+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
         console.log("Successful theme update")
+        
         res.send({'check':'true'})
       })
       .catch(e => {
@@ -343,7 +345,7 @@ app.post('/buyTheme', function(req, res) {
     .catch(e => {
       console.error(e.stack)
     })
-    .then(() => dbclient.end())
+    .then(() => done())
   })
 })
 
@@ -352,14 +354,16 @@ app.post('/currTheme', function(req, res) {
     var input_user = req.body.input_user;
     var input_password = req.body.input_password;
     var input_theme = req.body.input_theme;
+    console.log(input_theme)
     dbclient.query('UPDATE users SET curr_theme =\''+input_theme+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+        
         res.send({'check':'true'})
       })
       .catch(e => {
         console.log('error 4')
         console.error(e.stack)
       })
-      .then(() => dbclient.end())
+      .then(() => done())
   })
 })
 
@@ -369,6 +373,7 @@ app.post('/ready', function(req, res) {
     var input_password = req.body.input_password;
     var qstring = 'SELECT name as in_name, points, curr_theme, email, owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     dbclient.query(qstring).then(result => {
+        
         var results = result.rows[0]
         var out_name = results.in_name;
         var points = results.points;
@@ -387,7 +392,7 @@ app.post('/ready', function(req, res) {
         console.log('error 5')
         console.error(e.stack)
       })
-      .then(() => dbclient.end())
+      .then(() => done())
   })
 })
 
@@ -399,17 +404,22 @@ app.post('/update', function(req, res) {
     var input_name = req.body.input_name;
     var input_email = req.body.input_email;
     var input_theme = req.body.input_theme;
+    console.log('updated')
+    console.log(input_theme)
     if  (!validator.validate(input_email)) {
         res.send({'check':'false'})
     } else {
       dbclient.query('UPDATE users SET curr_theme =\''+input_theme+'\', name =\''+input_name+'\', email =\''+input_email+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
-          res.send({'check':'true'})
+          
+          res.send({
+            'check':'true'
+          })
         })
         .catch(e => {
           console.log('error 6')
           console.error(e.stack)
         })
-        .then(() => dbclient.end())
+        .then(() => done())
     }
   })
 })
@@ -431,13 +441,14 @@ app.post('/addHist', function(req, res) {
       }
       hist_string = hist_string + hist[hist.length-1] + "}"
       dbclient.query('UPDATE users SET study_hist =\''+hist_string+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+        
         res.send({'check':'true'})
       })
       .catch(e => {
         console.log('error 7')
         console.error(e.stack)
       })
-      .then(() => dbclient.end())
+      .then(() => done())
     })
   })
 })
@@ -448,17 +459,37 @@ app.post('/getHist', function(req, res) {
     var input_password = req.body.input_password;
     var qstring = 'SELECT study_hist FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     dbclient.query(qstring).then(result => {
+        
         var results = result.rows[0]
         var hist = results.study_hist;
+        var newHist = []
+        var hist_string = ''
+        var counter = 0
+        for (var i = 0; i < hist.length; i++) {
+          if (hist[i].substring(0,1) == 'F') {
+            newHist.push(hist[i]);
+            hist_string = ''
+          }
+          else if (counter%4==3) {
+            hist_string = hist_string + hist[i]
+            newHist.push(hist_string);
+            hist_string = ''
+            counter++;
+          } else {
+            console.log(hist[i])
+            hist_string = hist_string + hist[i] + ', '
+            counter++;
+          }
+        }
         res.send({
-          'hist': hist,
+          'hist': newHist,
         })
       })
       .catch(e => {
         console.log('error 8')
         console.error(e.stack)
       })
-      .then(() => dbclient.end())
+      .then(() => done())
   })
 })
 
@@ -467,6 +498,7 @@ app.post('/forgotEmail', function(req, res) {
     var input_email = req.body.input_email;
     var qstring = 'SELECT username, password FROM users WHERE email=\''+input_email+'\';'
     dbclient.query(qstring).then(result => {
+        
         var results = result.rows[0]
         if (result.rowCount == 0) {
           res.send({
@@ -503,7 +535,7 @@ app.post('/forgotEmail', function(req, res) {
         console.log('error 9')
         console.error(e.stack)
       })
-      .then(() => dbclient.end())
+      .then(() => done())
   })
 })
 
@@ -549,7 +581,7 @@ app.post('/forgotEmail', function(req, res) {
         console.error(e.stack)
       })
       .then(() => {
-        dbclient.end()
+        done()
     }) */
 
 
