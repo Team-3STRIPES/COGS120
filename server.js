@@ -32,17 +32,15 @@ app.use(express.static(__dirname+'/public/media'));
 
 
 //Mail options
+var server_email = process.env.EMAIL
 
-//var server_email = process.env.EMAIL
-var server_email = 'focus.threestripes@gmail.com';
-
-/*var transporter = nodemailer.createTransport({
+var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS
   }
-});*/
+});
 
 //GET REQUESTS
 app.get('/', function(req, res){
@@ -162,7 +160,7 @@ app.post('/olduser', function(req, res) {
       .then(() => {
         dbclient.end()
     })*/
-    })
+    }).then(() => dbclient.end())
   })
 })
 
@@ -206,7 +204,7 @@ app.post('/newuser', function(req, res) {
                 </head> \
                 <body> \
                   <h2>Thank you for signing up with Focus!</h2> \
-                  <p>Click button to confirm your account</p><button onclick="loginUser"> Confirm </button> \
+                  <p>Your account has been created.</p> \
                 </body> \
                 <script> \
                   function loginUser() { \
@@ -227,22 +225,22 @@ app.post('/newuser', function(req, res) {
             console.log('Email sent: ' + info.response);
           }
         });
-        dbclient.query('INSERT INTO users (name, username, email, password, confirm_email) VALUES \
-          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'false\');').then(result => {
+        dbclient.query('INSERT INTO users (name, username, email, password, confirm_email, points, curr_theme, study_hist, owned_themes) VALUES \
+          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'true\', 200, \'default\', \'{}\', \'{default}\');').then(result => {
             console.log("Successful signup")
             res.send({'check':3})
           })
           .catch(e => {
-            console.log('error :(')
+            console.log('error 1')
             console.error(e.stack)
-        })
+          })
+          .then(() => dbclient.end())
       }
     })
   })
 })
 
-app.post('/confirm', function(req, res) {
-  console.log('confirm pinged')
+/*app.post('/confirm', function(req, res) {
   pool.connect((err, dbclient, done) => {
     dbclient.query('UPDATE users SET confirm_email = \'true\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
       console.log("Successful signup")
@@ -252,7 +250,269 @@ app.post('/confirm', function(req, res) {
         console.error(e.stack)
     })
   })
+})*/
+
+app.post('/addpts', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_pts = req.body.input_pts;
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var queries = []
+    qstring = 'SELECT points FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    promise.all(queries).then(data => {
+      var newPts = (parseInt(data[0].points) + parseInt(input_pts));
+      dbclient.query('UPDATE users SET points = \''+newPts.toString()+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+          res.send({'check':newPts})
+        })
+        .catch(e => {
+          console.log('error 2')
+          console.error(e.stack)
+      }).then(() => {
+         dbclient.end()
+      })
+    })
+  })
 })
+
+app.post('/ptscheck', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var input_theme = req.body.input_theme;
+    if (input_user == '' || input_theme == '' || input_password == '') {
+      return console.log('input name not passed in');
+    }
+    var queries = []
+    var qstring = 'SELECT points FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    qstring = 'SELECT owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    promise.all(queries).then(data => {
+      var newPts = parseInt(data[0].points);
+      var themes = data[1].owned_themes;
+      var theme_string = 'false';
+      for (var i = 0; i < themes.length; i++) {
+        if (themes[i] == input_theme) {
+          theme_string = 'true';
+        }
+      }
+      res.send({'points':newPts, 'theme':theme_string})
+    })
+    .catch(e => {
+      console.error(e.stack)
+    })
+    .then(() => dbclient.end())
+  })
+})
+
+app.post('/buyTheme', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_pts = req.body.input_pts;
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var input_theme = req.body.input_theme;
+    if (input_pts == '' || input_user == '' || input_theme == '' || input_password == '') {
+      return console.log('input name not passed in');
+    }
+    var queries = []
+    var qstring = 'SELECT points FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    qstring = 'SELECT owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    promise.all(queries).then(data => {
+      console.log(parseInt(input_pts))
+      console.log(input_pts)
+      var newPts = (parseInt(data[0].points) - parseInt(input_pts));
+      var themes = data[1].owned_themes;
+      themes.push(input_theme);
+      var theme_string = "{"
+      for (var i = 0; i < themes.length-1; i++) {
+        theme_string = theme_string + themes[i]+', ';
+      }
+      theme_string = theme_string + themes[themes.length-1] + "}"
+      dbclient.query('UPDATE users SET points=\''+newPts+'\', owned_themes=\''+theme_string+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+        console.log("Successful theme update")
+        res.send({'check':'true'})
+      })
+      .catch(e => {
+        console.log('error 3')
+        console.error(e.stack)
+      })
+    })
+    .catch(e => {
+      console.error(e.stack)
+    })
+    .then(() => dbclient.end())
+  })
+})
+
+app.post('/currTheme', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var input_theme = req.body.input_theme;
+    dbclient.query('UPDATE users SET curr_theme =\''+input_theme+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+        res.send({'check':'true'})
+      })
+      .catch(e => {
+        console.log('error 4')
+        console.error(e.stack)
+      })
+      .then(() => dbclient.end())
+  })
+})
+
+app.post('/ready', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var qstring = 'SELECT name, points, curr_theme, email, owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    dbclient.query(qstring).then(result => {
+        var results = result.rows[0]
+        var name = results.name;
+        var points = results.points;
+        var curr_theme = results.curr_theme;
+        var email = results.email;
+        var themes = results.owned_themes;
+        res.send({
+          'name':name,
+          'points':points,
+          'theme':curr_theme,
+          'email': email,
+          'themes': themes,
+        })
+      })
+      .catch(e => {
+        console.log('error 5')
+        console.error(e.stack)
+      })
+      .then(() => dbclient.end())
+  })
+})
+
+app.post('/update', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var input_theme = req.body.input_theme;
+    var input_name = req.body.input_name;
+    var input_email = req.body.input_email;
+    var input_theme = req.body.input_theme;
+    if  (!validator.validate(input_email)) {
+        res.send({'check':'false'})
+    } else {
+      dbclient.query('UPDATE users SET curr_theme =\''+input_theme+'\', name =\''+input_name+'\', email =\''+input_email+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+          res.send({'check':'true'})
+        })
+        .catch(e => {
+          console.log('error 6')
+          console.error(e.stack)
+        })
+        .then(() => dbclient.end())
+    }
+  })
+})
+
+app.post('/addHist', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var input_hist = req.body.input_hist;
+    var queries = []
+    var qstring = 'SELECT study_hist FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    queries.push(dbclient.query(qstring).then(result => result.rows[0]))
+    promise.all(queries).then(data => {
+      console.log(input_hist)
+      var hist = data[0].study_hist;
+      hist.push(input_hist);
+      var hist_string = "{"
+      for (var i = 0; i < hist.length-1; i++) {
+        hist_string = hist_string + hist[i]+', ';
+      }
+      hist_string = hist_string + hist[hist.length-1] + "}"
+      dbclient.query('UPDATE users SET study_hist =\''+hist_string+'\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
+        res.send({'check':'true'})
+      })
+      .catch(e => {
+        console.log('error 7')
+        console.error(e.stack)
+      })
+      .then(() => dbclient.end())
+    })
+  })
+})
+
+app.post('/getHist', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_user = req.body.input_user;
+    var input_password = req.body.input_password;
+    var qstring = 'SELECT study_hist FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    dbclient.query(qstring).then(result => {
+        var results = result.rows[0]
+        var hist = results.study_hist;
+        res.send({
+          'hist': hist,
+        })
+      })
+      .catch(e => {
+        console.log('error 8')
+        console.error(e.stack)
+      })
+      .then(() => dbclient.end())
+  })
+})
+
+app.post('/forgotEmail', function(req, res) {
+  pool.connect((err, dbclient, done) => {
+    var input_email = req.body.input_email;
+    var qstring = 'SELECT username, password FROM users WHERE email=\''+input_email+'\';'
+    dbclient.query(qstring).then(result => {
+        var results = result.rows[0]
+        if (result.rowCount == 0) {
+          res.send({
+          'check': false,
+        })
+        }
+        var username = results.username;
+        var password = results.password;
+        var mailOptions = {
+          from: server_email,
+          to: input_email,
+          subject: 'Focus: Login Information',
+          html: '<!DOCTYPE html> \
+                <html lang="en-US"> \
+                <body> \
+                  <h2>Here is your login information for Focus</h2> \
+                  <p>Username: '+username+'</p> \
+                  <p>Password: '+password+'</p> \
+                </body> \
+                </html>'
+        }
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        res.send({
+          'check': true,
+        })
+      })
+      .catch(e => {
+        console.log('error 9')
+        console.error(e.stack)
+      })
+      .then(() => dbclient.end())
+  })
+})
+
+
+
+//addhistory
+//gethistory
+
 /*else {
         dbclient.query('UPDATE users SET confirm_email = \'true\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {
             console.log("Successful signup")

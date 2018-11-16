@@ -30,36 +30,34 @@
         <p><a href="login">Already have an account? Log in here</a></p>
       </div>
     </div>
+    <script>
+      $('form').submit(function(e) {
+        e.preventDefault();
+      });
+
+      function validateSignup() {
+        if($("#name").val() === "") {
+          alert("Please enter a name.");
+          return;
+        } else if($("#user").val() === "") {
+          alert("Please enter a username.");
+          return;
+        } else if($("#email").val() === "") {
+          alert("Please enter an email.");
+          return;
+        } else if($("#pass").val() === "") {
+          alert("Please enter a password.");
+          return;
+        } else if($("#pass2").val() === "") {
+          alert("Please confirm your password.");
+          return;
+        } else if($("#pass").val() !== $("#pass2").val()) {
+          alert("Your passwords do not match.");
+          return;
+        } else {
+          initUser();
+        }
+      }
+      </script>
   </body>
 </html>
-
-<script>
-
-$('form').submit(function(e) {
-  e.preventDefault();
-});
-
-function validateSignup() {
-  if($("#name").val() === "") {
-    alert("Please enter a name.");
-    return;
-  } else if($("#user").val() === "") {
-    alert("Please enter a username.");
-    return;
-  } else if($("#email").val() === "") {
-    alert("Please enter an email.");
-    return;
-  } else if($("#pass").val() === "") {
-    alert("Please enter a password.");
-    return;
-  } else if($("#pass2").val() === "") {
-    alert("Please confirm your password.");
-    return;
-  } else if($("#pass").val() !== $("#pass2").val()) {
-    alert("Your passwords do not match.");
-    return;
-  } else {
-    initUser();
-  }
-}
-</script>
