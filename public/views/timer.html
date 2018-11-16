@@ -556,12 +556,12 @@ function awardPoints(time) {
   var timeElapsed = hDisplay + " hours, " + mDisplay + " minutes, and " + sDisplay + " seconds"
 
   var curDate = new Date();
-  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth + 1) : curDate.getMonth + 1;
+  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth() + 1) : curDate.getMonth() + 1;
   var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
-  var formattedDate = `${formattedMonth}/${formattedDate}/${curDate.getFullYear()}`;
+  var formattedDate = `${formattedMonth}/${formattedDay}/${curDate.getFullYear()}`;
   var startDate = new Date(Date.now() - Number(time + "000"));
   var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
-  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes;
+  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
 
   console.log(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`)
@@ -577,12 +577,12 @@ function finish() {
 function failSession(time) {
 
   var curDate = new Date();
-  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth + 1) : curDate.getMonth + 1;
+  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth() + 1) : curDate.getMonth() + 1;
   var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
-  var formattedDate = `${formattedMonth}/${formattedDate}/${curDate.getFullYear()}`;
+  var formattedDate = `${formattedMonth}/${formattedDay}/${curDate.getFullYear()}`;
   var startDate = new Date(Date.now() - Number(time + "000"));
   var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
-  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes;
+  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
 
   addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)

@@ -367,16 +367,16 @@ app.post('/ready', function(req, res) {
   pool.connect((err, dbclient, done) => {
     var input_user = req.body.input_user;
     var input_password = req.body.input_password;
-    var qstring = 'SELECT name, points, curr_theme, email, owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
+    var qstring = 'SELECT name as in_name, points, curr_theme, email, owned_themes FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     dbclient.query(qstring).then(result => {
         var results = result.rows[0]
-        var name = results.name;
+        var out_name = results.in_name;
         var points = results.points;
         var curr_theme = results.curr_theme;
         var email = results.email;
         var themes = results.owned_themes;
         res.send({
-          'name':name,
+          'out_name':out_name,
           'points':points,
           'theme':curr_theme,
           'email': email,
@@ -423,7 +423,6 @@ app.post('/addHist', function(req, res) {
     var qstring = 'SELECT study_hist FROM users WHERE username=\''+input_user+'\'and password=\''+input_password+'\';'
     queries.push(dbclient.query(qstring).then(result => result.rows[0]))
     promise.all(queries).then(data => {
-      console.log(input_hist)
       var hist = data[0].study_hist;
       hist.push(input_hist);
       var hist_string = "{"
@@ -508,10 +507,6 @@ app.post('/forgotEmail', function(req, res) {
   })
 })
 
-
-
-//addhistory
-//gethistory
 
 /*else {
         dbclient.query('UPDATE users SET confirm_email = \'true\' WHERE username=\''+input_user+'\'and password=\''+input_password+'\';').then(result => {

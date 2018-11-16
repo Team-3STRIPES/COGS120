@@ -16,7 +16,7 @@ $(document).ready(function() {
     success: function(data, textStatus, jqXHR)
     {
       $("#points").text(data.points);
-      $("#name").text(data.name);
+      $("#name").text(data.out_name);
       var $nav = $('nav');
       var curTheme = data.theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
       $nav.addClass(curTheme);
@@ -258,6 +258,7 @@ function updateElementTheme(selector) {
     success: function(data, textStatus, jqXHR)
     {
       var curTheme = data.theme.toLowerCase()+"theme";
+      console.log(curTheme)
       $(selector).addClass(curTheme);
     },
     error: function (jqXHR, textStatus, errorThrown)
@@ -279,7 +280,7 @@ function showProfileInfo() {
            },
     success: function(data, textStatus, jqXHR)
     {
-      $("#fullname").text(data.name);
+      $("#fullname").text(data.out_name);
       $("#email").text(data.email);
     },
     error: function (jqXHR, textStatus, errorThrown)
@@ -311,8 +312,8 @@ function getCurrentSettings() {
            },
     success: function(data, textStatus, jqXHR)
     {
-      $("#fullname").text(data.name);
-      $("#email").text(data.email);
+      $("#fullname").val(data.out_name);
+      $("#email").val(data.email);
       var $themes = $("#themes");
       var curTheme = data.theme;
       $('select > option').each(function(e) {
@@ -453,7 +454,6 @@ function addHistory(historyData) {
 
 function getHistory() {
   //return list of history
-  var history;
   $.ajax({
     url : "/getHist",
     type: "POST",
@@ -464,6 +464,7 @@ function getHistory() {
     success: function(data, textStatus, jqXHR)
     {
       hist = data.hist;
+      console.log(hist)
       var $history = $('#history');
       for(var i = hist.length; i >= 0; i--) {
         $history.append(`<li>${history[i]}</li>`)
