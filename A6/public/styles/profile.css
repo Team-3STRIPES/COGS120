@@ -1,0 +1,54 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-family: 'Lora', serif;
+  text-align: center;
+  padding-top: 8%;
+  padding-bottom: 8%;
+  font-size: 3.5em;
+  color: black;
+  /*border: 1px solid black;*/
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+h3 {
+  font-family: 'Lora', serif;
+  text-align: center;
+  padding-top: 6%;
+  padding-bottom: 6%;
+}
+
+body:before {
+  content: "";
+	background-image: url("home_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.my-container {
+  width: 60%;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20px;
+  padding: 0px 24px;
+
+  flex: 1;
+
+}

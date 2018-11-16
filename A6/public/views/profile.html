@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>COGS 120</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='nav.css' rel='stylesheet' type="text/css">
+    <link href='profile.css' rel='stylesheet' type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="points.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="home">
+            <img src="logo.png" height="30" alt="focus">
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">Balance: <span id="points"></span> pts </p>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="profile">Profile</a></li>
+              <li><a href="settings">Settings</a></li>
+              <li><a href="index">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="my-container">
+      <h2>Profile</h2>
+      <p>Name: <span id="fullname"></span></p>
+      <p>Email: <span id="email"></span></p>
+      <h3>Study History:</h3>
+      <ul id="history">
+      </ul>
+    </div>
+    <script>
+    $(document).ready(function() {
+      if(!localStorage.getItem('user')) forceLogin();
+      showProfileInfo();
+      populateHistory();
+    });
+
+    function populateHistory() {
+      getHistory();
+    }
+    </script>
+  </body>
+</html>
+

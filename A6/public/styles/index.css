@@ -1,0 +1,85 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+header img {
+  margin-top: 8%;
+  margin-left: 17.5%;
+  height: 100px;
+}
+
+body:before {
+  content: "";
+	background-image: url("home_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.container {
+	border-radius: 20px;
+	margin-top: 5%;
+	margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+}
+
+.desc {
+	width: 50%;
+	font-size: 20px;
+}
+.buttons {
+	width: 50%;
+	display: flex;
+	flex-direction: row;
+}
+.buttons a {
+	text-decoration: none;
+}
+
+.navyblue {
+  background-color: #5A709E;
+}
+
+.navyblue:hover {
+  background-color: #667DAF;
+}
+
+.button {
+  text-decoration: none;
+  font-size: 1.25em !important;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  color: white;
+	border-radius: 12px;
+  box-shadow: 0px 2px 6px black;
+  padding-top: 12px;
+  padding-bottom: 14px;
+  text-align: center;
+  cursor: pointer;
+  width: 150px;
+  margin-top: 16px;
+  margin-right: 32px;
+}
+
+.button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 3px black;
+}
+
+.lightblue {
+  background-color: #B6BEF7;
+  color: black;
+}
+
+.lightblue:hover {
+  background-color: #C4CBFF;
+}
