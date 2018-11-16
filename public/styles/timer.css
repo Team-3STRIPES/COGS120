@@ -227,3 +227,21 @@ span.mangochiletheme:hover {
     -ms-user-select: none;
     user-select: none;
 }
+
+.quoteDiv {
+  display: none;
+  padding-left: 10%;
+  padding-right: 10%;
+  overflow: none;
+  background-color: white;
+  flex: 1;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.quoteDiv p {
+  font-size: 1.5em;
+  font-family: 'Lora', serif;
+}
