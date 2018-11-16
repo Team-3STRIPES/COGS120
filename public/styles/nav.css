@@ -18,6 +18,13 @@ nav {
   background-color: #C68F29;
 }
 
+a.navbar-brand {
+  padding: 0;
+  height: 30px;
+  display: inline-block;
+  margin: 9px 0px 0px 8px !important;
+}
+
 /* Title */
 .navbar-default .navbar-brand {
     color: #EEE;

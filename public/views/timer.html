@@ -18,7 +18,9 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="home">Team 3STRIPES</a>
+          <a class="navbar-brand" href="home">
+            <img src="logo.png" height="30" alt="focus">
+          </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <p class="navbar-text">Balance: <span id="points"></span> pts </p>
@@ -564,7 +566,6 @@ function awardPoints(time) {
   var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
 
-  console.log(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`)
   addHistory(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`);
 
   render_modal("complete", "complete-header", "complete-body", "Congratulations!", "You finished your study session for " + timeElapsed + " and earned " + award + " points.")
@@ -586,7 +587,7 @@ function failSession(time) {
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
 
   addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)
-  
+
   render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")
   stopTimer();
 }
