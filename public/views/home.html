@@ -39,113 +39,113 @@
     <div class="quoteDiv">
       <p><q id="quotation"></q><cite id="source"></cite></p>
     </div>
+    <script>
+    var $quote;
+    var $source;
+    var bank;
+    var quoteFunc;
+    const ONE_SECOND = 1000;
+    const ROTATE_INTERVAL = 8000;
+
+    $(document).ready(function() {
+
+      if(!localStorage.getItem('user')) forceLogin();
+      updateElementTheme('#startButton');
+
+      $quote = $("#quotation");
+      $source = $("#source");
+      bank = [
+        {
+          words: "Failure is the opportunity to begin more intelligently.",
+          author: "Henry&nbsp;Ford"
+        },
+        {
+          words: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+          author: "Thomas&nbsp;Edison"
+        },
+        {
+          words: "Start where you are. Use what you have. Do what you can.",
+          author: "Arthur&nbsp;Ashe"
+        },
+        {
+          words: "I find that the harder I work, the more luck I seem to have.",
+          author: "Thomas&nbsp;Jefferson"
+        },
+        {
+          words: "The secret of success is to do the common things uncommonly well.",
+          author: "John&nbsp;D.&nbsp;Rockefeller"
+        },
+        {
+          words: "Success is making the people who believed in you look brilliant.",
+          author: "Dharmesh&nbsp;Shah"
+        },
+        {
+          words: "Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.",
+          author: "Stephen&nbsp;King"
+        },
+        {
+          words: "I don’t love studying. I hate studying. I like learning. Learning is beautiful.",
+          author: "Natalie&nbsp;Portman"
+        },
+        {
+          words: "Learning is the only thing the mind never exhausts, never fears, and never regrets.",
+          author: "Leonardo&nbsp;da&nbsp;Vinci"
+        },
+        {
+          words: "The dictionary is the only place that success comes before work. Work is the key to success, and hard work can help you accomplish anything.",
+          author: "Vince&nbsp;Lombardi"
+        },
+        {
+          words: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+          author: "Mahatma&nbsp;Gandhi"
+        },
+        {
+          words: "If people knew how hard I worked to achieve my mastery, it wouldn’t seem so wonderful after all.",
+          author: "Michelangelo"
+        },
+        {
+          words: "We love you Charles :)",
+          author: "Team&nbsp;3STRIPES"
+        }
+      ];
+      var bankIndices = [];
+      while(bankIndices.length < bank.length){
+        var tempRandom = Math.floor(Math.random() * bank.length);
+        if(bankIndices.indexOf(tempRandom) > -1) continue;
+        bankIndices[bankIndices.length] = tempRandom;
+      }
+      rotateQuotes(bankIndices);
+    });
+
+    function rotateQuotes(indices) {
+
+      var curIndex = 1;
+
+      function setQuote() {
+        $quote.fadeOut(ONE_SECOND);
+        $source.fadeOut(ONE_SECOND);
+        setTimeout(function() {
+          $quote.html(bank[indices[curIndex]].words);
+          $source.html(" -&nbsp;" + bank[indices[curIndex]].author);
+          curIndex + 1 == indices.length ? curIndex = 0 : curIndex++;
+        }, ONE_SECOND);
+        $quote.fadeIn(ONE_SECOND);
+        $source.fadeIn(ONE_SECOND);
+      }
+
+      $quote.html(bank[indices[0]].words);
+      $source.html(" -&nbsp;" + bank[indices[0]].author);
+      quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+
+      $(window).blur(function() {
+        clearInterval(quoteFunc);
+      });
+
+      $(window).focus(function() {
+        quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+      });
+    }
+    </script>
   </body>
 </html>
 
-<script>
-var $quote;
-var $source;
-var bank;
-var quoteFunc;
-const ONE_SECOND = 1000;
-const ROTATE_INTERVAL = 8000;
-
-$(document).ready(function() {
-
-  if(!localStorage.getItem('user')) forceLogin();
-  updateElementTheme('#startButton');
-
-  $quote = $("#quotation");
-  $source = $("#source");
-  bank = [
-    {
-      words: "Failure is the opportunity to begin more intelligently.",
-      author: "Henry&nbsp;Ford"
-    },
-    {
-      words: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
-      author: "Thomas&nbsp;Edison"
-    },
-    {
-      words: "Start where you are. Use what you have. Do what you can.",
-      author: "Arthur&nbsp;Ashe"
-    },
-    {
-      words: "I find that the harder I work, the more luck I seem to have.",
-      author: "Thomas&nbsp;Jefferson"
-    },
-    {
-      words: "The secret of success is to do the common things uncommonly well.",
-      author: "John&nbsp;D.&nbsp;Rockefeller"
-    },
-    {
-      words: "Success is making the people who believed in you look brilliant.",
-      author: "Dharmesh&nbsp;Shah"
-    },
-    {
-      words: "Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.",
-      author: "Stephen&nbsp;King"
-    },
-    {
-      words: "I don’t love studying. I hate studying. I like learning. Learning is beautiful.",
-      author: "Natalie&nbsp;Portman"
-    },
-    {
-      words: "Learning is the only thing the mind never exhausts, never fears, and never regrets.",
-      author: "Leonardo&nbsp;da&nbsp;Vinci"
-    },
-    {
-      words: "The dictionary is the only place that success comes before work. Work is the key to success, and hard work can help you accomplish anything.",
-      author: "Vince&nbsp;Lombardi"
-    },
-    {
-      words: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
-      author: "Mahatma&nbsp;Gandhi"
-    },
-    {
-      words: "If people knew how hard I worked to achieve my mastery, it wouldn’t seem so wonderful after all.",
-      author: "Michelangelo"
-    },
-    {
-      words: "We love you Charles :)",
-      author: "Team&nbsp;3STRIPES"
-    }
-  ];
-  var bankIndices = [];
-  while(bankIndices.length < bank.length){
-    var tempRandom = Math.floor(Math.random() * bank.length);
-    if(bankIndices.indexOf(tempRandom) > -1) continue;
-    bankIndices[bankIndices.length] = tempRandom;
-  }
-  rotateQuotes(bankIndices);
-});
-
-function rotateQuotes(indices) {
-
-  var curIndex = 1;
-
-  function setQuote() {
-    $quote.fadeOut(ONE_SECOND);
-    $source.fadeOut(ONE_SECOND);
-    setTimeout(function() {
-      $quote.html(bank[indices[curIndex]].words);
-      $source.html(" -&nbsp;" + bank[indices[curIndex]].author);
-      curIndex + 1 == indices.length ? curIndex = 0 : curIndex++;
-    }, ONE_SECOND);
-    $quote.fadeIn(ONE_SECOND);
-    $source.fadeIn(ONE_SECOND);
-  }
-
-  $quote.html(bank[indices[0]].words);
-  $source.html(" -&nbsp;" + bank[indices[0]].author);
-  quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
-
-  $(window).blur(function() {
-    clearInterval(quoteFunc);
-  });
-
-  $(window).focus(function() {
-    quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
-  });
-}
-</script>
