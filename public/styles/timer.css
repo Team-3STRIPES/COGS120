@@ -232,6 +232,7 @@ span.mangochiletheme:hover {
   display: none;
   padding-left: 10%;
   padding-right: 10%;
+  margin-top: 4%;
   overflow: none;
   background-color: white;
   flex: 1;
@@ -244,4 +245,5 @@ span.mangochiletheme:hover {
 .quoteDiv p {
   font-size: 1.5em;
   font-family: 'Lora', serif;
+  text-align: center;
 }
