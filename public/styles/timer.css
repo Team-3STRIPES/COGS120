@@ -116,31 +116,74 @@ span.mangochiletheme:hover {
 }
 
 .timer-settings {
+  font-family: 'Nunito Sans', sans-serif;
   font-size: 18px;
-  display: flex;
-  flex-direction: column;
   margin-left: 30px;
-  align-items: center;
   margin-bottom: 4px;
+  border-left: 2px solid white;
+  padding-left: 16px;
 }
 
 .timer-settings button {
-  font-size: 16px;
+  font-size: 0.8em;
   border: none;
   border-radius: 6px;
   background-color: white;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  padding: 4px 8px;
 }
 
 .timer-settings p {
   color: white;
   text-align: center;
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+
+.timer-settings p#projected {
+  font-weight: 500;
+  font-size: 1em;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.settings-buttons {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid white;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.settings-section b {
+  color: white;
+  font-size: 1.1em;
+  display: inline-block;
+  line-height: 1.1em;
+  height: 25px;
+  width: 25px;
+  border-radius: 15px;
+  padding: 4px;
+  margin-right: 4px;
+}
+
+.green {
+  background-color: forestgreen;
+}
+
+.red {
+  background-color: crimson;
 }
 
 #quicksub30 {
   margin-bottom: 12px;
-
-
 }
 
 #hrs {

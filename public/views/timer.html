@@ -92,13 +92,19 @@
           </div>
         </div>
         <div class="timer-settings">
-          <p>Quick Add</p>
-          <button id="quickadd15">Add 15 minutes</button>
-          <button id="quickadd30">Add 30 minutes</button>
-          <button id="quicksub15">Sub 15 minutes</button>
-          <button id="quicksub30">Sub 30 minutes</button>
+          <p>Quick Set</p>
+          <div class="settings-buttons">
+            <div class="settings-section">
+              <button id="quickadd15"><b class="green">+</b> 15 minutes</button>
+              <button id="quickadd30"><b class="green">+</b> 30 minutes</button>
+            </div>
+            <div class="settings-section">
+              <button id="quicksub15"><b class="red">-</b> 15 minutes</button>
+              <button id="quicksub30"><b class="red">-</b> 30 minutes</button>
+            </div>
+          </div>
           <p>Projected point earnings:</p>
-          <p><span id="estimated-points">0</span> points</p>
+          <p id="projected"><span id="estimated-points">0</span> points</p>
         </div>
       </div>
       <p><a href="#" onclick="runTimer()"><span class="button unselectable" id="start">Begin Study Session</span></a></p>
