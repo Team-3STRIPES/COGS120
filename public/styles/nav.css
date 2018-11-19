@@ -20,9 +20,13 @@ nav {
 
 a.navbar-brand {
   padding: 0;
-  height: 30px;
+  height: 24px;
   display: inline-block;
-  margin: 9px 0px 0px 8px !important;
+  margin: 12px 0px 0px 16px !important;
+}
+
+a.navbar-brand img {
+  height: 24px;
 }
 
 .navbar {

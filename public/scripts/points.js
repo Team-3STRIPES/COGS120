@@ -472,8 +472,12 @@ function getHistory() {
       hist = data.hist;
       console.log(hist)
       var $history = $('#history');
-      for(var i = hist.length-1; i >= 0; i--) {
-        $history.append(`<li>${hist[i]}</li>`)
+      if(hist) {
+        for(var i = hist.length-1; i >= 0; i--) {
+          $history.append(`<li>${hist[i]}</li>`)
+        }
+      } else {
+        $('.my-container').append('<p class="empty">There is nothing here right now</p>');
       }
     },
     error: function (jqXHR, textStatus, errorThrown)
