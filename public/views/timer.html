@@ -14,6 +14,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="points.js"></script>
     <script src="modal.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129319407-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-129319407-1');
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -110,6 +119,10 @@
       </div>
       <p><a href="#" onclick="runTimer()"><span class="button unselectable" id="start">Begin Study Session</span></a></p>
 
+      <div class="quoteDiv">
+        <p><q id="quotation"></q><cite id="source"></cite></p>
+      </div>
+
       <!-- timer completion -->
       <div id="complete" class="modal">
         <div class="modal-content">
@@ -159,10 +172,18 @@ var quoteFunc;
 const ONE_SECOND = 1000;
 const ROTATE_INTERVAL = 8000;
 
+var $quote;
+var $source;
+var bank;
+var quoteFunc;
+const ONE_SECOND = 1000;
+const ROTATE_INTERVAL = 8000;
+
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
   initTimer();
   updateElementTheme('.timer');
+
 });
 
 function initQuotes() {
@@ -245,6 +266,7 @@ function rotateQuotes(indices) {
     $quote.fadeIn(ONE_SECOND);
     $source.fadeIn(ONE_SECOND);
   }
+
   $quote.html(bank[indices[0]].words);
   $source.html(" -&nbsp;" + bank[indices[0]].author);
   quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
@@ -604,6 +626,8 @@ function runTimer() {
   }, 1000);
   initQuotes();
 
+  initQuotes();
+
   $(window).blur(function() {
     if(isTicking) failSession(initDuration);
   });
@@ -671,10 +695,11 @@ function failSession(time) {
   var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
   var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
-  console.log('adding failed history')
   addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)
   render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")
   stopTimer();
 }
 
 </script>
+
+

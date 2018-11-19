@@ -13,6 +13,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="points.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129319407-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-129319407-1');
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -43,26 +52,16 @@
       <ul id="history">
       </ul>
     </div>
+    <script>
+    $(document).ready(function() {
+      if(!localStorage.getItem('user')) forceLogin();
+      showProfileInfo();
+      populateHistory();
+    });
+
+    function populateHistory() {
+      getHistory();
+    }
+    </script>
   </body>
 </html>
-
-<script>
-$(document).ready(function() {
-  if(!localStorage.getItem('user')) forceLogin();
-
-  showProfileInfo();
-  populateHistory();
-});
-
-function populateHistory() {
-  var totalHistory = getHistory();
-  var $history = $('#history');
-  if(totalHistory) {
-    for(var i = totalHistory.length; i >= 0; i--) {
-      $history.append(`<li>${history[i]}</li>`)
-    }
-  } else {
-    $(".my-container").append('<p class="empty">There is nothing here right now</p>');
-  }
-}
-</script>
