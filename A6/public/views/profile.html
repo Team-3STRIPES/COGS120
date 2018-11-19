@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Focus</title>
-    <link href="favicon.png" rel="icon">
+    <title>COGS 120</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='nav.css' rel='stylesheet' type="text/css">
@@ -35,34 +34,24 @@
       </div>
     </nav>
     <div class="my-container">
-      <div class="header">
-        <p id="fullname"></p>
-        <p id="email"></p>
-      </div>
+      <h2>Profile</h2>
+      <p>Name: <span id="fullname"></span></p>
+      <p>Email: <span id="email"></span></p>
       <h3>Study History:</h3>
       <ul id="history">
       </ul>
     </div>
+    <script>
+    $(document).ready(function() {
+      if(!localStorage.getItem('user')) forceLogin();
+      showProfileInfo();
+      populateHistory();
+    });
+
+    function populateHistory() {
+      getHistory();
+    }
+    </script>
   </body>
 </html>
 
-<script>
-$(document).ready(function() {
-  if(!localStorage.getItem('user')) forceLogin();
-
-  showProfileInfo();
-  populateHistory();
-});
-
-function populateHistory() {
-  var totalHistory = getHistory();
-  var $history = $('#history');
-  if(totalHistory) {
-    for(var i = totalHistory.length; i >= 0; i--) {
-      $history.append(`<li>${history[i]}</li>`)
-    }
-  } else {
-    $(".my-container").append('<p class="empty">There is nothing here right now</p>');
-  }
-}
-</script>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Focus</title>
-    <link href="favicon.png" rel="icon">
+    <title>COGS 120</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='modal.css' rel='stylesheet' type="text/css">
@@ -130,14 +129,7 @@ var themes = {
 
 $('.item-buy').click(function(e) {
   justBought = $(this).parent().attr('id');
-  var tryBuy = canBuyItem(justBought, themes[justBought]);
-  if(tryBuy === 0) {
-    render_modal("fail", "fail-header", "fail-body", "Error", "You already purchased this item!");
-  } else if(tryBuy === 2) {
-    render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + themes[justBought] + " points?");
-  } else {
-    alert("You have insufficient funds!");
-  }
+  canBuyItem(justBought, themes[justBought]);
 });
 
 function confirmedBuy() {

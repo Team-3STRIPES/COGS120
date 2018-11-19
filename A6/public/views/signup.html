@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>COGS 120</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='signup.css' rel='stylesheet' type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="points.js"></script>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <img src="blue_logo.png" alt="focus">
+    </header>
+    <div class="signup">
+      <h2>Sign up</h2>
+      <p>Welcome.</p>
+      <div class="my-container">
+        <form onsubmit="validateSignup()">
+          <p>Name <input id="name" type="text" placeholder="  Your Name"></p>
+          <p>Username <input id="user" type="text" placeholder="  Your Username"></p>
+          <p>Email <input id="email" type="email" placeholder="  Email"></p>
+          <p>Password <input id="pass" type="password" placeholder="  Password"></p>
+          <p>Confirm Password <input id="pass2" type="password" placeholder="  Confirm password"></p>
+          <input class="signup-button" type="submit" value="Sign Up"></input>
+        </form>
+        <p><a href="login">Already have an account? Log in here</a></p>
+      </div>
+    </div>
+    <script>
+      $('form').submit(function(e) {
+        e.preventDefault();
+      });
+
+      function validateSignup() {
+        if($("#name").val() === "") {
+          alert("Please enter a name.");
+          return;
+        } else if($("#user").val() === "") {
+          alert("Please enter a username.");
+          return;
+        } else if($("#email").val() === "") {
+          alert("Please enter an email.");
+          return;
+        } else if($("#pass").val() === "") {
+          alert("Please enter a password.");
+          return;
+        } else if($("#pass2").val() === "") {
+          alert("Please confirm your password.");
+          return;
+        } else if($("#pass").val() !== $("#pass2").val()) {
+          alert("Your passwords do not match.");
+          return;
+        } else {
+          initUser();
+        }
+      }
+      </script>
+  </body>
+</html>

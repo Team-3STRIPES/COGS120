@@ -5,15 +5,13 @@ body {
   flex-direction: column;
 }
 
-.my-container h2 {
-  font-family: 'Lora', serif;
-  text-align: center;
-  font-size: 3em;
+h2 {
+  text-align: left;
+  font-size: 48px;
+  color: #5A709E;
   /*border: 1px solid black;*/
-  padding: 48px 24px;
-  margin: 0px 16%;
-  font-weight: 500;
-  border-bottom: 2px dashed #BBB;
+  margin: 12px 0;
+  font-weight: 600;
 }
 
 body:before {
@@ -38,33 +36,34 @@ body:before {
   margin-left: auto;
   margin-right: auto;
   width: 60%;
+  margin-top: -20px;
   padding: 0px 24px;
 
   flex: 1;
 
 }
 
-form {
-  margin-top: 48px;
-}
-
 input {
   border-radius: 4px;
   border: none;
   background-color: #F3F0F0;
-  height: 24px;
+  height: 20px;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 input[type="text"] {
   padding: 8px;
+  font-weight: bold;
   color: black;
+  height: 32px;
 }
 
 input[type="email"] {
   padding: 8px;
+  font-weight: bold;
   color: black;
+  height: 32px;
 }
 
 form p {
@@ -74,15 +73,8 @@ form p {
   text-align: left;
 }
 
-select {
-  width: 100%;
-  color: black;
-  height: 24px;
-}
-
 .settings-button {
-  display: block;
-  margin-left: auto;
+  margin-right: auto;
   border: 1px solid white;
   background-color: #5A709E;
   border-radius: 16px;
@@ -92,7 +84,7 @@ select {
   height: 40px;
   width: 150px;
   color: white;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 .settings-button:hover {

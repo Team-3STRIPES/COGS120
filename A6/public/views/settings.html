@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Focus</title>
-    <link href="favicon.png" rel="icon">
+    <title>COGS 120</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='nav.css' rel='stylesheet' type="text/css">
-    <link href='profile.css' rel='stylesheet' type="text/css">
+    <link href='modal.css' rel='stylesheet' type="text/css">
+    <link href='settings.css' rel='stylesheet' type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="points.js"></script>
+    <script src="modal.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -35,13 +35,32 @@
       </div>
     </nav>
     <div class="my-container">
-      <div class="header">
-        <p id="fullname"></p>
-        <p id="email"></p>
+      <h2>Profile Settings</h2>
+      <form onsubmit="showConfirmation()">
+        <p>Change name <input type="text" id="fullname" name="fullname" /></p>
+        <p>Change email: <input type="email" id="email" name="email" /></p>
+        <p>Change theme:
+          <select name="themes" id="themes">
+          </select>
+        </p>
+        <input class="settings-button" type="submit" value="Save Changes" />
+      </form>
+    </div
+
+    <!-- settings saved -->
+    <div id="saved" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2 id="saved-header"> </h2>
+        </div>
+        <p class="modal-body" id="saved-body">
+        </p>
+        <div class="modal-footer">
+          <button onclick="closeModal()">Cancel</button>
+          <button class="accented-button" onclick="updateSettings()">OK</button>
+        </div>
       </div>
-      <h3>Study History:</h3>
-      <ul id="history">
-      </ul>
     </div>
   </body>
 </html>
@@ -50,19 +69,20 @@
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 
-  showProfileInfo();
-  populateHistory();
+  getCurrentSettings();
 });
 
-function populateHistory() {
-  var totalHistory = getHistory();
-  var $history = $('#history');
-  if(totalHistory) {
-    for(var i = totalHistory.length; i >= 0; i--) {
-      $history.append(`<li>${history[i]}</li>`)
-    }
-  } else {
-    $(".my-container").append('<p class="empty">There is nothing here right now</p>');
+$('form').submit(function(e) {
+  e.preventDefault();
+});
+
+function showConfirmation() {
+
+  if($("#fullname").val() === "") {
+    alert("Please enter a valid name.");
+    return;
   }
+
+  render_modal('saved', 'saved-header', 'saved-body', 'Confirm', 'Do you confirm these settings?');
 }
 </script>
