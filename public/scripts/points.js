@@ -26,7 +26,7 @@ $(document).ready(function() {
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
-
+      $('nav').addClass('default-bg');
     }
   });
 })
@@ -148,7 +148,7 @@ function addPoints(amount) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
     });
 }
@@ -169,7 +169,7 @@ function subtractPoints(amount) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
     });
 }
@@ -200,7 +200,7 @@ function canBuyItem(theme, cost) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
     });
 }
@@ -224,7 +224,7 @@ function buyItem(theme, cost) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
     });
 }
@@ -245,7 +245,7 @@ function changeTheme(newTheme) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-    
+
       }
   });
 }
@@ -268,7 +268,7 @@ function updateElementTheme(selector) {
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
-
+      $(selector).addClass('defaulttheme');
     }
   });
   //var curTheme = localStorage.getItem('theme').toLowerCase() + "theme";
@@ -326,7 +326,7 @@ function getCurrentSettings() {
           $(this).prop('selected', true);
         }
       });
-     
+
       if(curTheme === 'default') {
         $themes.append('<option value="default" selected>Default</option>');
       }
@@ -438,7 +438,7 @@ function updateSettings() {
 }
 
 function addHistory(historyData) {
-  //just append to history 
+  //just append to history
   $.ajax({
     url : "/addHist",
     type: "POST",
