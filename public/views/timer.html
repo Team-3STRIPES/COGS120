@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>COGS 120</title>
+    <title>Focus</title>
+    <link href="favicon.png" rel="icon">
     <meta charset="utf-8">
     <link href="timer.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -101,13 +102,19 @@
           </div>
         </div>
         <div class="timer-settings">
-          <p>Quick Add</p>
-          <button id="quickadd15">Add 15 minutes</button>
-          <button id="quickadd30">Add 30 minutes</button>
-          <button id="quicksub15">Sub 15 minutes</button>
-          <button id="quicksub30">Sub 30 minutes</button>
+          <p>Quick Set</p>
+          <div class="settings-buttons">
+            <div class="settings-section">
+              <button id="quickadd15"><b class="green">+</b> 15 minutes</button>
+              <button id="quickadd30"><b class="green">+</b> 30 minutes</button>
+            </div>
+            <div class="settings-section">
+              <button id="quicksub15"><b class="red">-</b> 15 minutes</button>
+              <button id="quicksub30"><b class="red">-</b> 30 minutes</button>
+            </div>
+          </div>
           <p>Projected point earnings:</p>
-          <p><span id="estimated-points">0</span> points</p>
+          <p id="projected"><span id="estimated-points">0</span> points</p>
         </div>
       </div>
       <p><a href="#" onclick="runTimer()"><span class="button unselectable" id="start">Begin Study Session</span></a></p>
@@ -157,6 +164,13 @@ var canMUp;
 var canHDn;
 var canMdn;
 var isTicking = false;
+var $quote;
+var $source;
+var bank;
+var quoteFunc;
+
+const ONE_SECOND = 1000;
+const ROTATE_INTERVAL = 8000;
 
 var $quote;
 var $source;
@@ -167,7 +181,6 @@ const ROTATE_INTERVAL = 8000;
 
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
-
   initTimer();
   updateElementTheme('.timer');
 
@@ -241,9 +254,7 @@ function initQuotes() {
 }
 
 function rotateQuotes(indices) {
-
   var curIndex = 1;
-
   function setQuote() {
     $quote.fadeOut(ONE_SECOND);
     $source.fadeOut(ONE_SECOND);
@@ -262,7 +273,6 @@ function rotateQuotes(indices) {
 }
 
 function initTimer() {
-
   canHUp = true;
   canMUp = true;
   canHDn = false;
@@ -352,25 +362,21 @@ function initTimer() {
     }
 
     var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
-
     var yFactor = -1;
     if(time > 0 && time < 240) yFactor = 0;
     else if(time >= 240 && time < 1800) yFactor = 1;
     else if(time >= 1800 && time < 3600) yFactor = 2;
     else if(time >= 3600 && time < 7200) yFactor = 3;
-
     var award;
     if(yFactor === -1) award = 0;
     else award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
     $("#estimated-points").text(award);
-
     if(!canMDn && !canHDn) {
       disableStart();
     }
     else {
       enableStart();
     }
-
   });
 }
 
@@ -424,22 +430,18 @@ function add15Minutes() {
     showHDn();
   } else if($("#hrs").text() == "00") {
     canHDn = false;
-    canHDn = true;
+    canHUp = true;
     hideHDn();
     showHUp();
   }
-
   var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
-
   var yFactor;
   if(time > 0 && time < 240) yFactor = 0;
   else if(time >= 240 && time < 1800) yFactor = 1;
   else if(time >= 1800 && time < 3600) yFactor = 2;
   else if(time >= 3600 && time < 7200) yFactor = 3;
-
   var award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
   $("#estimated-points").text(award);
-
   if(!canMDn && !canHDn) {
     disableStart();
   }
@@ -499,24 +501,20 @@ function sub15Minutes() {
     showHDn();
   } else if($("#hrs").text() == "00") {
     canHDn = false;
-    canHDn = true;
+    canHUp = true;
     hideHDn();
     showHUp();
   }
-
   var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
-
   var yFactor = -1;
   if(time > 0 && time < 240) yFactor = 0;
   else if(time >= 240 && time < 1800) yFactor = 1;
   else if(time >= 1800 && time < 3600) yFactor = 2;
   else if(time >= 3600 && time < 7200) yFactor = 3;
-
   var award;
   if(yFactor === -1) award = 0;
   else award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
   $("#estimated-points").text(award);
-
   if(!canMDn && !canHDn) {
     disableStart();
   }
@@ -561,7 +559,6 @@ function showMUp() {
   $('#m_up g').attr('stroke-width', '10');
   $('#m_up').parent().removeClass('hidden_arrow').addClass('shown_arrow');
 }
-
 function hideHDn() {
   $('#h_dn g').attr('stroke-width', '10');
   $('#h_dn').parent().removeClass('shown_arrow').addClass('hidden_arrow');
@@ -608,13 +605,12 @@ function runTimer() {
 
   var duration = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
   var initDuration = duration;
-
   if(duration == 0) return;
-
   $("svg").css("display", "none");
   $("#start").css("display", "none");
   $(".timer-settings").css("display", "none");
-
+  $(".sub-header").css("display", "none");
+  $(".my-page-header").addClass("extra-big-padding");
   isTicking = true;
   canHUp = false;
   canHDn = false;
@@ -628,6 +624,7 @@ function runTimer() {
       awardPoints(initDuration);
     }
   }, 1000);
+  initQuotes();
 
   initQuotes();
 
@@ -654,27 +651,25 @@ function stopTimer() {
   canMDn = false;
   canHDn = false;
   $('.quoteDiv').css('display', 'none');
-  $(".timer-settings").css("display", "flex");
+  $(".timer-settings").css("display", "block");
+  $(".sub-header").css("display", "block");
+  $("#estimated-points").text("0");
+  $(".my-page-header").removeClass("extra-big-padding");
 }
 
 function awardPoints(time) {
-
   var yFactor;
   if(time > 0 && time < 240) yFactor = 0;
   else if(time >= 240 && time < 1800) yFactor = 1;
   else if(time >= 1800 && time < 3600) yFactor = 2;
   else if(time >= 3600 && time < 7200) yFactor = 3;
-
   var award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
   addPoints(award);
-
   var sDisplay = time % 60;
   time = Math.floor(time / 60);
   var mDisplay = time % 60;
   var hDisplay = Math.floor(time / 60);
-
   var timeElapsed = hDisplay + " hours, " + mDisplay + " minutes, and " + sDisplay + " seconds"
-
   var curDate = new Date();
   var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth() + 1) : curDate.getMonth() + 1;
   var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
@@ -683,9 +678,7 @@ function awardPoints(time) {
   var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
   var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
-
   addHistory(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`);
-
   render_modal("complete", "complete-header", "complete-body", "Congratulations!", "You finished your study session for " + timeElapsed + " and earned " + award + " points.")
 }
 
@@ -694,7 +687,6 @@ function finish() {
 }
 
 function failSession(time) {
-
   var curDate = new Date();
   var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth() + 1) : curDate.getMonth() + 1;
   var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
@@ -703,10 +695,7 @@ function failSession(time) {
   var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
   var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
   var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
-
-  console.log('adding failed history')
   addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)
-
   render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")
   stopTimer();
 }
