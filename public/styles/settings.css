@@ -46,6 +46,7 @@ body:before {
 
 form {
   margin-top: 48px;
+  padding: 0 16%;
 }
 
 input {
@@ -54,7 +55,7 @@ input {
   background-color: #F3F0F0;
   height: 24px;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 0px 24px 8px;
 }
 
 input[type="text"] {
