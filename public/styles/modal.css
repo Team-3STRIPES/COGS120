@@ -112,15 +112,23 @@
 }
 
 .babybluetheme {
-  background-color: #3AAAC9;
+  background-color: #25ABD1;
 }
 
 .guavapinktheme {
-  background-color: #BC6497;
+  background-color: #D14F9A;
 }
 
 .mangochiletheme {
-  background-color: #C68F29;
+  background-color: #E09E23;
+}
+
+.forestgladetheme {
+  background-color: #166610;
+}
+
+.galacticvoidtheme {
+  background-color: #0F073F;
 }
 
 .defaultborder {
@@ -137,4 +145,12 @@
 
 .mangochileborder {
   border: 10px solid #C68F29;
+}
+
+.forestgladeborder {
+  border: 10px solid #166610;
+}
+
+.galacticvoidborder {
+  border: 10px solid #0F073F;
 }

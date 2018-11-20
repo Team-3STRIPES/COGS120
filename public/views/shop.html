@@ -51,7 +51,7 @@
           <div class="item-pic" id="baby-blue-pic"></div>
           <div class="item-text">
             <p class="item-name no-margin">Baby Blue</p>
-            <p class="item-desc no-margin">Blue color theme. What a rad hue! Purchase this item for a cool blue theme.</p>
+            <p class="item-desc no-margin">Soften up the look of your focus with this gentle blue theme.</p>
           </div>
           <p class="item-buy">100 pts</p>
         </div>
@@ -59,17 +59,33 @@
           <div class="item-pic" id="guava-pink-pic"></div>
           <div class="item-text">
             <p class="item-name no-margin">Guava Pink</p>
-            <p class="item-desc no-margin">Pink color theme. What a sweet hue! Purchase this item for a gentle pink theme.</p>
+            <p class="item-desc no-margin">Brighten up the mood of your focus with this vibrant pink theme.</p>
           </div>
-          <p class="item-buy">150 pts</p>
+          <p class="item-buy">100 pts</p>
         </div>
         <div class="item" id="mangoChile">
           <div class="item-pic" id="mango-chile-pic"></div>
           <div class="item-text">
             <p class="item-name no-margin">Mango Chile</p>
-            <p class="item-desc no-margin">Mango Chile theme. What a spicy hue! Purchase this item for a fuego orange theme.</p>
+            <p class="item-desc no-margin">Spice up the tempo of your focus with this sharp orange theme.</p>
           </div>
-          <p class="item-buy">200 pts</p>
+          <p class="item-buy">100 pts</p>
+        </div>
+        <div class="item" id="forestGlade">
+          <div class="item-pic" id="forest-glade-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Forest Glade</p>
+            <p class="item-desc no-margin">Freshen up the vibe of your focus with this relaxing green theme.</p>
+          </div>
+          <p class="item-buy">150 pts</p>
+        </div>
+        <div class="item" id="Galactic Void">
+          <div class="item-pic" id="galactic-void-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Galactic Void</p>
+            <p class="item-desc no-margin">Sharpen up the edge of your focus with this sleek dark theme.</p>
+          </div>
+          <p class="item-buy">150 pts</p>
         </div>
       </div>
 
@@ -133,8 +149,10 @@ $(document).ready(function() {
 });
 var themes = {
   babyBlue: '100',
-  guavaPink: '150',
-  mangoChile: '200'
+  guavaPink: '100',
+  mangoChile: '100',
+  forestGlade: '150',
+  galacticVoid: '150'
 }
 
 $('.item-buy').click(function(e) {
@@ -153,4 +171,3 @@ function updateTheme() {
   changeTheme(justBought);
 }
 </script>
-

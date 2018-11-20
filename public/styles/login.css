@@ -55,6 +55,7 @@ body:before {
 .login > h2 {
   color: #5A709E;
   text-align: center;
+  font-size: 2.5em;
   /*border: 1px solid black;*/
   margin-top: 0;
   margin-bottom: 2%;

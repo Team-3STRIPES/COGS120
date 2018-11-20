@@ -105,15 +105,15 @@
           <p>Quick Set</p>
           <div class="settings-buttons">
             <div class="settings-section">
-              <button id="quickadd15"><b class="green">+</b> 15 minutes</button>
-              <button id="quickadd30"><b class="green">+</b> 30 minutes</button>
+              <button id="quickadd15"><b class="green">+</b> 15 min</button>
+              <button id="quickadd30"><b class="green">+</b> 30 min</button>
             </div>
             <div class="settings-section">
-              <button id="quicksub15"><b class="red">-</b> 15 minutes</button>
-              <button id="quicksub30"><b class="red">-</b> 30 minutes</button>
+              <button id="quicksub15"><b class="red">-</b> 15 min</button>
+              <button id="quicksub30"><b class="red">-</b> 30 min</button>
             </div>
           </div>
-          <p>Projected point earnings:</p>
+          <p>Point Profit</p>
           <p id="projected"><span id="estimated-points">0</span> points</p>
         </div>
       </div>
@@ -170,7 +170,7 @@ var bank;
 var quoteFunc;
 
 const ONE_SECOND = 1000;
-const ROTATE_INTERVAL = 8000;
+const ROTATE_INTERVAL = 12000;
 
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
@@ -444,33 +444,36 @@ function add15Minutes() {
 }
 
 $("#quicksub15").click(function(e) {
-  sub15Minutes();
+  sub15Minutes(1);
 });
 
 $("#quicksub30").click(function(e) {
-  sub15Minutes();
-  sub15Minutes();
+  sub15Minutes(2);
 });
 
-function sub15Minutes() {
-  var curH = Number($("#hrs").text());
-  var curM = Number($("#mins").text());
-  curM -= 15;
-  if(curM < 0) {
-    if(curH > 0) {
-      curH -= 1;
-      curM += 60;
-      if(curM < 10) curM = "0" + curM;
-      $("#hrs").text("0" + curH);
-      $("#mins").text(curM);
+function sub15Minutes(repetitions) {
+
+  for(var i = 0; i < repetitions; i++) {
+    var curH = Number($("#hrs").text());
+    var curM = Number($("#mins").text());
+    curM -= 15;
+    if(curM < 0) {
+      if(curH > 0) {
+        curH -= 1;
+        curM += 60;
+        if(curM < 10) curM = "0" + curM;
+        $("#hrs").text("0" + curH);
+        $("#mins").text(curM);
+      } else {
+        curM = "00";
+        $("#mins").text(curM);
+      }
     } else {
-      curM = "00";
+      if(curM < 10) curM = "0" + curM;
       $("#mins").text(curM);
     }
-  } else {
-    if(curM < 10) curM = "0" + curM;
-    $("#mins").text(curM);
   }
+
   if($("#mins").text() == "59") {
     canMUp = false;
     canMDn = true;
@@ -617,8 +620,6 @@ function runTimer() {
       awardPoints(initDuration);
     }
   }, 1000);
-  initQuotes();
-
   initQuotes();
 
   $(window).blur(function() {

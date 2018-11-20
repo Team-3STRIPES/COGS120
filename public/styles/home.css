@@ -59,27 +59,43 @@ body:before {
 }
 
 .babybluetheme {
-  background-color: #3AAAC9;
+  background-color: #25ABD1;
 }
 
 .babybluetheme:hover {
-  background-color: #41BADB;
+  background-color: #31BAE0;
 }
 
 .guavapinktheme {
-  background-color: #BC6497;
+  background-color: #D14F9A;
 }
 
 .guavapinktheme:hover {
-  background-color: #D67AAF;
+  background-color: #D85DA4;
 }
 
 .mangochiletheme {
-  background-color: #C68F29;
+  background-color: #E09E23;
 }
 
 .mangochiletheme:hover {
-  background-color: #DBA032;
+  background-color: #E8A730;
+}
+
+.forestgladetheme {
+  background-color: #166610;
+}
+
+.forestgladetheme:hover {
+  background-color: #1E7218;
+}
+
+.galacticvoidtheme {
+  background-color: #0F073F;
+}
+
+.galacticvoidtheme:hover {
+  background-color: #1A0E63;
 }
 
 .gray {

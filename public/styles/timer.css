@@ -28,6 +28,7 @@ p a:hover {
 }
 
 .sub-header {
+  font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
   font-size: 1.75em;
   text-align: center;
@@ -76,27 +77,43 @@ span.defaulttheme:hover {
 }
 
 .babybluetheme {
-  background-color: #3AAAC9;
+  background-color: #25ABD1;
 }
 
 span.babybluetheme:hover {
-  background-color: #41BADB;
+  background-color: #31BAE0;
 }
 
 .guavapinktheme {
-  background-color: #BC6497;
+  background-color: #D14F9A;
 }
 
 span.guavapinktheme:hover {
-  background-color: #D67AAF;
+  background-color: #D85DA4;
 }
 
 .mangochiletheme {
-  background-color: #C68F29;
+  background-color: #E09E23;
 }
 
 span.mangochiletheme:hover {
-  background-color: #DBA032;
+  background-color: #E8A730;
+}
+
+.forestgladetheme {
+  background-color: #166610;
+}
+
+span.forestgladetheme:hover {
+  background-color: #1E7218;
+}
+
+.galacticvoidtheme {
+  background-color: #0F073F;
+}
+
+span.galacticvoidtheme:hover {
+  background-color: #1A0E63;
 }
 
 .timer {
@@ -110,8 +127,10 @@ span.mangochiletheme:hover {
 }
 
 .timer-text {
+  font-family: 'Nunito Sans', sans-serif;
   color: white;
   font-size: 2em;
+  font-weight: 700;
 }
 
 .timer-text span {
@@ -133,9 +152,13 @@ span.mangochiletheme:hover {
   font-size: 0.8em;
   border: none;
   border-radius: 6px;
-  background-color: white;
+  background-color: #E5E5E5;
   margin-bottom: 8px;
   padding: 4px 8px;
+}
+
+.timer-settings button:hover {
+  background-color: white;
 }
 
 .timer-settings p {
@@ -150,7 +173,7 @@ span.mangochiletheme:hover {
 .timer-settings p#projected {
   font-weight: 500;
   font-size: 1em;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.6);
   color: black;
 }
 
@@ -252,11 +275,11 @@ span.mangochiletheme:hover {
 }
 
 .h_arrow {
-  margin-left: 60px;
+  margin-left: 64px;
 }
 
 .m_arrow {
-  margin-left: 106px;
+  margin-left: 114px;
 }
 
 .hidden_arrow {

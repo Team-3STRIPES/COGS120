@@ -7,15 +7,23 @@ nav {
 }
 
 .baby-blue-bg {
-  background-color: #3AAAC9;
+  background-color: #25ABD1;
 }
 
 .guava-pink-bg {
-  background-color: #BC6497;
+  background-color: #D14F9A;
 }
 
 .mango-chile-bg {
-  background-color: #C68F29;
+  background-color: #E09E23;
+}
+
+.forest-glade-bg {
+  background-color: #166610;
+}
+
+.galactic-void-bg {
+  background-color: #0F073F;
 }
 
 a.navbar-brand {
