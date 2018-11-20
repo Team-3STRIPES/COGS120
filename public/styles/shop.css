@@ -2,7 +2,7 @@ body {
   font-family: 'Nunito Sans', sans-serif;
 }
 
-#shop h2 {
+#shop > h2 {
   font-family: 'Lora', serif;
   text-align: center;
   font-size: 3em;

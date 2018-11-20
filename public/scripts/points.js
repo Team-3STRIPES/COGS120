@@ -194,7 +194,7 @@ function canBuyItem(theme, cost) {
         } else if (data.points < cost) {
           alert("You have insufficient funds!");
         } else {
-          render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + themes[justBought] + " points?");
+          render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + cost + " points?");
         }
         return;
       },
