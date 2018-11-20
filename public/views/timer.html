@@ -46,7 +46,7 @@
     </nav>
     <div class="my-page-header">
       <h2 class="big-header unselectable">Timer</h2>
-      <p class="sub-header unselectable">Set how long you want to study!</p>
+      <p class="sub-header unselectable">Set how long you want to study.</p>
     </div>
     <div class="timer-section">
       <div class="timer">
@@ -605,7 +605,7 @@ function runTimer() {
   $("svg").css("display", "none");
   $("#start").css("display", "none");
   $(".timer-settings").css("display", "none");
-  $(".sub-header").css("display", "none");
+  $(".sub-header").text('Navigating away from this page will cancel your session!');
   $(".my-page-header").addClass("extra-big-padding");
   isTicking = true;
   canHUp = false;
@@ -646,7 +646,7 @@ function stopTimer() {
   canHDn = false;
   $('.quoteDiv').css('display', 'none');
   $(".timer-settings").css("display", "block");
-  $(".sub-header").css("display", "block");
+  $(".sub-header").text('Set how long you want to study.');
   $("#estimated-points").text("0");
   $(".my-page-header").removeClass("extra-big-padding");
 }

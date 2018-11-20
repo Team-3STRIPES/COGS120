@@ -10,27 +10,26 @@ p a:hover {
 }
 
 .my-page-header {
-  padding-top: 1%;
+  padding-top: 2%;
   padding-bottom: 1%;
 }
 
 .extra-big-padding {
-  padding-top: 4%;
-  padding-bottom: 4%;
+  padding-top: 3%;
+  padding-bottom: 2%;
 }
 
 .big-header {
   font-family: 'Lora', serif;
-  font-weight: 600;
-  font-size: 4em;
-  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 4.5em;
   text-align: center;
 }
 
 .sub-header {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
-  font-size: 1.75em;
+  font-size: 1.5em;
   text-align: center;
 }
 
@@ -303,7 +302,7 @@ span.galacticvoidtheme:hover {
   display: none;
   padding-left: 10%;
   padding-right: 10%;
-  margin-top: 4%;
+  margin-top: 2%;
   overflow: none;
   background-color: white;
   flex: 1;
