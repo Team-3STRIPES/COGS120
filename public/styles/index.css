@@ -13,11 +13,12 @@ header {
   flex-direction: column;
   align-items: center;
   background-color: white;
+  min-height: 184px;
 }
 
 header img {
-  margin-top: 3%;
-  margin-bottom: 3%;
+  margin-top: 40px;
+  margin-bottom: 40px;
   height: 100px;
 }
 
@@ -44,6 +45,14 @@ body:before {
   width: 100%;
 }
 
+#first {
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+}
+
+#second {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.6));
+}
+
 .desc h2 {
   font-family: 'Lora', serif;
   margin: 0;
@@ -63,7 +72,8 @@ body:before {
 
 .desc p {
   margin: 2% 0 4%;
-  font-size: 1.2em;
+  font-size: 1.3em;
+  padding: 0 16%;
   text-align: center;
 }
 
@@ -114,4 +124,78 @@ body:before {
 
 .lightblue:hover {
   background-color: #C4CBFF;
+}
+
+.how-to {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  padding: 0 6%;
+}
+
+.steps-left {
+  width: 60%;
+  height: 50%;
+  border-radius: 20px;
+  background-color: white;
+  padding: 4%;
+  margin-right: 6%;
+  box-shadow: 0 0 25px lightgray;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.steps-left h3 {
+  margin: 0;
+  font-family: 'Lora', serif;
+  font-size: 2.75em;
+  font-weight: 400;
+}
+
+.steps h4 {
+  margin: 0;
+  margin-bottom: 4%;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 2.1em;
+}
+
+.steps {
+  background-color: #5A709E;
+  border-radius: 20px;
+  padding: 4%;
+  height: 50%;
+  color: white;
+  box-shadow: 0 0 25px lightgray;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.steps p {
+  margin: 2% 0;
+  padding: 0;
+  font-size: 1.1em;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.num-icon {
+  margin: 0;
+  margin-right: 12px;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  height: 32px;
+  min-width: 32px;
+  line-height: 32px;
+  font-size: 1.4em;
+  font-weight: 600;
+  border-radius: 16px;
+  background-color: white;
+  color: #5A709E;
 }
