@@ -45,12 +45,12 @@ body:before {
   width: 100%;
 }
 
-#first {
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+#second {
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
 }
 
-#second {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.6));
+#third {
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 .desc h2 {
@@ -65,7 +65,7 @@ body:before {
 
 .desc {
   margin: 0;
-  padding: 8% 0;
+  padding: 6% 0;
   width: 100%;
   flex: 1;
 }
@@ -136,7 +136,7 @@ body:before {
 
 .steps-left {
   width: 60%;
-  height: 50%;
+  height: 70%;
   border-radius: 20px;
   background-color: white;
   padding: 4%;
@@ -166,7 +166,7 @@ body:before {
   background-color: #5A709E;
   border-radius: 20px;
   padding: 4%;
-  height: 50%;
+  height: 70%;
   color: white;
   box-shadow: 0 0 25px lightgray;
 
@@ -198,4 +198,20 @@ body:before {
   border-radius: 16px;
   background-color: white;
   color: #5A709E;
+}
+
+#third h4 {
+  font-family: 'Lora', serif;
+  font-size: 2em;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 24px;
+  margin-top: 4%;
+  padding: 4% 0;
+  background-color: white;
+  box-shadow: 0 0 25px lightgray;
 }
