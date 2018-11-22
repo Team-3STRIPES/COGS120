@@ -57,8 +57,8 @@ body:before {
   text-align: center;
   font-size: 2.5em;
   /*border: 1px solid black;*/
-  margin-top: 0;
-  margin-bottom: 2%;
+  margin-top: 2%;
+  margin-bottom: 4%;
 }
 
 .my-container {
@@ -83,14 +83,15 @@ form input {
   width: 100%;
   padding-left: 8px;
   box-sizing: border-box;
+  margin-bottom: 1%;
 }
 
 .links {
-  margin-top: 12px;
+  margin-top: 24px;
 }
 
 .links p {
-  font-size: 0.9em;
+  font-size: 0.95em;
   margin: 4px;
 }
 
@@ -99,7 +100,6 @@ form input {
   margin-left: auto;
   margin-right: auto;
   margin-top: 18px;
-  border: 1px solid white;
   background-color: #5A709E;
   border-radius: 16px;
   padding: 8px 16px;
@@ -108,9 +108,12 @@ form input {
   height: 40px;
   width: 150px;
   color: white;
+  box-shadow: 0 2px 4px gray;
 }
 
 .login-button:hover {
   cursor: pointer;
   background-color: #667DAF;
+  transform: translateY(2px);
+  box-shadow: 0 0 2px gray;
 }

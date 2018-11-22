@@ -57,8 +57,8 @@ body:before {
   color: #5A709E;
   text-align: center;
   /*border: 1px solid black;*/
-  margin-top: 0;
-  margin-bottom: 2%;
+  margin-top: 2%;
+  margin-bottom: 4%;
 }
 
 .my-container {
@@ -87,6 +87,7 @@ form input {
   height: 24px;
   width: 100%;
   padding-left: 8px;
+  margin-bottom: 1%;
 }
 
 .signup-button {
@@ -106,4 +107,8 @@ form input {
 .signup-button:hover {
   cursor: pointer;
   background-color: #667DAF;
+}
+
+.my-container > p {
+  font-size: 0.95em;
 }

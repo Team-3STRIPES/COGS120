@@ -38,7 +38,7 @@ body:before {
 }
 
 .full-screen {
-  height: 100vh;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -60,7 +60,7 @@ body:before {
 
 .desc {
   margin: 0;
-  padding: 6% 0;
+  padding: 3% 0;
   width: 100%;
   flex: 1;
 }
@@ -130,8 +130,8 @@ body:before {
 }
 
 .steps-left {
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   border-radius: 20px;
   background-color: white;
   padding: 4%;
@@ -162,6 +162,7 @@ body:before {
   border-radius: 20px;
   padding: 4%;
   height: 50%;
+  width: 50%;
   color: white;
   box-shadow: 0 0 25px lightgray;
 
@@ -195,6 +196,10 @@ body:before {
   color: #5A709E;
 }
 
+#third {
+  height: 95vh;
+}
+
 #third h4 {
   font-family: 'Lora', serif;
   font-size: 2em;
@@ -205,7 +210,7 @@ body:before {
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
-  margin-top: 4%;
+  margin-top: 2%;
   padding: 2% 0;
   background-color: white;
   box-shadow: 0 0 25px lightgray;
