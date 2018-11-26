@@ -327,23 +327,11 @@ function getCurrentSettings() {
         }
       });
 
-      if(curTheme === 'default') {
-        $themes.append('<option value="default" selected>Default</option>');
-      }
-      else if(curTheme === 'babyBlue') {
-        $themes.append('<option value="babyBlue" selected>Baby Blue</option>');
-      }
-      else if(curTheme === 'guavaPink') {
-        $themes.append('<option value="guavaPink" selected>Guava Pink</option>');
-      }
-      else if(curTheme === 'mangoChile') {
-        $themes.append('<option value="mangoChile" selected>Mango Chile</option>');
-      }
       for (var i = 0; i < data.themes.length; i++) {
         if(data.themes[i] === 'default' && curTheme !== 'default') {
           $themes.append('<option value="default">Default</option>');
         }
-        if (data.themes[i] === 'babyBlue' && curTheme !== 'babyBlue') {
+        if(data.themes[i] === 'babyBlue' && curTheme !== 'babyBlue') {
           $themes.append('<option value="babyBlue">Baby Blue</option>');
         }
         if(data.themes[i] === 'guavaPink' && curTheme !== 'guavaPink') {
@@ -351,6 +339,12 @@ function getCurrentSettings() {
         }
         if(data.themes[i] === 'mangoChile' && curTheme !== 'mangoChile') {
           $themes.append('<option value="mangoChile">Mango Chile</option>');
+        }
+        if(data.themes[i] === 'forestGlade' && curTheme !== 'forestGlade') {
+          $themes.append('<option value="forestGlade">Forest Glade</option>');
+        }
+        if(data.themes[i] === 'galacticVoid' && curTheme !== 'galacticVoid') {
+          $themes.append('<option value="galacticVoid">Galactic Void</option>');
         }
       }
 
