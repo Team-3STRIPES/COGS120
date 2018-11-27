@@ -321,12 +321,9 @@ function getCurrentSettings() {
       $("#email").val(data.email);
       var $themes = $("#themes");
       var curTheme = data.theme;
-      $('select > option').each(function(e) {
-      if($(this).attr('value') === curTheme) {
-          $(this).prop('selected', true);
-        }
-      });
 
+      $themes.append(`<option value="${curTheme}" selected>${curTheme.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })}</option>`;
+      
       for (var i = 0; i < data.themes.length; i++) {
         if(data.themes[i] === 'default' && curTheme !== 'default') {
           $themes.append('<option value="default">Default</option>');
