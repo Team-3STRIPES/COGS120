@@ -322,8 +322,8 @@ function getCurrentSettings() {
       var $themes = $("#themes");
       var curTheme = data.theme;
 
-      $themes.append(`<option value="${curTheme}" selected>${curTheme.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })}</option>`;
-      
+      $themes.append(`<option value="${curTheme}" selected>${curTheme.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })}</option>`);
+
       for (var i = 0; i < data.themes.length; i++) {
         if(data.themes[i] === 'default' && curTheme !== 'default') {
           $themes.append('<option value="default">Default</option>');
