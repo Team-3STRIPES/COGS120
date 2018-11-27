@@ -275,10 +275,12 @@ span.galacticvoidtheme:hover {
 
 .h_arrow {
   margin-left: 64px;
+  animation-duration: 1.5s;
 }
 
 .m_arrow {
   margin-left: 114px;
+  animation-duration: 1.5s;
 }
 
 .hidden_arrow {

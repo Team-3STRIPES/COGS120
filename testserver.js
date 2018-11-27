@@ -63,6 +63,10 @@ app.get('/timer', function(req, res){
   res.sendFile(path.join(__dirname, '/public/views/timer.html'));
 })
 
+app.get('/timer2', function(req, res){
+  res.sendFile(path.join(__dirname, '/public/views/timer2.html'));
+})
+
 app.get('/home', function(req, res){
   res.sendFile(path.join(__dirname, '/public/views/home.html'));
 })
