@@ -550,10 +550,16 @@ function sub15Minutes(repetitions) {
 function disableStart() {
   $("#start").addClass("disabled-button");
   $("#start").removeClass("button");
-  $("#start").removeClass("defaulttheme");
-  $("#start").removeClass("babybluetheme");
-  $("#start").removeClass("guavapinktheme");
-  $("#start").removeClass("mangochiletheme");
+  removeThemes("#start");
+}
+
+function removeTheme(selector) {
+  $(selector).removeClass("defaulttheme");
+  $(selector).removeClass("babybluetheme");
+  $(selector).removeClass("guavapinktheme");
+  $(selector).removeClass("mangochiletheme");
+  $(selector).removeClass("forestgladetheme");
+  $(selector).removeClass("galacticvoidtheme");
 }
 
 function enableStart() {
