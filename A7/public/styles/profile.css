@@ -1,0 +1,64 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  font-family: 'Lora', serif;
+  text-align: center;
+  padding-top: 6%;
+  padding-bottom: 6%;
+}
+
+body:before {
+  content: "";
+	background-image: url("home_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.my-container p.empty {
+  font-size: 1em;
+  color: #BBB;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.my-container {
+  width: 60%;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 48px 24px;
+
+  flex: 1;
+}
+
+.my-container p {
+  font-family: 'Lora', serif;
+  text-align: center;
+  font-size: 3em;
+  color: black;
+  margin: 0;
+  font-weight: 500;
+}
+
+.header {
+  border-bottom: 2px dashed #BBB;
+  margin: 0 16%;
+}
+
+#email {
+  font-size: 1.5em;
+  margin-bottom: 48px;
+}

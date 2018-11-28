@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Focus</title>
+    <link href="favicon.png" rel="icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='home.css' rel='stylesheet' type="text/css">
+    <link href='nav.css' rel='stylesheet' type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="points.js"></script>
+    <meta charset="utf-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129319407-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-129319407-1');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="home">
+            <img src="logo.png" height="30" alt="focus">
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">Balance: <span id="points"></span> pts </p>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="profile">Profile</a></li>
+              <li><a href="settings">Settings</a></li>
+              <li><a href="index">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="buttonDiv">
+      <p><a href="timer"><span class="button" id="startButton">Start Studying</span></a></p>
+      <p><a href="shop"><span class="gray button">Go to Shop</span></a></p>
+    </div>
+    <div class="quoteDiv">
+      <p><q id="quotation"></q><cite id="source"></cite></p>
+    </div>
+    <script>
+    var $quote;
+    var $source;
+    var bank;
+    var quoteFunc;
+    const ONE_SECOND = 1000;
+    const ROTATE_INTERVAL = 10000;
+
+    $(document).ready(function() {
+
+      if(!localStorage.getItem('user')) forceLogin();
+      updateElementTheme('#startButton');
+
+      $quote = $("#quotation");
+      $source = $("#source");
+      bank = [
+        {
+          words: "Failure is the opportunity to begin more intelligently.",
+          author: "Henry&nbsp;Ford"
+        },
+        {
+          words: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+          author: "Thomas&nbsp;Edison"
+        },
+        {
+          words: "Start where you are. Use what you have. Do what you can.",
+          author: "Arthur&nbsp;Ashe"
+        },
+        {
+          words: "I find that the harder I work, the more luck I seem to have.",
+          author: "Thomas&nbsp;Jefferson"
+        },
+        {
+          words: "The secret of success is to do the common things uncommonly well.",
+          author: "John&nbsp;D.&nbsp;Rockefeller"
+        },
+        {
+          words: "Success is making the people who believed in you look brilliant.",
+          author: "Dharmesh&nbsp;Shah"
+        },
+        {
+          words: "Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.",
+          author: "Stephen&nbsp;King"
+        },
+        {
+          words: "I don’t love studying. I hate studying. I like learning. Learning is beautiful.",
+          author: "Natalie&nbsp;Portman"
+        },
+        {
+          words: "Learning is the only thing the mind never exhausts, never fears, and never regrets.",
+          author: "Leonardo&nbsp;da&nbsp;Vinci"
+        },
+        {
+          words: "The dictionary is the only place that success comes before work. Work is the key to success, and hard work can help you accomplish anything.",
+          author: "Vince&nbsp;Lombardi"
+        },
+        {
+          words: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+          author: "Mahatma&nbsp;Gandhi"
+        },
+        {
+          words: "If people knew how hard I worked to achieve my mastery, it wouldn’t seem so wonderful after all.",
+          author: "Michelangelo"
+        },
+        {
+          words: "We love you Charles :)",
+          author: "Team&nbsp;3STRIPES"
+        },
+        {
+          words: "The people who are crazy enough to believe they can change the world are the ones who do.",
+          author: "Steve&nbsp;Jobs"
+        },
+        {
+          words: "Education is the best friend. An educated person is respected everywhere. Education beats the beauty and the youth.",
+          author: "Chanakya"
+        },
+        {
+          words: "Life itself is your teacher, and you are in a state of constant learning.",
+          author: "Bruce&nbsp;Lee"
+        },
+        {
+          words: "It does not matter how slowly you go as long as you do not stop.",
+          author: "Confucius"
+        },
+        {
+          words: "I don't focus on what I'm up against. I focus on my goals and try to ignore the rest.",
+          author: "Venus&nbsp;Williams"
+        },
+        {
+          words: "Concentrate all your thoughts upon the work at hand. The suns rays do not burn until brought to a focus.",
+          author: "Alexander&nbsp;Graham&nbsp;Bell"
+        },
+        {
+          words: "Natural ability is important, but you can go far without it if you have the focus, drive, desire, and positive attitude.",
+          author: "Kirsten&nbsp;Sweetland"
+        }
+      ];
+      var bankIndices = [];
+      while(bankIndices.length < bank.length){
+        var tempRandom = Math.floor(Math.random() * bank.length);
+        if(bankIndices.indexOf(tempRandom) > -1) continue;
+        bankIndices[bankIndices.length] = tempRandom;
+      }
+      rotateQuotes(bankIndices);
+    });
+
+    function rotateQuotes(indices) {
+
+      var curIndex = 1;
+
+      function setQuote() {
+        $quote.fadeOut(ONE_SECOND);
+        $source.fadeOut(ONE_SECOND);
+        setTimeout(function() {
+          $quote.html(bank[indices[curIndex]].words);
+          $source.html(" -&nbsp;" + bank[indices[curIndex]].author);
+          curIndex + 1 == indices.length ? curIndex = 0 : curIndex++;
+        }, ONE_SECOND);
+        $quote.fadeIn(ONE_SECOND);
+        $source.fadeIn(ONE_SECOND);
+      }
+
+      $quote.html(bank[indices[0]].words);
+      $source.html(" -&nbsp;" + bank[indices[0]].author);
+      quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+
+      $(window).blur(function() {
+        clearInterval(quoteFunc);
+      });
+
+      $(window).focus(function() {
+        quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+      });
+    }
+    </script>
+  </body>
+</html>

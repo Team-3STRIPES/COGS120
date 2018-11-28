@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Focus</title>
+    <link href="favicon.png" rel="icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link href="timer.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='nav.css' rel='stylesheet' type="text/css">
+    <link href='modal.css' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="points.js"></script>
+    <script src="modal.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129319407-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-129319407-1');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="home">
+            <img src="logo.png" height="30" alt="focus">
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">Balance: <span id="points"></span> pts </p>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="profile">Profile</a></li>
+              <li><a href="settings">Settings</a></li>
+              <li><a href="index">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="my-page-header">
+      <h2 class="big-header unselectable">Timer</h2>
+      <p class="sub-header unselectable">Set how long you want to study.</p>
+    </div>
+    <div class="timer-section">
+      <div class="timer">
+        <div class="timer-numbers">
+          <div class="arrows">
+            <div class="h_arrow hidden_arrow animated rubberBand infinite">
+              <span id="h_up">
+                <svg width="49px" height="32px" viewBox="0 0 73 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="#FFFFFF" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                        <g id="Artboard" transform="translate(-115.000000, -69.000000)" stroke="#FFFFFF" stroke-width="10">
+                            <polyline id="Line-Copy-2" transform="translate(151.580068, 102.000000) scale(-1, -1) translate(-151.580068, -102.000000) " points="122 77 152 127 181.160136 77"></polyline>
+                        </g>
+                    </g>
+                </svg>
+              </span>
+            </div>
+            <div class="m_arrow hidden_arrow animated rubberBand infinite">
+              <span id="m_up">
+                <svg width="49px" height="32px" viewBox="0 0 73 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="#FFFFFF" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                        <g id="Artboard" transform="translate(-115.000000, -69.000000)" stroke="#FFFFFF" stroke-width="10">
+                            <polyline id="Line-Copy-2" transform="translate(151.580068, 102.000000) scale(-1, -1) translate(-151.580068, -102.000000) " points="122 77 152 127 181.160136 77"></polyline>
+                        </g>
+                    </g>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <p class="timer-text unselectable"><span id="hrs">00</span>h<span id="mins">00</span>m<span id="secs">00</span>s</p>
+          <div class="arrows">
+            <div class="h_arrow hidden_arrow animated rubberBand infinite">
+              <span id="h_dn">
+                <svg width="49px" height="32px" viewBox="0 0 73 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="#FFFFFF" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                        <g id="Artboard" transform="translate(-26.000000, -72.000000)" stroke="#FFFFFF" stroke-width="10">
+                            <polyline id="Line-Copy" transform="translate(62.580068, 102.000000) scale(-1, 1) translate(-62.580068, -102.000000) " points="33 77 63 127 92.160136 77"></polyline>
+                        </g>
+                    </g>
+                </svg>
+              </span>
+            </div>
+            <div class="m_arrow hidden_arrow animated rubberBand infinite">
+              <span id="m_dn">
+                <svg width="49px" height="32px" viewBox="0 0 73 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="#FFFFFF" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                        <g id="Artboard" transform="translate(-26.000000, -72.000000)" stroke="#FFFFFF" stroke-width="10">
+                            <polyline id="Line-Copy" transform="translate(62.580068, 102.000000) scale(-1, 1) translate(-62.580068, -102.000000) " points="33 77 63 127 92.160136 77"></polyline>
+                        </g>
+                    </g>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="timer-settings">
+          <p>Quick Set</p>
+          <div class="settings-buttons">
+            <div class="settings-section">
+              <button id="quickadd15"><b class="green">+</b> 15 min</button>
+              <button id="quickadd30"><b class="green">+</b> 30 min</button>
+            </div>
+            <div class="settings-section">
+              <button id="quicksub15"><b class="red">-</b> 15 min</button>
+              <button id="quicksub30"><b class="red">-</b> 30 min</button>
+            </div>
+          </div>
+          <p>Point Profit</p>
+          <p id="projected"><span id="estimated-points">0</span> points</p>
+        </div>
+      </div>
+      <p><a href="#" onclick="runTimer()"><span class="button unselectable" id="start">Begin Study Session</span></a></p>
+
+      <div class="quoteDiv">
+        <p><q id="quotation"></q><cite id="source"></cite></p>
+      </div>
+
+      <!-- timer completion -->
+      <div id="complete" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="complete-header"> </h2>
+          </div>
+          <p class="modal-body" id="complete-body">
+          </p>
+          <div class="modal-footer">
+            <button class="accented-button" onclick="finish()"> Yay! </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- timer fail -->
+      <div id="interrupted" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="interrupted-header"> </h2>
+          </div>
+          <p class="modal-body" id="interrupted-body">
+          </p>
+          <div class="modal-footer">
+            <button class="accented-button" onclick="closeModal()"> OK </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+<script>
+
+var timer;
+var canHUp;
+var canMUp;
+var canHDn;
+var canMdn;
+var isTicking = false;
+var $quote;
+var $source;
+var bank;
+var quoteFunc;
+
+const ONE_SECOND = 1000;
+const ROTATE_INTERVAL = 12000;
+
+$(document).ready(function() {
+  if(!localStorage.getItem('user')) forceLogin();
+  initTimer();
+  updateElementTheme('.timer');
+
+});
+
+function initQuotes() {
+  $quote = $("#quotation");
+  $source = $("#source");
+  bank = [
+    {
+      words: "Failure is the opportunity to begin more intelligently.",
+      author: "Henry&nbsp;Ford"
+    },
+    {
+      words: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+      author: "Thomas&nbsp;Edison"
+    },
+    {
+      words: "Start where you are. Use what you have. Do what you can.",
+      author: "Arthur&nbsp;Ashe"
+    },
+    {
+      words: "I find that the harder I work, the more luck I seem to have.",
+      author: "Thomas&nbsp;Jefferson"
+    },
+    {
+      words: "The secret of success is to do the common things uncommonly well.",
+      author: "John&nbsp;D.&nbsp;Rockefeller"
+    },
+    {
+      words: "Success is making the people who believed in you look brilliant.",
+      author: "Dharmesh&nbsp;Shah"
+    },
+    {
+      words: "Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.",
+      author: "Stephen&nbsp;King"
+    },
+    {
+      words: "I don’t love studying. I hate studying. I like learning. Learning is beautiful.",
+      author: "Natalie&nbsp;Portman"
+    },
+    {
+      words: "Learning is the only thing the mind never exhausts, never fears, and never regrets.",
+      author: "Leonardo&nbsp;da&nbsp;Vinci"
+    },
+    {
+      words: "The dictionary is the only place that success comes before work. Work is the key to success, and hard work can help you accomplish anything.",
+      author: "Vince&nbsp;Lombardi"
+    },
+    {
+      words: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+      author: "Mahatma&nbsp;Gandhi"
+    },
+    {
+      words: "If people knew how hard I worked to achieve my mastery, it wouldn’t seem so wonderful after all.",
+      author: "Michelangelo"
+    },
+    {
+      words: "We love you Charles :)",
+      author: "Team&nbsp;3STRIPES"
+    },
+    {
+      words: "The people who are crazy enough to believe they can change the world are the ones who do.",
+      author: "Steve&nbsp;Jobs"
+    },
+    {
+      words: "Education is the best friend. An educated person is respected everywhere. Education beats the beauty and the youth.",
+      author: "Chanakya"
+    },
+    {
+      words: "Life itself is your teacher, and you are in a state of constant learning.",
+      author: "Bruce&nbsp;Lee"
+    },
+    {
+      words: "It does not matter how slowly you go as long as you do not stop.",
+      author: "Confucius"
+    },
+    {
+      words: "I don't focus on what I'm up against. I focus on my goals and try to ignore the rest.",
+      author: "Venus&nbsp;Williams"
+    },
+    {
+      words: "Concentrate all your thoughts upon the work at hand. The suns rays do not burn until brought to a focus.",
+      author: "Alexander&nbsp;Graham&nbsp;Bell"
+    },
+    {
+      words: "Natural ability is important, but you can go far without it if you have the focus, drive, desire, and positive attitude.",
+      author: "Kirsten&nbsp;Sweetland"
+    }
+  ];
+  var bankIndices = [];
+  while(bankIndices.length < bank.length){
+    var tempRandom = Math.floor(Math.random() * bank.length);
+    if(bankIndices.indexOf(tempRandom) > -1) continue;
+    bankIndices[bankIndices.length] = tempRandom;
+  }
+  $('.quoteDiv').css('display', 'flex');
+  rotateQuotes(bankIndices);
+}
+
+function rotateQuotes(indices) {
+  var curIndex = 1;
+  function setQuote() {
+    $quote.fadeOut(ONE_SECOND);
+    $source.fadeOut(ONE_SECOND);
+    setTimeout(function() {
+      $quote.html(bank[indices[curIndex]].words);
+      $source.html(" -&nbsp;" + bank[indices[curIndex]].author);
+      curIndex + 1 == indices.length ? curIndex = 0 : curIndex++;
+    }, ONE_SECOND);
+    $quote.fadeIn(ONE_SECOND);
+    $source.fadeIn(ONE_SECOND);
+  }
+
+  $quote.html(bank[indices[0]].words);
+  $source.html(" -&nbsp;" + bank[indices[0]].author);
+  quoteFunc = setInterval(setQuote, ROTATE_INTERVAL);
+}
+
+$('.h_arrow').mouseover(function(e) {
+  $('.h_arrow').removeClass('animated rubberBand infinite');
+  $('.m_arrow').removeClass('animated rubberBand infinite');
+})
+
+$('.h_arrow').mouseout(function(e) {
+  $('.h_arrow').addClass('animated rubberBand infinite');
+  $('.m_arrow').addClass('animated rubberBand infinite');
+})
+
+$('.m_arrow').mouseover(function(e) {
+  $('.m_arrow').removeClass('animated rubberBand infinite');
+  $('.h_arrow').removeClass('animated rubberBand infinite');
+})
+
+$('.m_arrow').mouseout(function(e) {
+  $('.m_arrow').addClass('animated rubberBand infinite');
+  $('.h_arrow').addClass('animated rubberBand infinite');
+})
+
+function initTimer() {
+  canHUp = true;
+  canMUp = true;
+  canHDn = false;
+  $('#h_up g').attr('stroke-width', '10');
+  showHUp();
+  canMDn = false;
+  $('#m_up g').attr('stroke-width', '10');
+  showMUp();
+  disableStart();
+
+  $('svg').mouseover(function() {
+    if($(this).parent().attr("id") === "h_up" && !canHUp) return;
+    if($(this).parent().attr("id") === "m_up" && !canMUp) return;
+    if($(this).parent().attr("id") === "h_dn" && !canHDn) return;
+    if($(this).parent().attr("id") === "m_dn" && !canMDn) return;
+    $('g', this).attr('stroke-width', '14');
+    $('body').css('cursor', 'pointer');
+  });
+
+  $('svg').mouseout(function() {
+    if($(this).parent().attr("id") === "h_up" && !canHUp) return;
+    if($(this).parent().attr("id") === "m_up" && !canMUp) return;
+    if($(this).parent().attr("id") === "h_dn" && !canHDn) return;
+    if($(this).parent().attr("id") === "m_dn" && !canMDn) return;
+    $('g', this).attr('stroke-width', '10');
+    $('body').css('cursor', 'default');
+  });
+
+  $('svg').click(function() {
+    switch($(this).closest("span").prop("id")) {
+      case "h_up":
+        var curH = Number($("#hrs").text());
+        if(curH + 1 < 2) curH += 1;
+        if(curH > 0) {
+          canHDn = true;
+          showHDn();
+        }
+        if(curH === 1) {
+          canHUp = false;
+          hideHUp();
+        }
+        $("#hrs").text("0" + curH);
+        break;
+      case "m_up":
+        var curM = Number($("#mins").text());
+        if(curM + 1 < 60) curM += 1;
+        if(curM > 0) {
+          canMDn = true;
+          showMDn();
+        }
+        if(curM === 59) {
+          canMUp = false;
+          hideMUp();
+        }
+        if(curM < 10) curM = "0" + curM;
+        $("#mins").text(curM);
+        break;
+      case "h_dn":
+        var curH = Number($("#hrs").text());
+        if(curH - 1 > -1) curH -= 1;
+        if(curH < 6) {
+          canHUp = true;
+          showHUp();
+        }
+        if(curH === 0) {
+          canHDn = false;
+          hideHDn();
+        }
+        $("#hrs").text("0" + curH);
+        break;
+      case "m_dn":
+        var curM = Number($("#mins").text());
+        if(curM - 1 > -1) curM -= 1;
+        if(curM < 60) {
+          canMUp = true;
+          showMUp();
+        }
+        if(curM === 0) {
+          canMDn = false;
+          hideMDn();
+        }
+        if(curM < 10) curM = "0" + curM;
+        $("#mins").text(curM);
+        break;
+      default:
+        break;
+    }
+
+    var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
+    var yFactor = -1;
+    if(time > 0 && time < 240) yFactor = 0;
+    else if(time >= 240 && time < 1800) yFactor = 1;
+    else if(time >= 1800 && time < 3600) yFactor = 2;
+    else if(time >= 3600 && time < 7200) yFactor = 3;
+    var award;
+    if(yFactor === -1) award = 0;
+    else award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
+    $("#estimated-points").text(award);
+    if(!canMDn && !canHDn) {
+      disableStart();
+    }
+    else {
+      enableStart();
+    }
+  });
+}
+
+$('#quickadd15').click(function(e) {
+  add15Minutes();
+});
+
+$('#quickadd30').click(function(e) {
+  add15Minutes();
+  add15Minutes();
+});
+
+function add15Minutes() {
+  var curH = Number($("#hrs").text());
+  var curM = Number($("#mins").text());
+  curM += 15;
+  if(curM > 59) {
+    if(curH < 1) {
+      curH += 1;
+      curM -= 60;
+      if(curM < 10) curM = "0" + curM;
+      $("#hrs").text("0" + curH);
+      $("#mins").text(curM);
+    } else {
+      curM = "59";
+      $("#mins").text(curM);
+    }
+  } else {
+    $("#mins").text(curM);
+  }
+  if($("#mins").text() == "59") {
+    canMUp = false;
+    canMDn = true;
+    hideMUp();
+    showMDn();
+  } else if($("#mins").text() == "00") {
+    canMDn = false;
+    canMUp = true;
+    showMUp();
+    hideMDn();
+  } else {
+    canMUp = true;
+    canMDn = true;
+    showMUp();
+    showMDn();
+  }
+  if($("#hrs").text() == "01") {
+    canHUp = false;
+    canHDn = true;
+    hideHUp();
+    showHDn();
+  } else if($("#hrs").text() == "00") {
+    canHDn = false;
+    canHUp = true;
+    hideHDn();
+    showHUp();
+  }
+  var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
+  var yFactor;
+  if(time > 0 && time < 240) yFactor = 0;
+  else if(time >= 240 && time < 1800) yFactor = 1;
+  else if(time >= 1800 && time < 3600) yFactor = 2;
+  else if(time >= 3600 && time < 7200) yFactor = 3;
+  var award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
+  $("#estimated-points").text(award);
+  if(!canMDn && !canHDn) {
+    disableStart();
+  }
+  else {
+    enableStart();
+  }
+}
+
+$("#quicksub15").click(function(e) {
+  sub15Minutes(1);
+});
+
+$("#quicksub30").click(function(e) {
+  sub15Minutes(2);
+});
+
+function sub15Minutes(repetitions) {
+
+  for(var i = 0; i < repetitions; i++) {
+    var curH = Number($("#hrs").text());
+    var curM = Number($("#mins").text());
+    curM -= 15;
+    if(curM < 0) {
+      if(curH > 0) {
+        curH -= 1;
+        curM += 60;
+        if(curM < 10) curM = "0" + curM;
+        $("#hrs").text("0" + curH);
+        $("#mins").text(curM);
+      } else {
+        curM = "00";
+        $("#mins").text(curM);
+      }
+    } else {
+      if(curM < 10) curM = "0" + curM;
+      $("#mins").text(curM);
+    }
+  }
+
+  if($("#mins").text() == "59") {
+    canMUp = false;
+    canMDn = true;
+    hideMUp();
+    showMDn();
+  } else if($("#mins").text() == "00") {
+    canMDn = false;
+    canMUp = true;
+    showMUp();
+    hideMDn();
+  } else {
+    canMUp = true;
+    canMDn = true;
+    showMUp();
+    showMDn();
+  }
+  if($("#hrs").text() == "01") {
+    canHUp = false;
+    canHDn = true;
+    hideHUp();
+    showHDn();
+  } else if($("#hrs").text() == "00") {
+    canHDn = false;
+    canHUp = true;
+    hideHDn();
+    showHUp();
+  }
+  var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
+  var yFactor = -1;
+  if(time > 0 && time < 240) yFactor = 0;
+  else if(time >= 240 && time < 1800) yFactor = 1;
+  else if(time >= 1800 && time < 3600) yFactor = 2;
+  else if(time >= 3600 && time < 7200) yFactor = 3;
+  var award;
+  if(yFactor === -1) award = 0;
+  else award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
+  $("#estimated-points").text(award);
+  if(!canMDn && !canHDn) {
+    disableStart();
+  }
+  else {
+    enableStart();
+  }
+}
+
+function disableStart() {
+  $("#start").addClass("disabled-button");
+  $("#start").removeClass("button");
+  removeThemes("#start");
+}
+
+function removeThemes(selector) {
+  $(selector).removeClass("defaulttheme");
+  $(selector).removeClass("babybluetheme");
+  $(selector).removeClass("guavapinktheme");
+  $(selector).removeClass("mangochiletheme");
+  $(selector).removeClass("forestgladetheme");
+  $(selector).removeClass("galacticvoidtheme");
+}
+
+function enableStart() {
+  $("#start").addClass("button");
+  updateElementTheme("#start");
+  $("#start").removeClass("disabled-button");
+}
+
+function hideHUp() {
+  $('#h_up g').attr('stroke-width', '10');
+  $('#h_up').parent().removeClass('shown_arrow').addClass('hidden_arrow');
+  $('body').css('cursor', 'default');
+}
+
+function showHUp() {
+  $('#h_up g').attr('stroke-width', '10');
+  $('#h_up').parent().removeClass('hidden_arrow').removeClass('shown_arrow');
+}
+
+function hideMUp() {
+  $('#m_up g').attr('stroke-width', '10');
+  $('#m_up').parent().removeClass('shown_arrow').addClass('hidden_arrow');
+  $('body').css('cursor', 'default');
+}
+
+function showMUp() {
+  $('#m_up g').attr('stroke-width', '10');
+  $('#m_up').parent().removeClass('hidden_arrow').addClass('shown_arrow');
+}
+function hideHDn() {
+  $('#h_dn g').attr('stroke-width', '10');
+  $('#h_dn').parent().removeClass('shown_arrow').addClass('hidden_arrow');
+  $('body').css('cursor', 'default');
+}
+
+function showHDn() {
+  $('#h_dn g').attr('stroke-width', '10');
+  $('#h_dn').parent().removeClass('hidden_arrow').addClass('shown_arrow');
+}
+
+function hideMDn() {
+  $('#m_dn g').attr('stroke-width', '10');
+  $('#m_dn').parent().removeClass('shown_arrow').addClass('hidden_arrow');
+  $('body').css('cursor', 'default');
+}
+
+function showMDn() {
+  $('#m_dn g').attr('stroke-width', '10')
+  $('#m_dn').parent().removeClass('hidden_arrow').addClass('shown_arrow');
+}
+
+function runTimer() {
+
+  function subtractHrs() {
+    $("#mins").text("59");
+    $("#hrs").text($("#hrs").text() - 1);
+  }
+
+  function subtractMins() {
+    $("#secs").text("59");
+    var newMins = $("#mins").text() - 1;
+    if(newMins < 0) subtractHrs();
+    else if(newMins < 10) $("#mins").text("0" + newMins);
+    else $("#mins").text(newMins);
+  }
+
+  function subtractSecs() {
+    var newSecs = $("#secs").text() - 1;
+    if(newSecs < 0) subtractMins();
+    else if(newSecs < 10) $("#secs").text("0" + newSecs);
+    else $("#secs").text(newSecs);
+  }
+
+  var duration = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
+  var initDuration = duration;
+  if(duration == 0) return;
+  $("svg").css("display", "none");
+  $("#start").css("display", "none");
+  $(".timer-settings").css("display", "none");
+  $(".sub-header").text('Navigating away from this page will cancel your session!');
+  $(".my-page-header").addClass("extra-big-padding");
+  isTicking = true;
+  canHUp = false;
+  canHDn = false;
+  canMUp = false;
+  canMDn = false;
+  timer = setInterval(function() {
+    subtractSecs();
+    duration--;
+    if(duration == 0) {
+      stopTimer();
+      awardPoints(initDuration);
+    }
+  }, 1000);
+  initQuotes();
+
+  $(window).blur(function() {
+    if(isTicking) failSession(initDuration);
+  });
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  $("#hrs").text("00");
+  $("#mins").text("00");
+  $("#secs").text("00");
+  isTicking = false;
+  $("svg").css("display", "inline-block");
+  $("#start").css("display", "block");
+  disableStart();
+  showHUp();
+  showMUp();
+  hideHDn();
+  hideMDn();
+  canMUp = true;
+  canHUp = true;
+  canMDn = false;
+  canHDn = false;
+  $('.quoteDiv').css('display', 'none');
+  $(".timer-settings").css("display", "block");
+  $(".sub-header").text('Set how long you want to study.');
+  $("#estimated-points").text("0");
+  $(".my-page-header").removeClass("extra-big-padding");
+}
+
+function awardPoints(time) {
+  var yFactor;
+  if(time > 0 && time < 240) yFactor = 0;
+  else if(time >= 240 && time < 1800) yFactor = 1;
+  else if(time >= 1800 && time < 3600) yFactor = 2;
+  else if(time >= 3600 && time < 7200) yFactor = 3;
+  var award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
+  addPoints(award);
+  var sDisplay = time % 60;
+  time = Math.floor(time / 60);
+  var mDisplay = time % 60;
+  var hDisplay = Math.floor(time / 60);
+  var timeElapsed = hDisplay + " hours, " + mDisplay + " minutes, and " + sDisplay + " seconds"
+  var curDate = new Date();
+  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth() + 1) : curDate.getMonth() + 1;
+  var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
+  var formattedDate = `${formattedMonth}/${formattedDay}/${curDate.getFullYear()}`;
+  var startDate = new Date(Date.now() - Number(time + "000"));
+  var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
+  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
+  var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+  addHistory(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`);
+  render_modal("complete", "complete-header", "complete-body", "Congratulations!", "You finished your study session for " + timeElapsed + " and earned " + award + " points.")
+}
+
+function finish() {
+  window.location.href = "home";
+}
+
+function failSession(time) {
+  var curDate = new Date();
+  var formattedMonth = curDate.getMonth() + 1 < 10 ? "0" + Number(curDate.getMonth() + 1) : curDate.getMonth() + 1;
+  var formattedDay = curDate.getDate() < 10 ? "0" + curDate.getDate() : curDate.getDate();
+  var formattedDate = `${formattedMonth}/${formattedDay}/${curDate.getFullYear()}`;
+  var startDate = new Date(Date.now() - Number(time + "000"));
+  var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
+  var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
+  var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+  addHistory(`Failed study session on ${formattedDate} at ${formattedTime}.`)
+  render_modal("interrupted", "interrupted-header", "interrupted-body", "Session Failed.", "You navigated away, and this study session has been cancelled.")
+  stopTimer();
+}
+
+</script>

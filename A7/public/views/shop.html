@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Focus</title>
+    <link href="favicon.png" rel="icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='modal.css' rel='stylesheet' type="text/css">
+    <link href='nav.css' rel='stylesheet' type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <link rel="stylesheet" href="shop.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="points.js"></script>
+    <script src="modal.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129319407-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-129319407-1');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="home">
+              <img src="logo.png" height="30" alt="focus">
+            </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">Balance: <span id="points"></span> pts </p>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="name"></span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="profile">Profile</a></li>
+              <li><a href="settings">Settings</a></li>
+              <li><a href="index">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section id="shop">
+      <h2>Shop</h2>
+      <div id="items">
+        <div class="item" id="babyBlue">
+          <div class="item-pic" id="baby-blue-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Baby Blue</p>
+            <p class="item-desc no-margin">Soften up the look of your focus with this gentle blue theme.</p>
+          </div>
+          <p class="item-buy">100 pts</p>
+        </div>
+        <div class="item" id="guavaPink">
+          <div class="item-pic" id="guava-pink-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Guava Pink</p>
+            <p class="item-desc no-margin">Brighten up the mood of your focus with this vibrant pink theme.</p>
+          </div>
+          <p class="item-buy">100 pts</p>
+        </div>
+        <div class="item" id="mangoChile">
+          <div class="item-pic" id="mango-chile-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Mango Chile</p>
+            <p class="item-desc no-margin">Spice up the tempo of your focus with this sharp orange theme.</p>
+          </div>
+          <p class="item-buy">100 pts</p>
+        </div>
+        <div class="item" id="forestGlade">
+          <div class="item-pic" id="forest-glade-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Forest Glade</p>
+            <p class="item-desc no-margin">Freshen up the vibe of your focus with this relaxing green theme.</p>
+          </div>
+          <p class="item-buy">150 pts</p>
+        </div>
+        <div class="item" id="galacticVoid">
+          <div class="item-pic" id="galactic-void-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Galactic Void</p>
+            <p class="item-desc no-margin">Sharpen up the edge of your focus with this sleek dark theme.</p>
+          </div>
+          <p class="item-buy">150 pts</p>
+        </div>
+      </div>
+
+      <!-- confirm purchase -->
+      <div id="purchase" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="purchase-header"> </h2>
+          </div>
+          <p class="modal-body" id="purchase-body">
+          </p>
+          <div class="modal-footer">
+            <button onclick="closeModal()"> Cancel </button>
+            <button class="accented-button" onclick="confirmedBuy()"> Yes </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- update theme -->
+      <div id="switch" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="switch-header"> </h2>
+          </div>
+          <p class="modal-body" id="switch-body">
+          </p>
+          <div class="modal-footer">
+            <button onclick="closeModal()"> No </button>
+            <button class="accented-button" onclick="updateTheme()"> Yes </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- already bought -->
+      <div id="fail" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2 id="fail-header"> </h2>
+          </div>
+          <p class="modal-body" id="fail-body">
+          </p>
+          <div class="modal-footer">
+            <button class="accented-button" onclick="closeModal()"> OK </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </body>
+</html>
+<script>
+
+var justBought;
+var boughtTheme = false;
+
+$(document).ready(function() {
+  if(!localStorage.getItem('user')) forceLogin();
+});
+var themes = {
+  babyBlue: '100',
+  guavaPink: '100',
+  mangoChile: '100',
+  forestGlade: '150',
+  galacticVoid: '150'
+}
+
+$('.item-buy').click(function(e) {
+  justBought = $(this).parent().attr('id');
+  canBuyItem(justBought, themes[justBought]);
+});
+
+function confirmedBuy() {
+  closeModal();
+  buyItem(justBought, themes[justBought]);
+  boughtTheme = true;
+  render_modal("switch", "switch-header", "switch-body", "Completed!", "Do you want to switch to your new theme?")
+}
+
+function updateTheme() {
+  changeTheme(justBought);
+}
+</script>

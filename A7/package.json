@@ -1,0 +1,32 @@
+{
+  "name": "cogs120",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-3STRIPES/COGS120.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-3STRIPES/COGS120/issues"
+  },
+  "homepage": "https://github.com/Team-3STRIPES/COGS120#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "email-validator": "^2.0.4",
+    "es6-promise": "^4.2.5",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "nodemailer": "^4.6.8",
+    "path": "^0.12.7",
+    "pg": "^6.4.2"
+  },
+  "devDependencies": {},
+  "keywords": []
+}
