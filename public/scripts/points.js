@@ -29,9 +29,9 @@ $(document).ready(function() {
         var curTheme = theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
         $nav.addClass(curTheme);
 
-        localStorage.setItem('name') = data.out_name;
-        localStorage.setItem('points') = data.points;
-        localStorage.setItem('theme') = data.theme;
+        localStorage.setItem('name', data.out_name);
+        localStorage.setItem('points', data.points);
+        localStorage.setItem('theme', data.theme);
         localStorage.setItem('isUpdated', 'true');
       },
       error: function (jqXHR, textStatus, errorThrown)
