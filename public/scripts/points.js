@@ -509,6 +509,7 @@ function updateShopButtons() {
           $(`#${themes[i]} .item-buy`).removeClass('item-buy');
         } else {
           $(`#${themes[i]} .item-buy`).text('Use');
+          $(`#${themes[i]} .item-buy`).addClass(themes[i] + "theme");
         }
       }
     }

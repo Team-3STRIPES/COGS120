@@ -84,6 +84,46 @@ body {
   cursor: disabled;
 }
 
+.babybluetheme {
+  background-color: #25ABD1 !important;
+}
+
+p.babybluetheme:hover {
+  background-color: #31BAE0 !important;
+}
+
+.guavapinktheme {
+  background-color: #D14F9A !important;
+}
+
+p.guavapinktheme:hover {
+  background-color: #D85DA4 !important;
+}
+
+.mangochiletheme {
+  background-color: #E09E23 !important;
+}
+
+p.mangochiletheme:hover {
+  background-color: #E8A730 !important;
+}
+
+.forestgladetheme {
+  background-color: #166610 !important;
+}
+
+p.forestgladetheme:hover {
+  background-color: #1E7218 !important;
+}
+
+.galacticvoidtheme {
+  background-color: #0F073F !important;
+}
+
+p.galacticvoidtheme:hover {
+  background-color: #1A0E63 !important;
+}
+
 .no-margin {
   margin-top: 0;
   margin-bottom: 0;
