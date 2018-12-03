@@ -73,7 +73,7 @@
 </html>
 
 <script>
-if(localStorage.getItem('user')) {
+if(localStorage.getItem('loggedIn') === 'true') {
   $("#user").val(localStorage.getItem('user'));
   $("#pass").val(localStorage.getItem('pass'));
   loginUser();
