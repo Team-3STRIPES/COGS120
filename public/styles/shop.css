@@ -54,7 +54,8 @@ body {
   background-color: #5A709E;
   color: white;
   border-radius: 15px;
-  padding: 8px 16px;
+  padding: 8px 0;
+  width: 85px;
   text-align: center;
   box-shadow: 0 2px 6px black;
 }
@@ -73,7 +74,8 @@ body {
   background-color: #EAEAEA;
   color: black;
   border-radius: 15px;
-  padding: 8px 16px;
+  padding: 8px 0;
+  width: 75px;
   text-align: center;
   transform: translateY(2px);
 }
