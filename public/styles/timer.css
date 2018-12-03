@@ -5,6 +5,10 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 p a span {
@@ -46,6 +50,8 @@ p a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  flex: 1;
 }
 
 .navyblue {
@@ -304,13 +310,13 @@ span.galacticvoidtheme:hover {
   display: none;
   padding-left: 10%;
   padding-right: 10%;
-  margin-top: 2%;
+  width: 100%;
   overflow: none;
   background-color: white;
   flex: 1;
 
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -318,4 +324,20 @@ span.galacticvoidtheme:hover {
   font-size: 1.5em;
   font-family: 'Lora', serif;
   text-align: center;
+}
+
+#animation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  height: 100px;
+}
+
+.bus-bg {
+  background-image: linear-gradient(to bottom, white, #AAA);
+}
+
+.fish-bg {
+  background-image: linear-gradient(to bottom, white, #AAEBFF);
 }

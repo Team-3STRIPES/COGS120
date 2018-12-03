@@ -345,6 +345,27 @@ function getCurrentSettings() {
         }
       }
 
+      var $animations = $("#animations");
+      var curAnimation = data.animation;
+
+      if(curAnimation === 'nothing') {
+        $animations.append('<option value="nothing">--</option>');
+        return;
+      }
+
+      $animations.append(`<option value="${curAnimation}" selected>${curAnimation}</option>`);
+      for (var i = 0; i < data.animations.length; i++) {
+        if(data.animations[i] === 'bus' && curAnimation !== 'bus') {
+          $themes.append('<option value="bus">Bus</option>');
+        }
+        if(data.animations[i] === 'caterpillar' && curAnimation !== 'caterpillar') {
+          $themes.append('<option value="caterpillar">Caterpillar</option>');
+        }
+        if(data.animations[i] === 'fish' && curAnimation !== 'fish') {
+          $themes.append('<option value="fish">Fish</option>');
+        }
+      }
+
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
@@ -405,6 +426,7 @@ function updateSettings() {
             input_name: $('#fullname').val(),
             input_email: $('#email').val(),
             input_theme: $('#themes').val(),
+            input_animation: $('#animations').val()
            },
     success: function(data, textStatus, jqXHR)
     {
@@ -523,4 +545,13 @@ function updateShopButtons() {
       }
     }
   });
+}
+
+function getCurrentAnimation() {
+  return localStorage.getItem('animation');
+}
+
+function updateAnimation(newAnimation) {
+  localStorage.setItem('animation', newAnimation);
+  localStorage.setItem('isUpdated', 'false');
 }

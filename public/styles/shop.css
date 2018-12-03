@@ -161,6 +161,27 @@ p.galacticvoidtheme:hover {
   background-color: #0F073F;
 }
 
+#bus-pic {
+  background-image: url('bus.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#caterpillar-pic {
+  background-image: url('caterpillar.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#fish-pic {
+  background-image: url('fish.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 @media screen and (max-width: 767px) {
   .item {
     display: flex;

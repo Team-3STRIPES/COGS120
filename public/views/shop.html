@@ -52,6 +52,7 @@
     <section id="shop">
       <h2>Shop</h2>
       <div id="items">
+        <h3>Themes</h3>
         <div class="item" id="babyBlue">
           <div class="item-pic" id="baby-blue-pic"></div>
           <div class="item-text">
@@ -91,6 +92,31 @@
             <p class="item-desc no-margin">Sharpen up the edge of your focus with this sleek dark theme.</p>
           </div>
           <p class="item-buy">150 pts</p>
+        </div>
+        <h3 style="margin-top: 64px">Animations</h3>
+        <div class="item" id="bus">
+          <div class="item-pic" id="bus-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Metro Bus</p>
+            <p class="item-desc no-margin">Watch the wheels on the bus go round and round as you study.</p>
+          </div>
+          <p class="item-buy">100 pts</p>
+        </div>
+        <div class="item" id="caterpillar">
+          <div class="item-pic" id="caterpillar-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Cute Caterpillar</p>
+            <p class="item-desc no-margin">Watch the caterpillar crawl across the screen as you study.</p>
+          </div>
+          <p class="item-buy">150 pts</p>
+        </div>
+        <div class="item" id="fish">
+          <div class="item-pic" id="fish-pic"></div>
+          <div class="item-text">
+            <p class="item-name no-margin">Gold Fish</p>
+            <p class="item-desc no-margin">Watch the gold fish swim across the screen as you study.</p>
+          </div>
+          <p class="item-buy">200 pts</p>
         </div>
       </div>
 
@@ -147,7 +173,6 @@
 <script>
 
 var justBought;
-var boughtTheme = false;
 
 $(document).ready(function() {
   if(localStorage.getItem('loggedIn') === 'false') forceLogin();
@@ -157,29 +182,39 @@ $(document).ready(function() {
   updateShopButtons();
 });
 
-var themes = {
+var items = {
   babyBlue: '100',
   guavaPink: '100',
   mangoChile: '100',
   forestGlade: '150',
-  galacticVoid: '150'
+  galacticVoid: '150',
+  bus: '100',
+  caterpillar: '150',
+  fish: '200'
 }
 
 $('.item-buy').click(function(e) {
   justBought = $(this).parent().attr('id');
+  var isTheme = justBought.toLowerCase() !== justBought;
   if($(this).text() !== 'Use') {
-    canBuyItem(justBought, themes[justBought]);
+    canBuyItem(justBought, items[justBought]);
   } else {
-    updateTheme(justBought);
+    if(isTheme) {
+      updateTheme(justBought);
+    } else {
+      updateAnimation(justBought);
+    }
   }
 });
 
 function confirmedBuy() {
   closeModal();
-  buyItem(justBought, themes[justBought]);
-  $('#points').text($('#points').text - themes[justBought]);
-  boughtTheme = true;
-  render_modal("switch", "switch-header", "switch-body", "Completed!", "Do you want to switch to your new theme?")
+  buyItem(justBought, items[justBought]);
+  $('#points').text($('#points').text - items[justBought]);
+  var isTheme = justBought.toLowerCase() !== justBought;
+  if(isTheme) {
+    render_modal("switch", "switch-header", "switch-body", "Completed!", "Do you want to switch to your new theme?")
+  }
 }
 
 function updateTheme() {

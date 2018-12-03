@@ -126,6 +126,7 @@
 
       <div class="quoteDiv">
         <p><q id="quotation"></q><cite id="source"></cite></p>
+        <img id="animation" />
       </div>
 
       <!-- timer completion -->
@@ -164,6 +165,7 @@
 <script>
 
 var timer;
+var animation;
 var canHUp;
 var canMUp;
 var canHDn;
@@ -182,6 +184,7 @@ $(document).ready(function() {
   if(localStorage.getItem('loggedIn') === 'false') forceLogin();
   initTimer();
   updateElementTheme('.timer');
+  initAnimation();
 
   $('.no-fouc').removeClass('no-fouc');
 
@@ -663,10 +666,23 @@ function runTimer() {
     }
   }, 1000);
   initQuotes();
+  runAnimation(initDuration);
 
   $(window).blur(function() {
     if(isTicking) failSession(initDuration);
   });
+}
+
+function runAnimation(time) {
+  var $animation = $('#animation');
+  var width = window.innerWidth - $animation.width();
+  var increment = width/(time * 2);
+  var totalIncrement = 0;
+
+  animation = setInterval(function() {
+    totalIncrement += increment;
+    $animation.css('left', `${totalIncrement}px`);
+  }, 500);
 }
 
 function stopTimer() {
@@ -686,11 +702,17 @@ function stopTimer() {
   canHUp = true;
   canMDn = false;
   canHDn = false;
+  stopAnimation();
   $('.quoteDiv').css('display', 'none');
   $(".timer-settings").css("display", "block");
   $(".sub-header").text('Set how long you want to study.');
   $("#estimated-points").text("0");
   $(".my-page-header").removeClass("extra-big-padding");
+}
+
+function stopAnimation() {
+  clearInterval(animation);
+  $('#animation').css('left', 0);
 }
 
 function awardPoints(time) {
@@ -742,4 +764,9 @@ function failSession(time) {
   stopTimer();
 }
 
+function initAnimation() {
+  var curAnimation = getCurrentAnimation();
+  $("#animation").attr('src', `${curAnimation}.gif`).attr('alt', curAnimation);
+  $('.quoteDiv').addClass(`${curAnimation}-bg`);
+}
 </script>
