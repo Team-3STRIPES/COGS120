@@ -341,3 +341,7 @@ span.galacticvoidtheme:hover {
 .fish-bg {
   background-image: linear-gradient(to bottom, white, #AAEBFF);
 }
+
+.caterpillar-bg {
+  background-image: linear-gradient(to bottom, white, #C9FFC9)
+}
