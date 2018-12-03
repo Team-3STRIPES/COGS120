@@ -227,7 +227,7 @@ function changeTheme(newTheme) {
       data : {
               input_user: localStorage.getItem('user'),
               input_password: localStorage.getItem('pass'),
-              input_theme:newTheme,
+              input_theme: newTheme,
              },
       success: function(data, textStatus, jqXHR)
       {
@@ -488,6 +488,23 @@ function sendLoginInfo() {
     error: function (jqXHR, textStatus, errorThrown)
     {
 
+    }
+  });
+}
+
+function updateShopButtons() {
+  $.ajax({
+    url: "/ready",
+    type: "POST",
+    data: {
+      input_user: localStorage.getItem('user'),
+      input_password: localStorage.getItem('pass'),
+    },
+    success: function(data, textStatus, jqXHR) {
+      var themes = data.themes;
+      for(var i = 0; i < themes.length; i++) {
+        console.log(themes[i]);
+      }
     }
   });
 }
