@@ -65,5 +65,15 @@
         </div>
       </div>
     </div>
+    <input type="text" id="user" style="display: none;"/>
+    <input type="text" id="pass" style="display: none;" />
   </body>
 </html>
+
+<script>
+if(localStorage.getItem('user')) {
+  $("#user").val(localStorage.getItem('user'));
+  $("#pass").val(localStorage.getItem('pass'));
+  loginUser();
+}
+</script>
