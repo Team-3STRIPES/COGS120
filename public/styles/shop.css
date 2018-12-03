@@ -51,6 +51,25 @@ body {
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
+  background-color: #EAEAEA;
+  color: white;
+  border-radius: 15px;
+  padding: 8px 0;
+  text-align: center;
+  width: 50px;
+  box-shadow: 0 2px 6px black;
+  transform: translateY(2px);
+}
+
+.item-buy:hover {
+  cursor: pointer;
+  background-color: #667DAF;
+}
+
+.disabled-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
   background-color: #5A709E;
   color: white;
   border-radius: 15px;
@@ -62,9 +81,8 @@ body {
   box-shadow: 0 0 4px black;
 }
 
-.item-buy:hover {
-  cursor: pointer;
-  background-color: #667DAF;
+.disabled-button:hover {
+  cursor: disabled;
 }
 
 .no-margin {

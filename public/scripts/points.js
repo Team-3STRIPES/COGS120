@@ -505,6 +505,7 @@ function updateShopButtons() {
       for(var i = 0; i < themes.length; i++) {
         if(data.theme === themes[i]) {
           $(`#${themes[i]} .item-buy`).text('In Use');
+          $(`#${themes[i]} .item-buy`).addClass('disabled-button');
         } else {
           $(`#${themes[i]} .item-buy`).text('Use');
         }
