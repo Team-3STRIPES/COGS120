@@ -210,7 +210,7 @@ $('.item-buy').click(function(e) {
 function confirmedBuy() {
   closeModal();
   buyItem(justBought, items[justBought]);
-  $('#points').text($('#points').text - items[justBought]);
+  $('#points').text($('#points').text() - items[justBought]);
   var isTheme = justBought.toLowerCase() !== justBought;
   if(isTheme) {
     render_modal("switch", "switch-header", "switch-body", "Completed!", "Do you want to switch to your new theme?")
