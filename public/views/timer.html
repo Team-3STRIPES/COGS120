@@ -626,7 +626,7 @@ function runTimer() {
 
   function subtractHrs() {
     $("#mins").text("59");
-    $("#hrs").text($("#hrs").text() - 1);
+    $("#hrs").text("0" + ($("#hrs").text() - 1));
   }
 
   function subtractMins() {
