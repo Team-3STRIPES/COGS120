@@ -58,13 +58,13 @@ body {
   text-align: center;
   width: 150px;
   box-shadow: 0 2px 6px black;
-  transform: translateY(2px);
-  box-shadow: 0 0 4px black;
 }
 
 .item-buy:hover {
   cursor: pointer;
   background-color: #667DAF;
+  transform: translateY(2px);
+  box-shadow: 0 0 4px black;
 }
 
 .disabled-button {
@@ -77,7 +77,6 @@ body {
   padding: 8px 0;
   text-align: center;
   width: 150px;
-  box-shadow: 0 2px 6px black;
   transform: translateY(2px);
 }
 
