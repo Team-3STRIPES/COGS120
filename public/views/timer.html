@@ -723,7 +723,9 @@ function finish() {
 }
 
 $(window).on('unload', function(e) {
-  failSession(initDuration);
+  if(isTicking) {
+    failSession(initDuration);
+  }
 });
 
 function failSession(time) {
