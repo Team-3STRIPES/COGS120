@@ -45,6 +45,11 @@
       </div>
     </div>
     <script>
+
+      $(document).ready(function(e) {
+        $('.no-fouc').removeClass('no-fouc');
+      })
+
       $('form').submit(function(e) {
         e.preventDefault();
       });
