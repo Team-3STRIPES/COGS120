@@ -533,6 +533,7 @@ function updateShopButtons() {
     },
     success: function(data, textStatus, jqXHR) {
       var themes = data.themes;
+      var animations = data.animations;
       for(var i = 0; i < themes.length; i++) {
         if(data.theme === themes[i]) {
           $(`#${themes[i]} .item-buy`).text('In Use');
@@ -541,6 +542,15 @@ function updateShopButtons() {
         } else {
           $(`#${themes[i]} .item-buy`).text('Use');
           $(`#${themes[i]} .item-buy`).addClass(themes[i].toLowerCase() + "theme");
+        }
+      }
+      for(var i = 0; i < animations.length; i++) {
+        if(data.animation === animations[i]) {
+          $(`#${animations[i]} .item-buy`).text('In Use');
+          $(`#${animations[i]} .item-buy`).addClass('disabled-button');
+          $(`#${animations[i]} .item-buy`).removeClass('item-buy');
+        } else {
+          $(`#${themes[i]} .item-buy`).text('Use');
         }
       }
     }
