@@ -735,7 +735,7 @@ function awardPoints(time) {
   var startDate = new Date(Date.now() - Number(time + "000"));
   var formattedHours = startDate.getHours() < 10 ? "0" + startDate.getHours() : startDate.getHours();
   var formattedMinutes = startDate.getMinutes() < 10 ? "0" + startDate.getMinutes() : startDate.getMinutes();
-  var formattedTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+  var formattedTime = `${formattedHours}:${formattedMinutes}`;
   addHistory(`Completed study session for ${timeElapsed} on ${formattedDate} at ${formattedTime}, earning ${award} points.`);
   render_modal("complete", "complete-header", "complete-body", "Congratulations!", "You finished your study session for " + timeElapsed + " and earned " + award + " points.")
 }
