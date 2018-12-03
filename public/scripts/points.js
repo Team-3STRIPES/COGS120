@@ -69,6 +69,7 @@ function loginUser() {
       } else {
         localStorage.setItem('user', $("#user").val());
         localStorage.setItem('pass', $("#pass").val());
+        localStorage.setItem('loggedIn', 'true');
         window.location.href = "home";
       }
     },
@@ -105,6 +106,9 @@ function initUser() {
         } else if (data.check === 2){
           alert("Email is invalid");
         } else {
+          localStorage.setItem('user', $("#user").val());
+          localStorage.setItem('pass', $("#pass").val());
+          localStorage.setItem('loggedIn', 'true');
           window.location.href = "home";
         }
       },
@@ -119,6 +123,11 @@ function initUser() {
   localStorage.setItem('email', $("#email").val());
   localStorage.setItem('pass', $("#pass").val());
   /*localStorage.setItem('theme', 'default');*/
+}
+
+function signOut() {
+  localStorage.setItem('loggedIn', 'false');
+  window.location.href = "index";
 }
 
 function addPoints(amount) {

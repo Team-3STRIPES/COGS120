@@ -43,7 +43,7 @@
             <ul class="dropdown-menu">
               <li><a href="profile">Profile</a></li>
               <li><a href="settings">Settings</a></li>
-              <li><a href="index">Sign Out</a></li>
+              <li><a href="index" onclick="signOut()">Sign Out</a></li>
             </ul>
           </li>
         </ul>
@@ -150,7 +150,7 @@ var justBought;
 var boughtTheme = false;
 
 $(document).ready(function() {
-  if(!localStorage.getItem('user')) forceLogin();
+  if(localStorage.getItem('loggedIn') === 'false') forceLogin();
 
   $('.no-fouc').removeClass('no-fouc');
 
