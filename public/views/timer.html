@@ -722,7 +722,7 @@ function finish() {
   window.location.href = "home";
 }
 
-$(window).on('unload', function(e) {
+$(window).on('beforeunload', function(e) {
   if(isTicking) {
     failSession(initDuration);
   }
