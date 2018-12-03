@@ -5,6 +5,13 @@ body {
   align-items: center;
   margin: 0;
   min-height: 100vh;
+  
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 header {
@@ -112,13 +119,12 @@ body:before {
   box-shadow: 0px 1px 3px black;
 }
 
-.lightblue {
-  background-color: #B6BEF7;
-  color: black;
+.gray {
+	background-color: #ACACAC;
 }
 
-.lightblue:hover {
-  background-color: #C4CBFF;
+.gray:hover {
+  background-color: #B3B3B3;;
 }
 
 .how-to {

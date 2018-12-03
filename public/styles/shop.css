@@ -1,5 +1,12 @@
 body {
   font-family: 'Nunito Sans', sans-serif;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #shop > h2 {
@@ -53,8 +60,7 @@ body {
 
 .item-buy:hover {
   cursor: pointer;
-  background-color: #B6BEF7;
-  color: black;
+  background-color: #667DAF;
 }
 
 .no-margin {

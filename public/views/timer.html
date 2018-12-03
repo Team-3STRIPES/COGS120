@@ -23,6 +23,11 @@
 
       gtag('config', 'UA-129319407-1');
     </script>
+    <style type="text/css"> .no-fouc {visibility: hidden;}
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'no-fouc';
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -45,8 +50,8 @@
       </div>
     </nav>
     <div class="my-page-header">
-      <h2 class="big-header unselectable">Timer</h2>
-      <p class="sub-header unselectable">Set how long you want to study.</p>
+      <h2 class="big-header">Timer</h2>
+      <p class="sub-header">Set how long you want to study.</p>
     </div>
     <div class="timer-section">
       <div class="timer">
@@ -75,7 +80,7 @@
               </span>
             </div>
           </div>
-          <p class="timer-text unselectable"><span id="hrs">00</span>h<span id="mins">00</span>m<span id="secs">00</span>s</p>
+          <p class="timer-text"><span id="hrs">00</span>h<span id="mins">00</span>m<span id="secs">00</span>s</p>
           <div class="arrows">
             <div class="h_arrow hidden_arrow">
               <span id="h_dn">
@@ -117,7 +122,7 @@
           <p id="projected"><span id="estimated-points">0</span> points</p>
         </div>
       </div>
-      <p><a href="#" onclick="runTimer()"><span class="button unselectable" id="start">Begin Study Session</span></a></p>
+      <p><a href="#" onclick="runTimer()"><span class="button" id="start">Begin Study Session</span></a></p>
 
       <div class="quoteDiv">
         <p><q id="quotation"></q><cite id="source"></cite></p>
@@ -168,6 +173,7 @@ var $quote;
 var $source;
 var bank;
 var quoteFunc;
+var initDuration;
 
 const ONE_SECOND = 1000;
 const ROTATE_INTERVAL = 12000;
@@ -176,6 +182,8 @@ $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
   initTimer();
   updateElementTheme('.timer');
+
+  $('.no-fouc').removeClass('no-fouc');
 
 });
 
@@ -634,7 +642,7 @@ function runTimer() {
   }
 
   var duration = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
-  var initDuration = duration;
+  initDuration = duration;
   if(duration == 0) return;
   $("svg").css("display", "none");
   $("#start").css("display", "none");
@@ -713,6 +721,10 @@ function awardPoints(time) {
 function finish() {
   window.location.href = "home";
 }
+
+$(window).unload(function(e) {
+  failSession(initDuration);
+});
 
 function failSession(time) {
   var curDate = new Date();

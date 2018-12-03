@@ -31,8 +31,8 @@
       <h2>Log In</h2>
       <div class="my-container">
         <form onsubmit="loginUser()">
-          <p>Username <input id="user" type="text" placeholder="Username"></p>
-          <p>Password <input id="pass" type="password" placeholder="Password"></p>
+          <p>Username <input id="user" type="text"></p>
+          <p>Password <input id="pass" type="password"></p>
           <input class="login-button" type="submit" value="Log In"></input>
         </form>
         <div class="links">
@@ -69,6 +69,3 @@ function remindLogin() {
   render_modal('forgot', 'forgot-header', 'forgot-body', 'Forgot Info', '<p>Please enter your email below so we can send you your information. <input type="email" id="forgotEmail" /></p>')
 }
 </script>
-
-
-

@@ -21,6 +21,11 @@
 
       gtag('config', 'UA-129319407-1');
     </script>
+    <style type="text/css"> .no-fouc {visibility: hidden;}
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'no-fouc';
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -61,6 +66,7 @@
 
       if(!localStorage.getItem('user')) forceLogin();
       updateElementTheme('#startButton');
+      $('.no-fouc').removeClass('no-fouc');
 
       $quote = $("#quotation");
       $source = $("#source");

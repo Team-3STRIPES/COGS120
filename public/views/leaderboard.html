@@ -49,27 +49,15 @@
       </div>
     </nav>
     <div class="my-container">
-      <div class="header">
-        <p id="fullname"></p>
-        <p id="email"></p>
-      </div>
-      <h3>Study History:</h3>
-      <ul id="history">
-      </ul>
+      <h2>Leaderboard</h2>
     </div>
     <script>
+
     $(document).ready(function() {
       if(!localStorage.getItem('user')) forceLogin();
-
-      showProfileInfo();
-      populateHistory();
-      
       $('.no-fouc').removeClass('no-fouc');
     });
 
-    function populateHistory() {
-      getHistory();
-    }
     </script>
   </body>
 </html>

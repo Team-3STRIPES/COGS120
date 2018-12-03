@@ -20,6 +20,11 @@
 
       gtag('config', 'UA-129319407-1');
     </script>
+    <style type="text/css"> .no-fouc {visibility: hidden;}
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'no-fouc';
+    </script>
   </head>
   <body>
     <header>
@@ -29,11 +34,11 @@
       <h2>Sign Up</h2>
       <div class="my-container">
         <form onsubmit="validateSignup()">
-          <p>Name <input id="name" type="text" placeholder="Your Name"></p>
-          <p>Username <input id="user" type="text" placeholder="Your Username"></p>
-          <p>Email <input id="email" type="email" placeholder="Email"></p>
-          <p>Password <input id="pass" type="password" placeholder="Password"></p>
-          <p>Confirm Password <input id="pass2" type="password" placeholder="Confirm password"></p>
+          <p>Full Name <input id="name" type="text"></p>
+          <p>Username <input id="user" type="text"></p>
+          <p>Email <input id="email" type="email"></p>
+          <p>Password <input id="pass" type="password"></p>
+          <p>Confirm Password <input id="pass2" type="password"></p>
           <input class="signup-button" type="submit" value="Sign Up"></input>
         </form>
         <p><a href="login">Already have an account? Log in here</a></p>

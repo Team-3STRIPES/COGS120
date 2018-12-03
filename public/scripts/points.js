@@ -6,30 +6,41 @@ $(document).ready(function() {
   //var curTheme = localStorage.getItem('theme').replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
 
   //$nav.addClass(curTheme);
-  $.ajax({
-    url : "/ready",
-    type: "POST",
-    data : {
-            input_user: localStorage.getItem('user'),
-            input_password: localStorage.getItem('pass'),
-           },
-    success: function(data, textStatus, jqXHR)
-    {
-      $("#points").text(data.points);
-      $("#name").text(data.out_name);
-      var theme = data.theme
-      console.log(theme)
-      var $nav = $('nav');
-      var curTheme = theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
-      $nav.addClass(curTheme);
-      console.log('finished ready')
-    },
-    error: function (jqXHR, textStatus, errorThrown)
-    {
-      $('nav').addClass('default-bg');
-    }
-  });
-})
+
+  if(localStorage.getItem('isUpdated') === 'true') {
+    $('#points').text(localStorage.getItem('points'));
+    $('#name').text(localStorage.getItem('name'));
+    var theme = localStorage.getItem('theme');
+    $('nav').addClass(theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg");
+  } else {
+    $.ajax({
+      url : "/ready",
+      type: "POST",
+      data : {
+              input_user: localStorage.getItem('user'),
+              input_password: localStorage.getItem('pass'),
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        $("#points").text(data.points);
+        $("#name").text(data.out_name);
+        var theme = data.theme
+        var $nav = $('nav');
+        var curTheme = theme.replace(/([A-Z])/g, '-$1').toLowerCase() + "-bg";
+        $nav.addClass(curTheme);
+
+        localStorage.setItem('name') = data.out_name;
+        localStorage.setItem('points') = data.points;
+        localStorage.setItem('theme') = data.theme;
+        localStorage.setItem('isUpdated', 'true');
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+        $('nav').addClass('default-bg');
+      }
+    });
+  }
+});
 
 function forceLogin() {
   window.location.href = "login";
@@ -66,20 +77,7 @@ function loginUser() {
 
     }
   });
-
-  if(user === "charles" || pass === "over9000") {
-    initLocalStorage();
-
-    localStorage.setItem('name', "Charles");
-    localStorage.setItem('user', "charles");
-    localStorage.setItem('email', "charles@chen.com");
-    localStorage.setItem('pass', "over9000");
-    localStorage.setItem('theme', 'default');
-    localStorage.setItem('points', 200);
-
-    window.location.href = "home";
-    return;
-  }
+}
 
   /*if(!localStorage.getItem('user')) {
     alert("You must make an account first.");
@@ -88,7 +86,6 @@ function loginUser() {
   } else {
     window.location.href = "home";
   }*/
-}
 
 function initUser() {
   $.ajax({
@@ -122,14 +119,6 @@ function initUser() {
   localStorage.setItem('email', $("#email").val());
   localStorage.setItem('pass', $("#pass").val());
   /*localStorage.setItem('theme', 'default');*/
-  //initLocalStorage();
-}
-
-function initLocalStorage() {
- localStorage.setItem('points', 200);
- localStorage.setItem('babyBlue', false);
- localStorage.setItem('guavaPink', false);
- localStorage.setItem('mangoChile', false);
 }
 
 function addPoints(amount) {
@@ -145,6 +134,7 @@ function addPoints(amount) {
       success: function(data, textStatus, jqXHR)
       {
         $('#points').text(data.check);
+        localStorage.setItem('isUpdated', 'false');
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
@@ -166,6 +156,7 @@ function subtractPoints(amount) {
       success: function(data, textStatus, jqXHR)
       {
         $('#points').text(data.check);
+        localStorage.setItem('isUpdated', 'false');
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
@@ -220,7 +211,7 @@ function buyItem(theme, cost) {
              },
       success: function(data, textStatus, jqXHR)
       {
-        //subtractPoints(cost);
+        localStorage.setItem('isUpdated', 'false');
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
@@ -240,7 +231,7 @@ function changeTheme(newTheme) {
              },
       success: function(data, textStatus, jqXHR)
       {
-        //localStorage.setItem('theme', newTheme);
+        localStorage.setItem('isUpdated', 'false');
         window.location.reload(true);
       },
       error: function (jqXHR, textStatus, errorThrown)
@@ -411,9 +402,7 @@ function updateSettings() {
       if (data.check == 'false') {
         alert('Email is not a valid email');
       } else {
-        localStorage.setItem('name', $('#fullname').val());
-        localStorage.setItem('email', $('#email').val());
-        localStorage.setItem('theme', $('#themes').val());
+        localStorage.setItem('isUpdated', false);
         window.location.reload(true);
       }
     },

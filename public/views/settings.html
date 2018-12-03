@@ -23,6 +23,11 @@
 
       gtag('config', 'UA-129319407-1');
     </script>
+    <style type="text/css"> .no-fouc {visibility: hidden;}
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'no-fouc';
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -47,9 +52,9 @@
     <div class="my-container">
       <h2>Settings</h2>
       <form onsubmit="showConfirmation()">
-        <p>Change name <input type="text" id="fullname" name="fullname" /></p>
-        <p>Change email: <input type="email" id="email" name="email" /></p>
-        <p>Change theme:
+        <p>Change Name <input type="text" id="fullname" name="fullname" /></p>
+        <p>Change Email <input type="email" id="email" name="email" /></p>
+        <p>Change Theme
           <select name="themes" id="themes">
           </select>
         </p>
@@ -80,6 +85,8 @@ $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
 
   getCurrentSettings();
+
+  $('.no-fouc').removeClass('no-fouc');
 });
 
 $('form').submit(function(e) {
@@ -96,4 +103,3 @@ function showConfirmation() {
   render_modal('saved', 'saved-header', 'saved-body', 'Confirm', 'Do you confirm these settings?');
 }
 </script>
-

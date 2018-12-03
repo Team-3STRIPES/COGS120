@@ -23,6 +23,11 @@
 
       gtag('config', 'UA-129319407-1');
     </script>
+    <style type="text/css"> .no-fouc {visibility: hidden;}
+    </style>
+    <script type="text/javascript">
+        document.documentElement.className = 'no-fouc';
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -146,6 +151,8 @@ var boughtTheme = false;
 
 $(document).ready(function() {
   if(!localStorage.getItem('user')) forceLogin();
+
+  $('.no-fouc').removeClass('no-fouc');
 });
 var themes = {
   babyBlue: '100',
@@ -163,6 +170,7 @@ $('.item-buy').click(function(e) {
 function confirmedBuy() {
   closeModal();
   buyItem(justBought, themes[justBought]);
+  $('#points').text($('#points').text - themes[justBought]);
   boughtTheme = true;
   render_modal("switch", "switch-header", "switch-body", "Completed!", "Do you want to switch to your new theme?")
 }
