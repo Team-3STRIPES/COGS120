@@ -503,7 +503,7 @@ function updateShopButtons() {
     success: function(data, textStatus, jqXHR) {
       var themes = data.themes;
       for(var i = 0; i < themes.length; i++) {
-        $(`#${themes[i]} .item-buy`).text('Use);
+        $(`#${themes[i]} .item-buy`).text('Use');
       }
     }
   });
