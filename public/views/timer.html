@@ -185,6 +185,7 @@ $(document).ready(function() {
   if(localStorage.getItem('loggedIn') === 'false') forceLogin();
   initTimer();
   updateElementTheme('.timer');
+  console.log("init animation")
   initAnimation();
 
   $('.no-fouc').removeClass('no-fouc');
@@ -786,8 +787,9 @@ function failSession(time) {
 }
 
 function initAnimation() {
-  var curAnimation = getCurrentAnimation();
-  $("#animation").attr('src', `${curAnimation}.gif`).attr('alt', curAnimation);
-  $('.quoteDiv').addClass(`${curAnimation}-bg`);
+  getCurrentAnimation().done((res) => {
+    $("#animation").attr('src', `${res.gif}.gif`).attr('alt', res.gif);
+    $('.quoteDiv').addClass(`${res.gif}-bg`);
+  })
 }
 </script>

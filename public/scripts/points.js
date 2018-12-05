@@ -32,6 +32,7 @@ $(document).ready(function() {
         localStorage.setItem('name', data.out_name);
         localStorage.setItem('points', data.points);
         localStorage.setItem('theme', data.theme);
+        localStorage.setItem('animation', data.gif);
         localStorage.setItem('isUpdated', 'true');
       },
       error: function (jqXHR, textStatus, errorThrown)
@@ -68,8 +69,9 @@ function loginUser() {
         alert("Email is not confirmed");
       } else {
         localStorage.setItem('user', $("#user").val());
-        localStorage.setItem('pass', $("#pass").val());
+        localStorage.setItem('pass', data.pass);
         localStorage.setItem('loggedIn', 'true');
+        localStorage.setItem('isUpdated', 'false');
         window.location.href = "home";
       }
     },
@@ -107,8 +109,9 @@ function initUser() {
           alert("Email is invalid");
         } else {
           localStorage.setItem('user', $("#user").val());
-          localStorage.setItem('pass', $("#pass").val());
+          localStorage.setItem('pass', data.pass);
           localStorage.setItem('loggedIn', 'true');
+          localStorage.setItem('isUpdated', 'false');
           window.location.href = "home";
         }
       },
@@ -189,9 +192,10 @@ function canBuyItem(theme, cost) {
         //if(localStorage.getItem(theme) === 'true') return 0;
         //if(Number(localStorage.getItem('points')) < cost) return 1;
         //return 2;
-        if (data.theme == 'true') {
+        /*if (data.theme == 'true') {
           render_modal("fail", "fail-header", "fail-body", "Error", "You already purchased this item!");
-        } else if (data.points < cost) {
+        } else */
+        if (data.points < cost) {
           alert("You have insufficient funds!");
         } else {
           render_modal("purchase", "purchase-header", "purchase-body", justBought.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); }), "Are you sure you want to buy the  " + justBought.replace(/([A-Z])/g, ' $1').toLowerCase() + " theme for " + cost + " points?");
@@ -210,13 +214,20 @@ function buyItem(theme, cost) {
   var curDate = new Date();
   localStorage.setItem(theme + 'Date', String(curDate.getMonth() + 1) + "/" + String(curDate.getDate()) + "/" + String(curDate.getFullYear()));
   subtractPoints(cost);*/
+  var check = '0';
+  console.log(theme)
+  if (theme === theme.toLowerCase()){
+    check = '1';
+  }
+
   $.ajax({
       url : "/buyTheme",
       type: "POST",
-      data : { input_pts:cost,
+      data : {input_pts:cost,
               input_user:localStorage.getItem('user'),
               input_password:localStorage.getItem('pass'),
               input_theme:theme,
+              input_check:check,
              },
       success: function(data, textStatus, jqXHR)
       {
@@ -346,7 +357,7 @@ function getCurrentSettings() {
       }
 
       var $animations = $("#animations");
-      var curAnimation = data.animation;
+      var curAnimation = data.gif;
 
       if(curAnimation === 'undefined') {
         $animations.append('<option value="undefined">--</option>');
@@ -356,13 +367,13 @@ function getCurrentSettings() {
       $animations.append(`<option value="${curAnimation}" selected>${curAnimation}</option>`);
       for (var i = 0; i < data.animations.length; i++) {
         if(data.animations[i] === 'bus' && curAnimation !== 'bus') {
-          $themes.append('<option value="bus">Bus</option>');
+          $animations.append('<option value="bus">Bus</option>');
         }
         if(data.animations[i] === 'caterpillar' && curAnimation !== 'caterpillar') {
-          $themes.append('<option value="caterpillar">Caterpillar</option>');
+          $animations.append('<option value="caterpillar">Caterpillar</option>');
         }
         if(data.animations[i] === 'fish' && curAnimation !== 'fish') {
-          $themes.append('<option value="fish">Fish</option>');
+          $animations.append('<option value="fish">Fish</option>');
         }
       }
 
@@ -545,12 +556,12 @@ function updateShopButtons() {
         }
       }
       for(var i = 0; i < animations.length; i++) {
-        if(data.animation === animations[i]) {
+        if(data.gif === animations[i]) {
           $(`#${animations[i]} .item-buy`).text('In Use');
           $(`#${animations[i]} .item-buy`).addClass('disabled-button');
           $(`#${animations[i]} .item-buy`).removeClass('item-buy');
         } else {
-          $(`#${themes[i]} .item-buy`).text('Use');
+          $(`#${animations[i]} .item-buy`).text('Use');
         }
       }
     }
@@ -558,10 +569,36 @@ function updateShopButtons() {
 }
 
 function getCurrentAnimation() {
-  return localStorage.getItem('animation');
+  //return localStorage.getItem('animation');
+  return $.ajax({
+    url : "/getGif",
+    type: "POST",
+    data : {
+            input_user: localStorage.getItem('user'),
+            input_password: localStorage.getItem('pass'),
+           },
+  });
 }
 
 function updateAnimation(newAnimation) {
-  localStorage.setItem('animation', newAnimation);
-  localStorage.setItem('isUpdated', 'false');
+  //localStorage.setItem('animation', newAnimation);
+  //localStorage.setItem('isUpdated', 'false');
+  $.ajax({
+      url : "/currGif",
+      type: "POST",
+      data : {
+              input_user: localStorage.getItem('user'),
+              input_password: localStorage.getItem('pass'),
+              input_gif: newAnimation,
+             },
+      success: function(data, textStatus, jqXHR)
+      {
+        localStorage.setItem('isUpdated', 'false');
+        window.location.reload(true);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+
+      }
+  });
 }
