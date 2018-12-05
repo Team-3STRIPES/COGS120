@@ -364,7 +364,7 @@ function getCurrentSettings() {
         return;
       }
 
-      $animations.append(`<option value="${curAnimation}" selected>${curAnimation}</option>`);
+      $animations.append(`<option value="${curAnimation}" selected>${curAnimation[0].toUpperCase() + curAnimation.substring(1)}</option>`);
       for (var i = 0; i < data.animations.length; i++) {
         if(data.animations[i] === 'bus' && curAnimation !== 'bus') {
           $animations.append('<option value="bus">Bus</option>');
