@@ -348,8 +348,8 @@ function getCurrentSettings() {
       var $animations = $("#animations");
       var curAnimation = data.animation;
 
-      if(curAnimation === 'nothing') {
-        $animations.append('<option value="nothing">--</option>');
+      if(curAnimation === 'undefined') {
+        $animations.append('<option value="undefined">--</option>');
         return;
       }
 
