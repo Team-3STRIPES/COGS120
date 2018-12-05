@@ -359,15 +359,15 @@ function getCurrentSettings() {
       var $animations = $("#animations");
       var curAnimation = data.gif;
 
-      if(curAnimation === 'undefined') {
-        $animations.append('<option value="undefined">No Animation</option>');
+      if(curAnimation === 'none') {
+        $animations.append('<option value="none">No Animation</option>');
         return;
       }
 
       $animations.append(`<option value="${curAnimation}" selected>${curAnimation[0].toUpperCase() + curAnimation.substring(1)}</option>`);
       for (var i = 0; i < data.animations.length; i++) {
-        if(data.animations[i] === 'undefined') {
-          $animations.append('<opion value="undefined">No Animation</option>');
+        if(data.animations[i] === 'none') {
+          $animations.append('<opion value="none">No Animation</option>');
         }
         if(data.animations[i] === 'bus' && curAnimation !== 'bus') {
           $animations.append('<option value="bus">Bus</option>');
