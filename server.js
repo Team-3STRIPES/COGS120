@@ -251,7 +251,7 @@ app.post('/newuser', function(req, res) {
           }
         });
         dbclient.query('INSERT INTO users (name, username, email, password, confirm_email, points, curr_theme, study_hist, owned_themes, curr_gif, owned_gifs) VALUES \
-          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'true\', 200, \'default\', \'{}\', \'{default}\', \'undefined\', \'{undefined}\');').then(result => {
+          (\''+input_name+'\',\''+input_user+'\',\''+input_email+'\',\''+input_password+'\', \'true\', 200, \'default\', \'{}\', \'{default}\', \'none\', \'{none}\');').then(result => {
             console.log("Successful signup")
 
             res.send({'check':3, 'pass':input_password})
