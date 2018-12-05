@@ -563,14 +563,12 @@ function sub15Minutes(repetitions) {
     showHUp();
   }
   var time = Number($("#hrs").text() * 3600) + Number($("#mins").text() * 60) + Number($("#secs").text());
-  var yFactor = -1;
-  if(time > 0 && time < 240) yFactor = 0;
-  else if(time >= 240 && time < 1800) yFactor = 1;
-  else if(time >= 1800 && time < 3600) yFactor = 2;
-  else if(time >= 3600 && time < 7200) yFactor = 3;
-  var award;
-  if(yFactor === -1) award = 0;
-  else award = Math.floor(((time / 60) / 2) + (3 * Math.pow(2, yFactor)));
+  var bonus = 0;
+  if(time >= 7140) bonus = 81;
+  else if(time >= 5400) bonus = 40;
+  else if(time >= 3600) bonus = 20;
+  else if(time >= 1800) bonus = 10;
+  var award = Math.floor(time/60) + bonus;
   $("#estimated-points").text(award);
   if(!canMDn && !canHDn) {
     disableStart();
