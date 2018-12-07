@@ -52,6 +52,7 @@ function loginUser() {
   var user = $('#user').val();
   var pass = $('#pass').val();
 
+  if(!user) return;
   $.ajax({
     url : "/olduser",
     type: "POST",
