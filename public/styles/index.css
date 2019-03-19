@@ -5,7 +5,7 @@ body {
   align-items: center;
   margin: 0;
   min-height: 100vh;
-  
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -45,7 +45,7 @@ body:before {
 }
 
 .full-screen {
-  height: 75vh;
+  padding: 2% 0;
   display: flex;
   flex-direction: column;
   width: 100%;
